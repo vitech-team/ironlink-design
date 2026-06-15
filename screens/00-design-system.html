@@ -3,30 +3,99 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>IronLink · 00 — Design System</title>
+<title>IronLink · Design System &amp; Components</title>
 <link rel="stylesheet" href="../styles/ironlink.css">
 <style>
+  /* ---- doc-page chrome only (not part of the product system) ---- */
   .ic{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
-  .ic-sm{width:18px;height:18px} .ic-lg{width:26px;height:26px}
-  .ds{max-width:980px;margin:0 auto;padding:56px 24px 120px}
-  .ds h2{font-family:var(--font-display);font-weight:800;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);margin:56px 0 18px;padding-bottom:10px;border-bottom:1px solid var(--border)}
-  .ds-grid{display:grid;gap:14px}
-  .cols-2{grid-template-columns:1fr 1fr}.cols-3{grid-template-columns:1fr 1fr 1fr}.cols-4{grid-template-columns:repeat(4,1fr)}
-  .sw{height:88px;border-radius:var(--r-md);border:1px solid var(--border);display:flex;flex-direction:column;justify-content:flex-end;padding:10px;font-weight:700;font-size:12px}
-  .sw small{font-weight:500;opacity:.75;font-size:10.5px;display:block}
-  .panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:24px}
-  .specimen{font-family:var(--font-display);font-weight:800;font-size:64px;line-height:1;letter-spacing:-.02em}
-  .iconwall{display:grid;grid-template-columns:repeat(8,1fr);gap:18px;text-align:center}
-  .iconwall div{display:flex;flex-direction:column;gap:6px;align-items:center;color:var(--text-2);font-size:10px}
-  .hero{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap}
+  .ic-sm{width:18px;height:18px}.ic-lg{width:26px;height:26px}.ic-xl{width:30px;height:30px}
+  .mono{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace}
+
+  body{background:var(--bg)}
+  .layout{max-width:1280px;margin:0 auto;padding:0 clamp(16px,4vw,40px)}
+  .ds-grid-wrap{display:grid;grid-template-columns:212px 1fr;gap:48px;align-items:start}
+  @media (max-width:900px){.ds-grid-wrap{grid-template-columns:1fr;gap:0}}
+
+  /* masthead */
+  .masthead{padding:54px 0 28px;border-bottom:2px solid var(--ink);margin-bottom:40px}
+  .mast-row{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap}
   .logo-lg{font-family:var(--font-display);font-weight:800;font-size:40px;letter-spacing:.1em}
   .logo-lg .dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--yellow);margin:0 7px;vertical-align:middle}
-  .pill{display:inline-block;padding:5px 12px;border-radius:var(--r-pill);background:var(--ink);color:#fff;font-size:12px;font-weight:700}
-  .rowflex{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+  .mast-tag{font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);margin-top:10px}
+  .mast-lede{max-width:560px;color:var(--text-2);font-size:15px;line-height:1.6;margin:18px 0 0}
+  .pill{display:inline-flex;align-items:center;gap:6px;padding:6px 13px;border-radius:var(--r-pill);background:var(--surface);border:1px solid var(--border);font-size:12px;font-weight:700;color:var(--text-2)}
+  .pill--y{background:var(--yellow);border-color:var(--yellow);color:var(--ink)}
+  .pill--d{background:var(--ink);border-color:var(--ink);color:#fff}
+  .mast-links{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
+  .mast-links a{font-size:13px;font-weight:700;padding:8px 14px;border-radius:var(--r-pill);background:var(--surface);border:1px solid var(--border);color:var(--text-1)}
+  .mast-links a:hover{border-color:var(--ink)}
+
+  /* sticky side nav */
+  nav.toc{position:sticky;top:24px;align-self:start}
+  @media (max-width:900px){nav.toc{position:static;margin-bottom:24px;display:flex;gap:8px;overflow-x:auto;padding-bottom:8px}}
+  .toc a{display:block;padding:7px 12px;border-radius:var(--r-sm);font-size:13px;font-weight:600;color:var(--text-2);white-space:nowrap}
+  .toc a:hover{background:var(--surface);color:var(--text-1)}
+  .toc a .n{color:var(--text-3);font-family:var(--font-display);font-weight:800;font-size:11px;margin-right:8px}
+  .toc .grouplbl{font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);padding:14px 12px 6px}
+  @media (max-width:900px){.toc .grouplbl{display:none}}
+
+  /* sections */
+  section{scroll-margin-top:24px;padding:8px 0 8px}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin:48px 0 6px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+  section:first-of-type .sec-head{margin-top:0}
+  .sec-head .num{font-family:var(--font-display);font-weight:800;font-size:14px;color:var(--yellow-600)}
+  .sec-head h2{font-family:var(--font-display);font-weight:800;font-size:22px;letter-spacing:-.01em;margin:0}
+  .sec-desc{color:var(--text-2);font-size:14px;line-height:1.55;max-width:760px;margin:0 0 24px}
+  .sub{font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);margin:28px 0 12px}
+
+  /* spec grid: each component lives in a cell with a live demo + a class/usage caption */
+  .specs{display:grid;gap:16px}
+  .c2{grid-template-columns:1fr 1fr}.c3{grid-template-columns:1fr 1fr 1fr}.c4{grid-template-columns:repeat(4,1fr)}
+  @media (max-width:680px){.c2,.c3,.c4{grid-template-columns:1fr}}
+  .cell{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
+  .cell__demo{padding:24px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;min-height:84px}
+  .cell__demo--center{justify-content:center}
+  .cell__demo--col{flex-direction:column;align-items:stretch}
+  .cell__demo--checker{background:
+     linear-gradient(45deg,var(--surface-2) 25%,transparent 25%),
+     linear-gradient(-45deg,var(--surface-2) 25%,transparent 25%),
+     linear-gradient(45deg,transparent 75%,var(--surface-2) 75%),
+     linear-gradient(-45deg,transparent 75%,var(--surface-2) 75%);
+     background-size:18px 18px;background-position:0 0,0 9px,9px -9px,-9px 0}
+  .cell__meta{padding:12px 16px;border-top:1px solid var(--border);background:var(--surface-2)}
+  .cell__meta code{font-family:ui-monospace,Menlo,monospace;font-size:11.5px;color:var(--ink);background:var(--surface);border:1px solid var(--border);border-radius:5px;padding:2px 6px;display:inline-block;margin:1px 2px 1px 0}
+  .cell__meta p{margin:8px 0 0;font-size:12px;color:var(--text-2);line-height:1.45}
+
+  /* token tables */
+  .ttable{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
+  .ttable th{text-align:left;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-3);font-weight:700;padding:12px 16px;border-bottom:1px solid var(--border)}
+  .ttable td{padding:11px 16px;border-bottom:1px solid var(--border);font-size:13px;vertical-align:middle}
+  .ttable tr:last-child td{border-bottom:none}
+  .ttable code{font-family:ui-monospace,Menlo,monospace;font-size:12px;color:var(--ink)}
+  .chipdot{width:26px;height:26px;border-radius:7px;border:1px solid var(--border);display:inline-block;vertical-align:middle}
+  .barbox{height:26px;border-radius:6px;background:var(--ink);display:inline-block;vertical-align:middle}
+
+  /* color swatches */
+  .sw{height:96px;border-radius:var(--r-md);border:1px solid var(--border);display:flex;flex-direction:column;justify-content:flex-end;padding:11px;font-weight:700;font-size:12px}
+  .sw small{font-weight:600;opacity:.8;font-size:10.5px;display:block;margin-top:2px}
+  .sw .mono{font-weight:600;opacity:.7;font-size:10px;display:block}
+
+  /* icon wall */
+  .iconwall{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:6px}
+  .iconwall figure{margin:0;display:flex;flex-direction:column;gap:7px;align-items:center;text-align:center;padding:16px 6px;border-radius:var(--r-md);border:1px solid transparent}
+  .iconwall figure:hover{border-color:var(--border);background:var(--surface)}
+  .iconwall figcaption{font-family:ui-monospace,Menlo,monospace;font-size:10px;color:var(--text-2)}
+
+  /* phone frame sizing for the nav demos (scaled down) */
+  .phonebox{display:flex;gap:40px;flex-wrap:wrap}
+  .phone--demo{transform:scale(.84);transform-origin:top left;margin:0 -62px -135px 0}
+
+  footer{margin:64px 0 90px;padding-top:24px;border-top:1px solid var(--border);color:var(--text-3);font-size:13px;line-height:1.6}
 </style>
 </head>
 <body>
-<!-- icon sprite -->
+
+<!-- ===== FULL SHARED ICON SPRITE (every symbol in the system) ===== -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.5 12 4l9 6.5"/><path d="M5 9.5V20h14V9.5"/><path d="M9.5 20v-5h5v5"/></symbol>
   <symbol id="i-network" viewBox="0 0 24 24"><circle cx="6" cy="7" r="2.5"/><circle cx="18" cy="7" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M7.8 8.6 10.4 16M16.2 8.6 13.6 16M8.4 7h7.2"/></symbol>
@@ -36,163 +105,696 @@
   <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
   <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-3.5-3.5"/></symbol>
   <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6z"/><path d="M10 20a2 2 0 0 0 4 0"/></symbol>
+  <symbol id="i-filter" viewBox="0 0 24 24"><path d="M4 6h16M7 12h10M10 18h4"/></symbol>
+  <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
+  <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></symbol>
+  <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-arrows" viewBox="0 0 24 24"><path d="M7 4 3 8l4 4M3 8h13M17 20l4-4-4-4M21 16H8"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 13 4 4 10-11"/></symbol>
+  <symbol id="i-more" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="19" cy="12" r="1.4" fill="currentColor" stroke="none"/></symbol>
   <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></symbol>
   <symbol id="i-wage" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 7v10M9.5 9.5a2.5 2 0 0 1 5 0c0 2-5 1-5 3a2.5 2 0 0 0 5 0"/></symbol>
   <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 3 5 13h6l-1 8 8-10h-6l1-8z"/></symbol>
   <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20S4 14.5 4 9.2A3.8 3.8 0 0 1 12 7a3.8 3.8 0 0 1 8 2.2C20 14.5 12 20 12 20z"/></symbol>
+  <symbol id="i-comment" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5z"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><circle cx="6" cy="12" r="2.4"/><circle cx="18" cy="6" r="2.4"/><circle cx="18" cy="18" r="2.4"/><path d="m8 11 8-4M8 13l8 4"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 4h12v16l-6-4-6 4V4z"/></symbol>
+  <symbol id="i-paperclip" viewBox="0 0 24 24"><path d="M20 11.5 12 19a4.5 4.5 0 0 1-6.5-6.5l8-8A3 3 0 0 1 18 9l-8 8a1.5 1.5 0 0 1-2-2l7-7"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 8h3l1.5-2h7L17 8h3v11H4V8z"/><circle cx="12" cy="13" r="3.2"/></symbol>
   <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.6 3-6 7-6s7 2.4 7 6"/></symbol>
+  <symbol id="i-building" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="1"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2M10 21v-3h4v3"/></symbol>
   <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 5 6v6c0 4.5 3 7.5 7 9 4-1.5 7-4.5 7-9V6l-7-3z"/><path d="m9 12 2 2 4-4"/></symbol>
-  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.5 2.5 2.5 14.5 0 17M12 3.5c-2.5 2.5-2.5 14.5 0 17"/></symbol>
-  <symbol id="i-truck" viewBox="0 0 24 24"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/></symbol>
   <symbol id="i-doc" viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7V3z"/><path d="M14 3v4h4M10 13h6M10 16h4"/></symbol>
-  <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
-  <symbol id="i-arrows" viewBox="0 0 24 24"><path d="M7 4 3 8l4 4M3 8h13M17 20l4-4-4-4M21 16H8"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.5 2.5 2.5 14.5 0 17M12 3.5c-2.5 2.5-2.5 14.5 0 17"/></symbol>
+  <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M21.5 12h-3M5.5 12h-3M18 6l-2 2M8 16l-2 2M18 18l-2-2M8 8 6 6"/></symbol>
+  <symbol id="i-wifi-off" viewBox="0 0 24 24"><path d="M3 3l18 18M9 17a4 4 0 0 1 6 0M5 12.5a10 10 0 0 1 4-2.3M19 12.5a10 10 0 0 0-5-2.6"/><circle cx="12" cy="20" r="0.6" fill="currentColor"/></symbol>
+  <symbol id="i-truck" viewBox="0 0 24 24"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 4 2.4 5 5.4.6-4 3.7 1.1 5.3L12 17l-4.9 2.6L8.2 13.3l-4-3.7 5.4-.6L12 4z"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M6 3h3l2 5-2.5 1.5a12 12 0 0 0 5 5L17 12l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 4 5a2 2 0 0 1 2-2z"/></symbol>
+  <symbol id="i-message-sq" viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 3.5V5z"/><path d="M8 9.5h8M8 12.5h5"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16v4z"/><path d="m14 6 4 4"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V5h6v2M6 7l1 13h10l1-13"/><path d="M10 11v6M14 11v6"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4M5 5h11l-2 4 2 4H5"/></symbol>
+  <symbol id="i-card" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18M6.5 14.5h3"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M4 9h16M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2.2"/><circle cx="8" cy="17" r="2.2"/></symbol>
+  <symbol id="i-logout" viewBox="0 0 24 24"><path d="M15 4h4v16h-4M11 8l-4 4 4 4M7 12h9"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><path d="M16 5.5a3 3 0 0 1 0 5.8M18 20c0-2.4-1-4.2-2.5-5.2"/></symbol>
+  <symbol id="i-rotate" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 1 2.3 5.6"/><path d="M3 20v-5h5"/></symbol>
+  <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m4 18 5-4 4 3 3-2 4 3"/></symbol>
+  <symbol id="i-tools" viewBox="0 0 24 24"><path d="M14.5 6a3.5 3.5 0 0 0 4.5 4.5L21 12l-9 9-3-3 9-9 1.5-3z"/><path d="m6 14-2 2a2 2 0 0 0 3 3l2-2"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11M8 11l4 4 4-4M5 19h14"/></symbol>
 </svg>
 
-<div class="ds">
+<div class="layout">
 
-  <div class="hero">
-    <div>
-      <span class="logo-lg">IRON<span class="dot"></span>LINK</span>
-      <p class="t-h3 muted" style="margin:10px 0 0;max-width:520px">Mobile design system — the single visual language for every IronLink screen. Built for skilled trades: industrial-familiar, professional, practical.</p>
-    </div>
-    <div class="rowflex">
-      <span class="pill">Mobile · iOS / Android</span>
-      <span class="pill" style="background:var(--yellow);color:var(--ink)">v1 concept</span>
-    </div>
-  </div>
-
-  <h2>Design principles</h2>
-  <div class="ds-grid cols-3">
-    <div class="panel"><div class="t-h3">Industry-familiar</div><p class="t-sm muted" style="margin:8px 0 0">Safety yellow and neutral grays mirror the visual environment of construction and skilled trades.</p></div>
-    <div class="panel"><div class="t-h3">Professional &amp; trustworthy</div><p class="t-sm muted" style="margin:8px 0 0">Minimal color accents and muted tones create a serious, work-focused experience.</p></div>
-    <div class="panel"><div class="t-h3">Clear &amp; practical</div><p class="t-sm muted" style="margin:8px 0 0">Straight lines, structured layouts, and simple components prioritize usability and readability.</p></div>
-  </div>
-
-  <h2>Color — core</h2>
-  <div class="ds-grid cols-4">
-    <div class="sw" style="background:var(--yellow);color:var(--ink)">Safety Yellow<small>#FFD53F · primary action</small></div>
-    <div class="sw" style="background:var(--ink);color:#fff">Navy Ink<small>#162138 · text / dark btn</small></div>
-    <div class="sw" style="background:var(--bg);color:var(--ink)">App BG<small>#F4F6FB</small></div>
-    <div class="sw" style="background:var(--surface);color:var(--ink)">Surface<small>#FFFFFF · cards</small></div>
-  </div>
-  <h2>Color — text &amp; lines</h2>
-  <div class="ds-grid cols-4">
-    <div class="sw" style="background:var(--text-1);color:#fff">Text 1<small>#162138</small></div>
-    <div class="sw" style="background:var(--text-2);color:#fff">Text 2<small>#596682</small></div>
-    <div class="sw" style="background:var(--text-3);color:#fff">Text 3<small>#A0AABF</small></div>
-    <div class="sw" style="background:var(--border);color:var(--ink)">Border<small>#E7EBF4</small></div>
-  </div>
-  <h2>Color — semantic</h2>
-  <div class="ds-grid cols-4">
-    <div class="sw" style="background:var(--positive);color:#fff">Positive<small>#2E9E6B · above market</small></div>
-    <div class="sw" style="background:var(--danger);color:#fff">Danger<small>#D8453B · pay gap / error</small></div>
-    <div class="sw" style="background:var(--warning);color:#fff">Warning<small>#E08A00</small></div>
-    <div class="sw" style="background:var(--info);color:#fff">Info / Link<small>#3768C4</small></div>
-  </div>
-
-  <h2>Typography — Archivo</h2>
-  <div class="panel stack">
-    <div class="specimen">Aa Gg 38</div>
-    <div class="divider"></div>
-    <div class="t-display">Display · Archivo Expanded 800</div>
-    <div class="t-h1">Heading 1 · trades that pay fairly</div>
-    <div class="t-h2">Heading 2 · Trends &amp; Insights</div>
-    <div class="t-h3">Heading 3 · section label</div>
-    <p class="t-body" style="margin:0">Body 15 / 1.5 — clear, high-legibility copy for an audience that includes lower-literacy and bilingual (EN/ES) users.</p>
-    <p class="t-sm muted" style="margin:0">Small 13 · secondary metadata · Montgomery, AL</p>
-    <div class="rowflex"><span class="t-metric">$38</span><span class="t-metric-sm pos">+4.2%</span><span class="eyebrow">Eyebrow label</span></div>
-  </div>
-
-  <h2>Buttons</h2>
-  <div class="panel rowflex">
-    <button class="btn btn--primary">Start Registration <svg class="ic ic-sm"><use href="#i-arrows"/></svg></button>
-    <button class="btn btn--dark">Show Jobs Paying $40+</button>
-    <button class="btn btn--outline">Save</button>
-    <button class="btn btn--ghost">Skip for now</button>
-    <button class="btn btn--sm btn--primary">Apply</button>
-    <button class="btn" disabled>Publish</button>
-  </div>
-
-  <h2>Chips · segmented · tags</h2>
-  <div class="panel stack-4">
-    <div class="rowflex">
-      <span class="chip chip--active">HVAC</span><span class="chip">Plumbing</span><span class="chip">Electrical</span><span class="chip">Welding</span>
-    </div>
-    <div class="segmented" style="width:220px"><button>7D</button><button class="is-active">30D</button><button>90D</button></div>
-    <div class="rowflex">
-      <span class="tag tag--match">92% match</span>
-      <span class="tag tag--pos tag--dot">Above market</span>
-      <span class="tag tag--neg">−$2/hr gap</span>
-      <span class="tag tag--urgent">Urgent</span>
-      <span class="tag tag--info">Verified</span>
-      <span class="tag tag--yellow">4 spots</span>
-    </div>
-  </div>
-
-  <h2>Pay range bar</h2>
-  <div class="panel">
-    <div class="payrange">
-      <div class="payrange__track">
-        <div class="payrange__marker" style="left:34%"><div class="payrange__bubble">You · $38</div><div class="payrange__pin"></div></div>
+  <!-- ===== MASTHEAD ===== -->
+  <header class="masthead">
+    <div class="mast-row">
+      <div>
+        <span class="logo-lg">IRON<span class="dot"></span>LINK</span>
+        <div class="mast-tag">Design system &amp; component library</div>
       </div>
-      <div class="payrange__scale"><span>$24</span><span>$40 median</span><span>$62</span></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <span class="pill pill--d">Mobile · iOS / Android</span>
+        <span class="pill pill--y">v1 · single source of truth</span>
+      </div>
     </div>
-  </div>
-
-  <h2>Inputs &amp; OTP</h2>
-  <div class="panel stack-4">
-    <div class="field"><span class="label">Phone number</span>
-      <div class="input-group"><span class="lead">+1</span><input class="input" placeholder="(334) 555‑0142"></div>
+    <p class="mast-lede">The complete visual language behind every IronLink screen — tokens, type, icons, components, states and motion. One stylesheet (<code class="mono">ironlink.css</code>) drives all 55 mockups; nothing here is bespoke per screen. Built for skilled trades: <strong>industrial-familiar, professional, practical.</strong></p>
+    <div class="mast-links">
+      <a href="../index.html">← Screen gallery</a>
+      <a href="../flows.html">User flows</a>
+      <a href="../_spec/nav-and-motion-review.md">Nav &amp; motion spec</a>
     </div>
-    <div class="otp">
-      <div class="otp__cell is-filled">4</div><div class="otp__cell is-filled">9</div><div class="otp__cell is-active">2</div>
-      <div class="otp__cell"></div><div class="otp__cell"></div><div class="otp__cell"></div>
-    </div>
-    <div class="rowflex"><span class="t-body-m">Auto‑fill from SMS</span><span class="toggle is-on"></span></div>
-  </div>
+  </header>
 
-  <h2>Banners &amp; toast</h2>
-  <div class="panel stack-2">
-    <div class="banner banner--offline"><svg class="ic ic-sm"><use href="#i-globe"/></svg> You're offline — changes will sync when you reconnect.</div>
-    <div class="banner banner--pos"><svg class="ic ic-sm"><use href="#i-shield"/></svg> Pay insights unlocked — your profile is complete.</div>
-    <div class="toast"><svg class="ic ic-sm"><use href="#i-bolt"/></svg> Application sent <a class="link">View</a></div>
-  </div>
+  <div class="ds-grid-wrap">
 
-  <h2>Icon library</h2>
-  <div class="panel iconwall">
-    <div><svg class="ic ic-lg"><use href="#i-home"/></svg>home</div>
-    <div><svg class="ic ic-lg"><use href="#i-network"/></svg>network</div>
-    <div><svg class="ic ic-lg"><use href="#i-trends"/></svg>trends</div>
-    <div><svg class="ic ic-lg"><use href="#i-jobs"/></svg>jobs</div>
-    <div><svg class="ic ic-lg"><use href="#i-message"/></svg>message</div>
-    <div><svg class="ic ic-lg"><use href="#i-search"/></svg>search</div>
-    <div><svg class="ic ic-lg"><use href="#i-bell"/></svg>bell</div>
-    <div><svg class="ic ic-lg"><use href="#i-plus"/></svg>plus</div>
-    <div><svg class="ic ic-lg"><use href="#i-pin"/></svg>pin</div>
-    <div><svg class="ic ic-lg"><use href="#i-wage"/></svg>wage</div>
-    <div><svg class="ic ic-lg"><use href="#i-bolt"/></svg>bolt</div>
-    <div><svg class="ic ic-lg"><use href="#i-heart"/></svg>heart</div>
-    <div><svg class="ic ic-lg"><use href="#i-mic"/></svg>mic</div>
-    <div><svg class="ic ic-lg"><use href="#i-shield"/></svg>verified</div>
-    <div><svg class="ic ic-lg"><use href="#i-truck"/></svg>equipment</div>
-    <div><svg class="ic ic-lg"><use href="#i-doc"/></svg>doc</div>
-  </div>
+    <!-- ===== STICKY NAV ===== -->
+    <nav class="toc">
+      <div class="grouplbl">Foundations</div>
+      <a href="#principles"><span class="n">01</span>Principles</a>
+      <a href="#color"><span class="n">02</span>Color</a>
+      <a href="#type"><span class="n">03</span>Typography</a>
+      <a href="#space"><span class="n">04</span>Spacing &amp; radii</a>
+      <a href="#elevation"><span class="n">05</span>Elevation</a>
+      <a href="#motion"><span class="n">06</span>Motion</a>
+      <a href="#icons"><span class="n">07</span>Iconography</a>
+      <div class="grouplbl">Components</div>
+      <a href="#buttons"><span class="n">08</span>Buttons</a>
+      <a href="#avatars"><span class="n">09</span>Avatars</a>
+      <a href="#tags"><span class="n">10</span>Tags &amp; badges</a>
+      <a href="#selectors"><span class="n">11</span>Chips &amp; tabs</a>
+      <a href="#forms"><span class="n">12</span>Forms &amp; inputs</a>
+      <a href="#cards"><span class="n">13</span>Cards &amp; lists</a>
+      <a href="#feedback"><span class="n">14</span>Feedback</a>
+      <a href="#progress"><span class="n">15</span>Progress</a>
+      <div class="grouplbl">Patterns</div>
+      <a href="#domain"><span class="n">16</span>Domain blocks</a>
+      <a href="#states"><span class="n">17</span>Loading &amp; offline</a>
+      <a href="#nav"><span class="n">18</span>Navigation</a>
+    </nav>
 
-  <h2>Bottom navigation — role-adaptive</h2>
-  <p class="t-sm muted">Worker mode shown. Center action and right tabs swap per active mode (see flows: AUTH‑19 mode switch). Tabs: Network · Trends · <strong>[+]</strong> · Jobs · Messages, with Home as the elevated state on the concept board.</p>
-  <div class="panel" style="max-width:390px;padding:0;overflow:hidden;border-radius:var(--r-lg)">
-    <div style="position:relative;height:92px">
-      <nav class="tabbar" style="position:relative">
-        <div class="tabbar__item is-active"><span class="tabbar__icon"><svg class="ic"><use href="#i-home"/></svg></span>Home</div>
-        <div class="tabbar__item"><span class="tabbar__icon"><svg class="ic"><use href="#i-trends"/></svg></span>Trends</div>
-        <div class="tabbar__center"><button class="tabbar__fab"><svg class="ic ic-lg"><use href="#i-plus"/></svg></button></div>
-        <div class="tabbar__item"><span class="tabbar__icon"><svg class="ic"><use href="#i-jobs"/></svg></span>Jobs</div>
-        <div class="tabbar__item"><span class="tabbar__icon"><svg class="ic"><use href="#i-message"/></svg></span>Messages</div>
-      </nav>
-    </div>
-  </div>
+    <!-- ===== CONTENT ===== -->
+    <main>
 
+      <!-- 01 PRINCIPLES -->
+      <section id="principles">
+        <div class="sec-head"><span class="num">01</span><h2>Principles</h2></div>
+        <p class="sec-desc">Three rules decide every visual call. The audience is blue-collar trade workers and the employers who hire them — often on a phone, on a job site, sometimes lower-literacy or bilingual (EN/ES). Clarity beats cleverness.</p>
+        <div class="specs c3">
+          <div class="cell"><div class="cell__demo cell__demo--col" style="gap:8px"><div class="t-h3">Industry-familiar</div><p class="t-sm muted" style="margin:0">Safety yellow and neutral grays mirror the visual world of construction and skilled trades.</p></div></div>
+          <div class="cell"><div class="cell__demo cell__demo--col" style="gap:8px"><div class="t-h3">Professional &amp; trustworthy</div><p class="t-sm muted" style="margin:0">Minimal color accents and muted tones keep it serious and work-focused — money and verification feel safe.</p></div></div>
+          <div class="cell"><div class="cell__demo cell__demo--col" style="gap:8px"><div class="t-h3">Clear &amp; practical</div><p class="t-sm muted" style="margin:0">Straight lines, structured layouts, big confident numbers, generous tap targets. One primary action per view.</p></div></div>
+        </div>
+      </section>
+
+      <!-- 02 COLOR -->
+      <section id="color">
+        <div class="sec-head"><span class="num">02</span><h2>Color</h2></div>
+        <p class="sec-desc">Yellow is reserved for the single primary action / highlight on a screen — never decoration. Navy ink carries text and dark actions. Everything else is a cool neutral or a semantic accent used sparingly.</p>
+
+        <div class="sub">Brand &amp; surfaces</div>
+        <div class="specs c4">
+          <div class="sw" style="background:var(--yellow);color:var(--ink)">Safety Yellow<span class="mono">--yellow · #FFD53F</span><small>primary action / highlight</small></div>
+          <div class="sw" style="background:var(--ink);color:#fff">Navy Ink<span class="mono">--ink · #162138</span><small>text · dark buttons</small></div>
+          <div class="sw" style="background:var(--bg);color:var(--ink)">App background<span class="mono">--bg · #F4F6FB</span><small>cool off-white</small></div>
+          <div class="sw" style="background:var(--surface);color:var(--ink)">Surface<span class="mono">--surface · #FFFFFF</span><small>cards · sheets</small></div>
+        </div>
+
+        <div class="sub">Yellow &amp; ink scale</div>
+        <div class="specs c4">
+          <div class="sw" style="background:var(--yellow-600);color:var(--ink)">Yellow 600<span class="mono">--yellow-600 · #F5C400</span><small>pressed / hairline</small></div>
+          <div class="sw" style="background:var(--yellow-tint);color:var(--ink)">Yellow tint<span class="mono">--yellow-tint · #FFF7DC</span><small>highlight wash</small></div>
+          <div class="sw" style="background:var(--ink-800);color:#fff">Ink 800<span class="mono">--ink-800 · #1E2C4A</span></div>
+          <div class="sw" style="background:var(--ink-700);color:#fff">Ink 700<span class="mono">--ink-700 · #2A3A5C</span></div>
+        </div>
+
+        <div class="sub">Text &amp; lines</div>
+        <div class="specs c4">
+          <div class="sw" style="background:var(--text-1);color:#fff">Text 1<span class="mono">--text-1 · #162138</span><small>primary</small></div>
+          <div class="sw" style="background:var(--text-2);color:#fff">Text 2<span class="mono">--text-2 · #596682</span><small>secondary</small></div>
+          <div class="sw" style="background:var(--text-3);color:#fff">Text 3<span class="mono">--text-3 · #A0AABF</span><small>tertiary / placeholder</small></div>
+          <div class="sw" style="background:var(--surface-2);color:var(--ink)">Surface 2<span class="mono">--surface-2 · #F7F9FD</span><small>inset / muted</small></div>
+        </div>
+        <div class="specs c4" style="margin-top:16px">
+          <div class="sw" style="background:var(--border);color:var(--ink)">Border<span class="mono">--border · #E7EBF4</span><small>hairline</small></div>
+          <div class="sw" style="background:var(--border-strong);color:var(--ink)">Border strong<span class="mono">--border-strong · #D6DCEA</span></div>
+        </div>
+
+        <div class="sub">Semantic — each ships with a tint for backgrounds</div>
+        <div class="specs c4">
+          <div class="sw" style="background:var(--positive);color:#fff">Positive<span class="mono">--positive · #2E9E6B</span><small>above market · success</small></div>
+          <div class="sw" style="background:var(--danger);color:#fff">Danger<span class="mono">--danger · #D8453B</span><small>pay gap · error · destructive</small></div>
+          <div class="sw" style="background:var(--warning);color:#fff">Warning<span class="mono">--warning · #E08A00</span><small>attention</small></div>
+          <div class="sw" style="background:var(--info);color:#fff">Info / Link<span class="mono">--info · #3768C4</span><small>links · informational</small></div>
+        </div>
+        <div class="specs c4" style="margin-top:16px">
+          <div class="sw" style="background:var(--positive-tint);color:var(--positive)">Positive tint<span class="mono">--positive-tint</span></div>
+          <div class="sw" style="background:var(--danger-tint);color:var(--danger)">Danger tint<span class="mono">--danger-tint</span></div>
+          <div class="sw" style="background:var(--warning-tint);color:#8A5A00">Warning tint<span class="mono">--warning-tint</span></div>
+          <div class="sw" style="background:var(--info-tint);color:var(--info)">Info tint<span class="mono">--info-tint</span></div>
+        </div>
+      </section>
+
+      <!-- 03 TYPOGRAPHY -->
+      <section id="type">
+        <div class="sec-head"><span class="num">03</span><h2>Typography</h2></div>
+        <p class="sec-desc"><strong>Archivo</strong> — an engineered, slightly squared grotesque with industrial character and high legibility. <strong>Archivo Expanded</strong> handles display + numbers (wage figures, metrics). Deliberately not Inter / Roboto / system. Numbers use <code class="mono">tabular-nums</code> so money lines up.</p>
+        <div class="cell" style="margin-bottom:16px">
+          <div class="cell__demo cell__demo--col" style="gap:14px">
+            <div class="specimen" style="font-family:var(--font-display);font-weight:800;font-size:64px;line-height:1;letter-spacing:-.02em">Aa Gg $38</div>
+            <hr class="divider">
+            <div class="t-display">Display — Archivo Expanded 800</div>
+            <div class="t-h1">Heading 1 · trades that pay fairly</div>
+            <div class="t-h2">Heading 2 · Trends &amp; Insights</div>
+            <div class="t-h3">Heading 3 · section label</div>
+            <p class="t-body" style="margin:0">Body 15 / 1.5 — clear, high-legibility copy for an audience that includes lower-literacy and bilingual (EN/ES) users.</p>
+            <p class="t-sm muted" style="margin:0">Small 13 · secondary metadata · Montgomery, AL</p>
+            <p class="t-xs faint" style="margin:0">XS 11.5 · timestamps, captions</p>
+            <div class="row gap2" style="align-items:baseline"><span class="t-metric">$38</span><span class="t-metric-sm pos">+4.2%</span><span class="eyebrow">Eyebrow label</span></div>
+          </div>
+        </div>
+        <table class="ttable">
+          <thead><tr><th>Class</th><th>Size / line</th><th>Weight</th><th>Use</th></tr></thead>
+          <tbody>
+            <tr><td><code>.t-display</code></td><td>30 / 1.08</td><td>800 expanded</td><td>Hero headlines</td></tr>
+            <tr><td><code>.t-h1</code></td><td>26 / 1.12</td><td>800</td><td>Screen titles</td></tr>
+            <tr><td><code>.t-h2</code></td><td>20 / 1.18</td><td>700</td><td>Card / section titles</td></tr>
+            <tr><td><code>.t-h3</code></td><td>16 / 1.25</td><td>700</td><td>Sub-headers, list titles</td></tr>
+            <tr><td><code>.t-body</code> · <code>.t-body-m</code></td><td>15 / 1.5</td><td>400 · 500</td><td>Paragraph &amp; emphasised body</td></tr>
+            <tr><td><code>.t-sm</code> · <code>.t-sm-m</code></td><td>13</td><td>400 · 600</td><td>Metadata, secondary</td></tr>
+            <tr><td><code>.t-xs</code></td><td>11.5</td><td>500</td><td>Captions, timestamps</td></tr>
+            <tr><td><code>.t-metric</code> · <code>.t-metric-sm</code></td><td>38 · 26</td><td>800 expanded</td><td>Wages, percentiles, counts</td></tr>
+            <tr><td><code>.eyebrow</code></td><td>11 · .1em caps</td><td>700</td><td>Overline labels</td></tr>
+          </tbody>
+        </table>
+        <p class="sec-desc" style="margin-top:12px">Color helpers: <code class="mono">.muted</code> (text-2) · <code class="mono">.faint</code> (text-3) · <code class="mono">.pos</code> / <code class="mono">.neg</code> / <code class="mono">.warn</code> · <code class="mono">.tabnum</code> for tabular figures.</p>
+      </section>
+
+      <!-- 04 SPACING & RADII -->
+      <section id="space">
+        <div class="sec-head"><span class="num">04</span><h2>Spacing &amp; radii</h2></div>
+        <p class="sec-desc">A strict 4-pt spacing grid and a 6-step radius scale keep rhythm consistent. Screen gutters use <code class="mono">--s5 (20px)</code> via <code class="mono">.pad</code>; cards stack with <code class="mono">--s3 (12px)</code>.</p>
+        <div class="specs c2">
+          <table class="ttable">
+            <thead><tr><th>Token</th><th>Value</th><th></th></tr></thead>
+            <tbody>
+              <tr><td><code>--s1</code></td><td>4px</td><td><span class="barbox" style="width:4px"></span></td></tr>
+              <tr><td><code>--s2</code></td><td>8px</td><td><span class="barbox" style="width:8px"></span></td></tr>
+              <tr><td><code>--s3</code></td><td>12px</td><td><span class="barbox" style="width:12px"></span></td></tr>
+              <tr><td><code>--s4</code></td><td>16px</td><td><span class="barbox" style="width:16px"></span></td></tr>
+              <tr><td><code>--s5</code></td><td>20px</td><td><span class="barbox" style="width:20px"></span></td></tr>
+              <tr><td><code>--s6</code></td><td>24px</td><td><span class="barbox" style="width:24px"></span></td></tr>
+              <tr><td><code>--s7</code></td><td>32px</td><td><span class="barbox" style="width:32px"></span></td></tr>
+              <tr><td><code>--s8</code></td><td>40px</td><td><span class="barbox" style="width:40px"></span></td></tr>
+            </tbody>
+          </table>
+          <table class="ttable">
+            <thead><tr><th>Radius</th><th>Value</th><th></th></tr></thead>
+            <tbody>
+              <tr><td><code>--r-xs</code></td><td>6px</td><td><span class="chipdot" style="border-radius:6px;background:var(--surface-2)"></span></td></tr>
+              <tr><td><code>--r-sm</code></td><td>10px</td><td><span class="chipdot" style="border-radius:10px;background:var(--surface-2)"></span></td></tr>
+              <tr><td><code>--r-md</code></td><td>14px</td><td><span class="chipdot" style="border-radius:14px;background:var(--surface-2)"></span></td></tr>
+              <tr><td><code>--r-lg</code></td><td>18px</td><td><span class="chipdot" style="border-radius:18px;background:var(--surface-2)"></span></td></tr>
+              <tr><td><code>--r-xl</code></td><td>24px</td><td><span class="chipdot" style="border-radius:18px;background:var(--surface-2)"></span></td></tr>
+              <tr><td><code>--r-pill</code></td><td>999px</td><td><span class="chipdot" style="border-radius:999px;width:40px;background:var(--surface-2)"></span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 05 ELEVATION -->
+      <section id="elevation">
+        <div class="sec-head"><span class="num">05</span><h2>Elevation</h2></div>
+        <p class="sec-desc">Five soft, cool-tinted shadows. Sized by intent, not whim: cards rest low, sheets and FABs float. The two colored shadows tie the yellow FAB and dark buttons to their fills.</p>
+        <div class="specs c3" style="background:var(--surface-2);padding:8px;border-radius:var(--r-lg)">
+          <div style="background:var(--surface);border-radius:var(--r-md);padding:20px;box-shadow:var(--sh-sm)"><strong class="t-sm-m">--sh-sm</strong><p class="t-xs muted" style="margin:6px 0 0">cards, chips, inputs</p></div>
+          <div style="background:var(--surface);border-radius:var(--r-md);padding:20px;box-shadow:var(--sh-md)"><strong class="t-sm-m">--sh-md</strong><p class="t-xs muted" style="margin:6px 0 0">create menu, hover</p></div>
+          <div style="background:var(--surface);border-radius:var(--r-md);padding:20px;box-shadow:var(--sh-lg)"><strong class="t-sm-m">--sh-lg</strong><p class="t-xs muted" style="margin:6px 0 0">sheets, dialogs, toast</p></div>
+          <div style="background:var(--yellow);border-radius:var(--r-md);padding:20px;box-shadow:var(--sh-yellow);color:var(--ink)"><strong class="t-sm-m">--sh-yellow</strong><p class="t-xs" style="margin:6px 0 0;color:var(--ink)">primary button · FAB</p></div>
+          <div style="background:var(--ink);border-radius:var(--r-md);padding:20px;box-shadow:var(--sh-ink);color:#fff"><strong class="t-sm-m">--sh-ink</strong><p class="t-xs" style="margin:6px 0 0;color:#9FB0D0">dark button · employer FAB</p></div>
+        </div>
+      </section>
+
+      <!-- 06 MOTION -->
+      <section id="motion">
+        <div class="sec-head"><span class="num">06</span><h2>Motion</h2></div>
+        <p class="sec-desc">Motion utilities are <strong>opt-in</strong> (add a class) and every one is disabled under <code class="mono">prefers-reduced-motion</code>. Three easings, short durations. Used live across the loading, refresh, sheet and create-menu screens.</p>
+        <table class="ttable" style="margin-bottom:16px">
+          <thead><tr><th>Easing</th><th>Curve</th><th>For</th></tr></thead>
+          <tbody>
+            <tr><td><code>--ease-std</code></td><td>cubic-bezier(.4,0,.2,1)</td><td>moves &amp; cross-fades</td></tr>
+            <tr><td><code>--ease-in</code></td><td>cubic-bezier(.3,0,.4,1)</td><td>entrances (sheets, dialogs)</td></tr>
+            <tr><td><code>--ease-out</code></td><td>cubic-bezier(.4,0,1,1)</td><td>exits</td></tr>
+          </tbody>
+        </table>
+        <table class="ttable">
+          <thead><tr><th>Utility</th><th>Duration</th><th>Effect</th></tr></thead>
+          <tbody>
+            <tr><td><code>.anim-sheet</code> / <code>.anim-scrim</code></td><td>280 / 240ms</td><td>bottom-sheet slide-up + scrim fade</td></tr>
+            <tr><td><code>.anim-dialog</code></td><td>200ms</td><td>centered pop-in</td></tr>
+            <tr><td><code>.anim-toast</code></td><td>260ms</td><td>snackbar slide-up</td></tr>
+            <tr><td><code>.anim-stagger</code> / <code>.anim-list</code></td><td>320 / 300ms</td><td>children rise in sequence</td></tr>
+            <tr><td><code>.anim-fab-open</code></td><td>240ms</td><td>FAB rotates + → ✕</td></tr>
+            <tr><td><code>.tabfade</code></td><td>150ms</td><td>tab content cross-fade</td></tr>
+            <tr><td><code>.appbar.is-collapsed</code></td><td>180ms</td><td>collapsing detail header</td></tr>
+            <tr><td><code>.tabbar.is-hidden</code></td><td>280ms</td><td>hide-on-scroll (feed)</td></tr>
+            <tr><td><code>.press:active</code></td><td>—</td><td>scale(.97) tap feedback</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- 07 ICONS -->
+      <section id="icons">
+        <div class="sec-head"><span class="num">07</span><h2>Iconography</h2></div>
+        <p class="sec-desc">A single SVG <code class="mono">&lt;symbol&gt;</code> sprite, thin geometric stroke (1.9px), 24px grid. Reference with <code class="mono">&lt;svg class="ic"&gt;&lt;use href="#i-home"/&gt;&lt;/svg&gt;</code>. Sizes: <code class="mono">.ic</code> 22 · <code class="mono">.ic-sm</code> 18 · <code class="mono">.ic-lg</code> 26 · <code class="mono">.ic-xl</code> 30. One glyph = one meaning per mode (e.g. <code class="mono">i-network</code> = Network, <code class="mono">i-users</code> = Talent).</p>
+        <div class="cell"><div class="iconwall" style="padding:8px">
+          <!-- nav -->
+          <figure><svg class="ic ic-lg"><use href="#i-home"/></svg><figcaption>i-home</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-network"/></svg><figcaption>i-network</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-trends"/></svg><figcaption>i-trends</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-jobs"/></svg><figcaption>i-jobs</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-message"/></svg><figcaption>i-message</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-message-sq"/></svg><figcaption>i-message-sq</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-users"/></svg><figcaption>i-users</figcaption></figure>
+          <!-- actions -->
+          <figure><svg class="ic ic-lg"><use href="#i-plus"/></svg><figcaption>i-plus</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-search"/></svg><figcaption>i-search</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-bell"/></svg><figcaption>i-bell</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-filter"/></svg><figcaption>i-filter</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-sliders"/></svg><figcaption>i-sliders</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-edit"/></svg><figcaption>i-edit</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-more"/></svg><figcaption>i-more</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-check"/></svg><figcaption>i-check</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-close"/></svg><figcaption>i-close</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-chevron-left"/></svg><figcaption>i-chevron-left</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-chevron-right"/></svg><figcaption>i-chevron-right</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-chevron-down"/></svg><figcaption>i-chevron-down</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-arrow-right"/></svg><figcaption>i-arrow-right</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-arrows"/></svg><figcaption>i-arrows</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-rotate"/></svg><figcaption>i-rotate</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-download"/></svg><figcaption>i-download</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-logout"/></svg><figcaption>i-logout</figcaption></figure>
+          <!-- domain -->
+          <figure><svg class="ic ic-lg"><use href="#i-pin"/></svg><figcaption>i-pin</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-clock"/></svg><figcaption>i-clock</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-calendar"/></svg><figcaption>i-calendar</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-wage"/></svg><figcaption>i-wage</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-card"/></svg><figcaption>i-card</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-bolt"/></svg><figcaption>i-bolt</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-heart"/></svg><figcaption>i-heart</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-comment"/></svg><figcaption>i-comment</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-share"/></svg><figcaption>i-share</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-bookmark"/></svg><figcaption>i-bookmark</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-star"/></svg><figcaption>i-star</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-flag"/></svg><figcaption>i-flag</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-paperclip"/></svg><figcaption>i-paperclip</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-camera"/></svg><figcaption>i-camera</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-image"/></svg><figcaption>i-image</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-mic"/></svg><figcaption>i-mic</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-doc"/></svg><figcaption>i-doc</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-user"/></svg><figcaption>i-user</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-building"/></svg><figcaption>i-building</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-shield"/></svg><figcaption>i-shield</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-lock"/></svg><figcaption>i-lock</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-eye"/></svg><figcaption>i-eye</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-globe"/></svg><figcaption>i-globe</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-settings"/></svg><figcaption>i-settings</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-truck"/></svg><figcaption>i-truck</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-tools"/></svg><figcaption>i-tools</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-phone"/></svg><figcaption>i-phone</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-wifi-off"/></svg><figcaption>i-wifi-off</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-pause"/></svg><figcaption>i-pause</figcaption></figure>
+          <figure><svg class="ic ic-lg"><use href="#i-trash"/></svg><figcaption>i-trash</figcaption></figure>
+        </div></div>
+      </section>
+
+      <!-- 08 BUTTONS -->
+      <section id="buttons">
+        <div class="sec-head"><span class="num">08</span><h2>Buttons</h2></div>
+        <p class="sec-desc">One <code class="mono">.btn</code> base, five intents, three sizes. Primary (yellow) appears once per screen. Dark is the secondary heavyweight; outline / ghost are quiet. Destructive uses the danger tint.</p>
+        <div class="specs c2">
+          <div class="cell">
+            <div class="cell__demo"><button class="btn btn--primary">Start Registration <svg class="ic ic-sm"><use href="#i-arrows"/></svg></button></div>
+            <div class="cell__meta"><code>.btn .btn--primary</code><p>Single primary action. Carries <code class="mono">--sh-yellow</code>.</p></div>
+          </div>
+          <div class="cell">
+            <div class="cell__demo"><button class="btn btn--dark">Show Jobs Paying $40+</button></div>
+            <div class="cell__meta"><code>.btn .btn--dark</code><p>Heavyweight secondary / on light cards.</p></div>
+          </div>
+          <div class="cell">
+            <div class="cell__demo"><button class="btn btn--outline">Save</button><button class="btn btn--ghost">Skip for now</button></div>
+            <div class="cell__meta"><code>.btn--outline</code> <code>.btn--ghost</code><p>Quiet actions; ghost for dismissive.</p></div>
+          </div>
+          <div class="cell">
+            <div class="cell__demo"><button class="btn btn--danger">Delete</button><button class="btn" disabled>Publish</button></div>
+            <div class="cell__meta"><code>.btn--danger</code> <code>[disabled]</code><p>Destructive, and the disabled state.</p></div>
+          </div>
+        </div>
+        <div class="sub">Sizes &amp; width</div>
+        <div class="cell">
+          <div class="cell__demo cell__demo--col">
+            <div class="row wrap gap2" style="align-items:center"><button class="btn btn--sm btn--primary">Apply</button><button class="btn btn--primary">Default</button><button class="btn btn--lg btn--primary">Large</button></div>
+            <button class="btn btn--dark btn--block">Block — full width <svg class="ic ic-sm"><use href="#i-arrow-right"/></svg></button>
+          </div>
+          <div class="cell__meta"><code>.btn--sm</code> 40px · default 52px · <code>.btn--lg</code> 56px · <code>.btn--block</code> full width</div>
+        </div>
+        <div class="sub">Icon buttons (app bar)</div>
+        <div class="cell">
+          <div class="cell__demo">
+            <button class="iconbtn"><svg class="ic"><use href="#i-search"/></svg></button>
+            <button class="iconbtn iconbtn--ghost"><svg class="ic"><use href="#i-bell"/></svg></button>
+            <button class="iconbtn iconbtn--dark"><svg class="ic"><use href="#i-edit"/></svg></button>
+            <span class="iconbtn-wrap"><button class="iconbtn iconbtn--ghost"><svg class="ic"><use href="#i-bell"/></svg></button><span class="badge badge--dot" style="position:absolute;top:6px;right:6px"></span></span>
+          </div>
+          <div class="cell__meta"><code>.iconbtn</code> <code>.iconbtn--ghost</code> <code>.iconbtn--dark</code><p>40px round. Wrap with <code class="mono">.iconbtn-wrap</code> + <code class="mono">.badge--dot</code> for unread.</p></div>
+        </div>
+      </section>
+
+      <!-- 09 AVATARS -->
+      <section id="avatars">
+        <div class="sec-head"><span class="num">09</span><h2>Avatars</h2></div>
+        <p class="sec-desc">Initials on navy by default; yellow for the signed-in worker; squared (<code class="mono">--org</code>) for companies. A dashed placeholder covers the no-photo case.</p>
+        <div class="cell">
+          <div class="cell__demo" style="align-items:flex-end">
+            <span class="avatar avatar--xs">MR</span>
+            <span class="avatar avatar--sm">MR</span>
+            <span class="avatar">MR</span>
+            <span class="avatar avatar--lg">MR</span>
+            <span class="avatar avatar--xl">MR</span>
+            <span class="avatar avatar--yellow">SM</span>
+            <span class="avatar avatar--org"><svg class="ic"><use href="#i-building"/></svg></span>
+            <span class="avatar avatar--ph">?</span>
+          </div>
+          <div class="cell__meta"><code>.avatar</code> · <code>--xs --sm --lg --xl</code> · <code>--yellow</code> · <code>--org</code> · <code>--ph</code><p>Sizes 28 / 34 / 40 / 56 / 84px. <code class="mono">img</code> children are object-fit cover.</p></div>
+        </div>
+      </section>
+
+      <!-- 10 TAGS & BADGES -->
+      <section id="tags">
+        <div class="sec-head"><span class="num">10</span><h2>Tags &amp; badges</h2></div>
+        <p class="sec-desc">Small status pills carry meaning by color. Match score uses the inverted ink/yellow pair to feel premium. Badges are for unread counts.</p>
+        <div class="specs c2">
+          <div class="cell">
+            <div class="cell__demo">
+              <span class="tag tag--match">92% match</span>
+              <span class="tag tag--pos tag--dot">Above market</span>
+              <span class="tag tag--neg">−$2/hr gap</span>
+              <span class="tag tag--warn tag--dot">Fair</span>
+              <span class="tag tag--info">Verified</span>
+              <span class="tag tag--yellow">4 spots</span>
+              <span class="tag tag--urgent">Urgent</span>
+              <span class="tag">Draft</span>
+            </div>
+            <div class="cell__meta"><code>.tag</code> + <code>--match --pos --neg --warn --info --yellow --urgent</code> · <code>.tag--dot</code> prefixes a dot</div>
+          </div>
+          <div class="cell">
+            <div class="cell__demo cell__demo--center">
+              <span class="badge">3</span>
+              <span class="badge">12</span>
+              <span class="badge badge--dot"></span>
+            </div>
+            <div class="cell__meta"><code>.badge</code> · <code>.badge--dot</code><p>Unread counts &amp; presence dots.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 11 CHIPS & TABS -->
+      <section id="selectors">
+        <div class="sec-head"><span class="num">11</span><h2>Chips, segmented &amp; tabs</h2></div>
+        <p class="sec-desc">Three selection patterns: filter <strong>chips</strong> (multi, horizontal scroll), <strong>segmented</strong> control (one of N, compact), and underline <strong>tabs</strong> (top-level views).</p>
+        <div class="specs c2">
+          <div class="cell">
+            <div class="cell__demo"><span class="chip chip--active">HVAC</span><span class="chip">Plumbing</span><span class="chip">Electrical</span><span class="chip chip--dark">All trades</span></div>
+            <div class="cell__meta"><code>.chip</code> <code>.chip--active</code> <code>.chip--dark</code> · scroll row = <code>.chiprow</code></div>
+          </div>
+          <div class="cell">
+            <div class="cell__demo cell__demo--col">
+              <div class="segmented" style="width:200px"><button>7D</button><button class="is-active">30D</button><button>90D</button></div>
+              <div class="segmented segmented--block"><button class="is-active">Active</button><button>Draft</button><button>Paused</button><button>Filled</button></div>
+            </div>
+            <div class="cell__meta"><code>.segmented</code> + <code>.is-active</code> · <code>.segmented--block</code> stretches</div>
+          </div>
+        </div>
+        <div class="cell">
+          <div class="cell__demo cell__demo--col" style="padding:0">
+            <div class="tabs"><button class="is-active">For You</button><button>Following</button><button>Nearby</button><button>News</button></div>
+          </div>
+          <div class="cell__meta"><code>.tabs</code> &gt; <code>button.is-active</code><p>Yellow underline marks the active view. Pairs with <code class="mono">.tabfade</code>.</p></div>
+        </div>
+      </section>
+
+      <!-- 12 FORMS -->
+      <section id="forms">
+        <div class="sec-head"><span class="num">12</span><h2>Forms &amp; inputs</h2></div>
+        <p class="sec-desc">52px touch targets, 1.5px borders that darken to ink on focus and to danger on error. Inputs always pair with a <code class="mono">.label</code> and optional <code class="mono">.hint</code>.</p>
+        <div class="specs c2">
+          <div class="cell">
+            <div class="cell__demo cell__demo--col">
+              <div class="field"><span class="label">Full name</span><input class="input" value="Marcus Reed"></div>
+              <div class="field"><span class="label">Phone number</span><div class="input-group"><span class="lead">+1</span><input class="input" placeholder="(334) 555-0142"></div></div>
+            </div>
+            <div class="cell__meta"><code>.field</code> &gt; <code>.label</code> · <code>.input</code> · <code>.input-group</code> + <code>.lead</code></div>
+          </div>
+          <div class="cell">
+            <div class="cell__demo cell__demo--col">
+              <div class="field is-error"><span class="label">Wage range</span><input class="input" value="$12 / hr"><span class="hint">Wage range is required to publish</span></div>
+              <textarea class="input" rows="2" placeholder="Describe the role…"></textarea>
+            </div>
+            <div class="cell__meta"><code>.field.is-error</code> · <code>textarea.input</code><p>Error darkens border + hint to danger.</p></div>
+          </div>
+          <div class="cell">
+            <div class="cell__demo"><div class="searchbar" style="width:100%"><svg class="ic ic-sm"><use href="#i-search"/></svg><input placeholder="Search candidates by trade or name"></div></div>
+            <div class="cell__meta"><code>.searchbar</code> &gt; <code>input</code><p>46px; sits in headers and list tops.</p></div>
+          </div>
+          <div class="cell">
+            <div class="cell__demo">
+              <span class="row gap2"><span class="toggle is-on"></span> <span class="t-sm-m">On</span></span>
+              <span class="row gap2"><span class="toggle"></span> <span class="t-sm-m faint">Off</span></span>
+            </div>
+            <div class="cell__meta"><code>.toggle</code> · <code>.toggle.is-on</code><p>Green when on. Settings &amp; preference rows.</p></div>
+          </div>
+          <div class="cell">
+            <div class="cell__demo cell__demo--col">
+              <div class="choice is-selected"><span class="choice__radio"></span><div><div class="t-body-m">Worker</div><div class="t-sm muted">Find work &amp; know your worth</div></div></div>
+              <div class="choice"><span class="choice__radio"></span><div><div class="t-body-m">Employer</div><div class="t-sm muted">Hire skilled trades</div></div></div>
+            </div>
+            <div class="cell__meta"><code>.choice</code> · <code>.choice.is-selected</code> + <code>.choice__radio</code></div>
+          </div>
+          <div class="cell">
+            <div class="cell__demo cell__demo--center">
+              <div class="otp"><div class="otp__cell is-filled">4</div><div class="otp__cell is-filled">9</div><div class="otp__cell is-active">2</div><div class="otp__cell"></div><div class="otp__cell"></div><div class="otp__cell"></div></div>
+            </div>
+            <div class="cell__meta"><code>.otp</code> &gt; <code>.otp__cell</code> + <code>.is-filled .is-active</code><p>SMS verification, auto-fill.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 13 CARDS & LISTS -->
+      <section id="cards">
+        <div class="sec-head"><span class="num">13</span><h2>Cards &amp; lists</h2></div>
+        <p class="sec-desc">The card is the workhorse container. Highlight (yellow wash) marks the one thing that matters; dark inverts for AI insights / wallet. List rows and section headers structure long content.</p>
+        <div class="specs c3">
+          <div class="cell"><div class="cell__demo"><div class="card" style="width:100%"><div class="t-h3">Default card</div><p class="t-sm muted" style="margin:6px 0 0">Surface, hairline border, soft shadow.</p></div></div><div class="cell__meta"><code>.card</code></div></div>
+          <div class="cell"><div class="cell__demo"><div class="card card--highlight" style="width:100%"><div class="t-h3">Highlighted</div><p class="t-sm muted" style="margin:6px 0 0">Yellow wash + border for the key item.</p></div></div><div class="cell__meta"><code>.card--highlight</code></div></div>
+          <div class="cell"><div class="cell__demo"><div class="card card--dark" style="width:100%"><span class="tag tag--yellow" style="background:rgba(255,213,63,.16);color:var(--yellow)">AI insight</span><p class="t-body-m" style="margin:10px 0 0;color:#fff">A cert moves you to $46/hr.</p></div></div><div class="cell__meta"><code>.card--dark</code></div></div>
+        </div>
+        <div class="sub">List rows &amp; section header</div>
+        <div class="cell card--flush" style="overflow:hidden">
+          <div class="section-head"><span class="t-h3">Certifications</span><a class="link">Add</a></div>
+          <div class="listrow"><span class="avatar avatar--sm avatar--yellow"><svg class="ic ic-sm"><use href="#i-doc"/></svg></span><div class="grow"><div class="t-body-m">EPA 608 Universal</div><div class="t-sm muted">Verified · expires 2027</div></div><span class="listrow__chev"><svg class="ic ic-sm"><use href="#i-chevron-right"/></svg></span></div>
+          <div class="listrow"><span class="avatar avatar--sm avatar--yellow"><svg class="ic ic-sm"><use href="#i-shield"/></svg></span><div class="grow"><div class="t-body-m">OSHA 30</div><div class="t-sm muted">Verified</div></div><span class="listrow__chev"><svg class="ic ic-sm"><use href="#i-chevron-right"/></svg></span></div>
+        </div>
+        <div class="cell__meta" style="border:1px solid var(--border);border-top:none;border-radius:0 0 var(--r-lg) var(--r-lg)"><code>.card--flush</code> · <code>.section-head</code> · <code>.listrow</code> + <code>.listrow__chev</code> · <code>.divider</code></div>
+      </section>
+
+      <!-- 14 FEEDBACK -->
+      <section id="feedback">
+        <div class="sec-head"><span class="num">14</span><h2>Feedback &amp; overlays</h2></div>
+        <p class="sec-desc">Banners give persistent context; the toast confirms an action; dialogs confirm decisions; action sheets offer choices. Empty states always point to the next step.</p>
+        <div class="sub">Banners &amp; toast</div>
+        <div class="cell"><div class="cell__demo cell__demo--col">
+          <div class="banner banner--offline"><svg class="ic ic-sm"><use href="#i-wifi-off"/></svg> You're offline — changes will sync when you reconnect.</div>
+          <div class="banner banner--pos"><svg class="ic ic-sm"><use href="#i-shield"/></svg> Pay insights unlocked — your profile is complete.</div>
+          <div class="banner banner--warn"><svg class="ic ic-sm"><use href="#i-bolt"/></svg> Below market p25 ($28). Candidates may skip.</div>
+          <div class="banner banner--info"><svg class="ic ic-sm"><use href="#i-lock"/></svg> Payments are processed securely by Stripe.</div>
+          <div class="toast"><svg class="ic ic-sm"><use href="#i-check"/></svg> Application sent <a class="link">View</a></div>
+        </div><div class="cell__meta"><code>.banner</code> + <code>--offline --pos --warn --info</code> · <code>.toast</code></div></div>
+        <div class="sub">Dialog &amp; action sheet</div>
+        <div class="specs c2">
+          <div class="cell"><div class="cell__demo cell__demo--center" style="background:var(--surface-2)">
+            <div class="dialog" style="box-shadow:none">
+              <div class="dialog__icon dialog__icon--danger"><svg class="ic"><use href="#i-trash"/></svg></div>
+              <h3 class="dialog__title t-h3">Delete this listing?</h3>
+              <p class="dialog__body">This can't be undone. Buyers will no longer see it.</p>
+              <div class="dialog__actions"><button class="btn btn--danger btn--block">Delete</button><button class="btn btn--ghost btn--block">Cancel</button></div>
+            </div>
+          </div><div class="cell__meta"><code>.dialog</code> + <code>.dialog__icon--danger/warn/info/pos</code> · <code>.dialog__actions(--row)</code> · overlay = <code>.modal-center</code></div></div>
+          <div class="cell"><div class="cell__demo cell__demo--center" style="background:var(--surface-2)">
+            <div class="actionsheet" style="position:static;box-shadow:none;border:1px solid var(--border);width:100%">
+              <div class="actionsheet__grab"></div>
+              <button class="actionsheet__item"><span class="actionsheet__icon actionsheet__icon--y"><svg class="ic"><use href="#i-edit"/></svg></span><div><div class="t-body-m">New post</div><div class="actionsheet__sub">Share an update</div></div></button>
+              <button class="actionsheet__item"><span class="actionsheet__icon"><svg class="ic"><use href="#i-truck"/></svg></span><div><div class="t-body-m">List equipment</div></div></button>
+              <button class="actionsheet__item is-disabled"><span class="actionsheet__icon"><svg class="ic"><use href="#i-flag"/></svg></span><div><div class="t-body-m">Report</div></div></button>
+            </div>
+          </div><div class="cell__meta"><code>.actionsheet</code> &gt; <code>.actionsheet__item</code> + <code>__icon(--y) __sub</code> · <code>.is-disabled</code></div></div>
+        </div>
+        <div class="sub">Empty state</div>
+        <div class="cell"><div class="cell__demo cell__demo--center">
+          <div class="empty" style="padding:var(--s6)"><div class="empty__icon"><svg class="ic ic-lg"><use href="#i-bookmark"/></svg></div><div class="t-h3">No saved jobs yet</div><p class="t-sm muted" style="margin:6px 0 16px">Save jobs to compare them later.</p><button class="btn btn--primary btn--sm">Browse jobs</button></div>
+        </div><div class="cell__meta"><code>.empty</code> &gt; <code>.empty__icon</code><p>Always ends with one action.</p></div></div>
+      </section>
+
+      <!-- 15 PROGRESS -->
+      <section id="progress">
+        <div class="sec-head"><span class="num">15</span><h2>Progress</h2></div>
+        <div class="specs c3">
+          <div class="cell"><div class="cell__demo cell__demo--col"><div class="progress"><div class="progress__fill" style="width:60%"></div></div><span class="t-sm muted">Profile 60% complete</span></div><div class="cell__meta"><code>.progress</code> &gt; <code>.progress__fill</code></div></div>
+          <div class="cell"><div class="cell__demo cell__demo--center"><div class="ring" style="--p:85"><div class="ring__inner">85%</div></div></div><div class="cell__meta"><code>.ring</code> (<code>--p</code>) &gt; <code>.ring__inner</code></div></div>
+          <div class="cell"><div class="cell__demo cell__demo--col"><div class="stepper"><span class="stepper__seg is-done"></span><span class="stepper__seg is-done"></span><span class="stepper__seg"></span><span class="stepper__seg"></span></div><span class="t-sm muted">Step 2 of 4</span></div><div class="cell__meta"><code>.stepper</code> &gt; <code>.stepper__seg.is-done</code></div></div>
+        </div>
+      </section>
+
+      <!-- 16 DOMAIN BLOCKS -->
+      <section id="domain">
+        <div class="sec-head"><span class="num">16</span><h2>Domain blocks</h2></div>
+        <p class="sec-desc">Purpose-built compositions for IronLink's core jobs: pay transparency, hiring and the feed. These encode the product, not just the brand.</p>
+
+        <div class="sub">Pay range &amp; stats</div>
+        <div class="specs c2">
+          <div class="cell"><div class="cell__demo" style="display:block"><div class="payrange"><div class="payrange__track"><div class="payrange__marker" style="left:36%"><div class="payrange__bubble">You · $38</div><div class="payrange__pin"></div></div></div><div class="payrange__scale"><span>$24</span><span>$40 median</span><span>$62</span></div></div></div><div class="cell__meta"><code>.payrange</code> &gt; <code>__track __marker __pin __bubble __scale</code></div></div>
+          <div class="cell"><div class="cell__demo" style="display:block"><div class="statgrid"><div class="stat"><span class="t-metric-sm">$62<span class="t-h3 muted">/hr</span></span><span class="stat__label">Top 10% (p90)</span></div><div class="stat"><span class="t-metric-sm">128</span><span class="stat__label">techs hiring near you</span></div></div></div><div class="cell__meta"><code>.statgrid</code> &gt; <code>.stat</code> &gt; <code>.stat__label</code></div></div>
+        </div>
+
+        <div class="sub">Area chart</div>
+        <div class="cell"><div class="cell__demo" style="display:block">
+          <div class="chart"><svg viewBox="0 0 300 130" preserveAspectRatio="none">
+            <defs><linearGradient id="ilGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD53F" stop-opacity=".34"/><stop offset="1" stop-color="#FFD53F" stop-opacity="0"/></linearGradient></defs>
+            <line class="chart__grid" x1="0" y1="32" x2="300" y2="32"/><line class="chart__grid" x1="0" y1="72" x2="300" y2="72"/><line class="chart__grid" x1="0" y1="112" x2="300" y2="112"/>
+            <path class="chart__area" d="M0 96 L40 92 L80 100 L120 78 L160 84 L200 60 L240 54 L300 40 L300 130 L0 130 Z"/>
+            <path class="chart__line" d="M0 96 L40 92 L80 100 L120 78 L160 84 L200 60 L240 54 L300 40"/>
+            <circle cx="300" cy="40" r="4" fill="var(--ink)"/>
+          </svg></div>
+        </div><div class="cell__meta"><code>.chart</code> &gt; <code>.chart__grid __area __line</code> · gradient id <code class="mono">#ilGrad</code></div></div>
+
+        <div class="sub">Job card</div>
+        <div class="cell"><div class="cell__demo" style="display:block"><div class="jobcard">
+          <div class="row row--between"><div><div class="t-h3">HVAC Service Tech</div><div class="t-sm muted row gap1" style="margin-top:2px"><svg class="ic ic-sm"><use href="#i-pin"/></svg> Capitol Mechanical · 4.2 mi</div></div><button class="iconbtn iconbtn--ghost"><svg class="ic ic-sm"><use href="#i-bookmark"/></svg></button></div>
+          <div class="row gap2 wrap" style="margin:12px 0"><span class="jobcard__wage">$28–$34<span class="t-sm muted">/hr</span></span><span class="tag tag--pos tag--dot">Above market</span></div>
+          <div class="row gap2 wrap"><span class="tag tag--match">92% match</span><span class="tag tag--urgent">Urgent</span><span class="tag">Full-time</span></div>
+        </div></div><div class="cell__meta"><code>.jobcard</code> &gt; <code>.jobcard__wage</code> (composes rows, tags, iconbtn)</div></div>
+
+        <div class="sub">Feed post · conversation row · chat bubbles</div>
+        <div class="specs c3">
+          <div class="cell" style="overflow:hidden"><div class="cell__demo" style="padding:0;display:block"><div class="post" style="border:none;border-radius:0;box-shadow:none">
+            <div class="post__head"><span class="avatar avatar--sm">PJ</span><div class="grow"><div class="t-sm-m">Patrick Jane</div><div class="t-xs faint">HVAC Tech · 3h</div></div></div>
+            <div class="post__media media"><span class="media__ph"><svg class="ic ic-lg"><use href="#i-image"/></svg>Job site photo</span></div>
+            <div class="post__body"><p class="t-sm" style="margin:0">Passed my EPA 608 today 🔧</p></div>
+            <div class="post__actions"><span class="post__action"><svg class="ic ic-sm"><use href="#i-heart"/></svg> 247</span><span class="post__action"><svg class="ic ic-sm"><use href="#i-comment"/></svg> 34</span><span class="post__action"><svg class="ic ic-sm"><use href="#i-share"/></svg></span><span class="post__action post__action--save"><svg class="ic ic-sm"><use href="#i-bookmark"/></svg></span></div>
+          </div></div><div class="cell__meta"><code>.post</code> &gt; <code>__head __media __body __actions __action</code></div></div>
+
+          <div class="cell"><div class="cell__demo" style="padding:0;display:block">
+            <div class="convo"><span class="avatar">CM</span><div class="grow"><div class="t-sm-m">Capitol Mechanical</div><div class="t-sm muted truncate">See you Monday at 7…</div></div><div class="convo__meta"><span class="t-xs faint">2m</span><span class="badge">2</span></div></div>
+            <div class="convo"><span class="avatar avatar--yellow">DL</span><div class="grow"><div class="t-sm-m">Devon Lawson</div><div class="t-sm muted truncate">¿Tienes disponibilidad?</div></div><div class="convo__meta"><span class="t-xs faint">1h</span></div></div>
+          </div><div class="cell__meta"><code>.convo</code> &gt; <code>.convo__meta</code></div></div>
+
+          <div class="cell"><div class="cell__demo" style="padding:0;display:block"><div class="chatlog">
+            <div class="bubble bubble--in">Are you available Monday?<div class="bubble__time">9:02</div></div>
+            <div class="bubble bubble--out">Yes — I can be on site at 7am<div class="bubble__time">9:04 · Read</div></div>
+          </div></div><div class="cell__meta"><code>.chatlog</code> &gt; <code>.bubble--in / --out</code> + <code>.bubble__time</code></div></div>
+        </div>
+
+        <div class="sub">Notification item</div>
+        <div class="cell card--flush" style="overflow:hidden">
+          <div class="notif is-unread"><span class="notif__icon" style="background:var(--positive-tint);color:var(--positive)"><svg class="ic ic-sm"><use href="#i-check"/></svg></span><div class="grow"><div class="t-sm-m">You're hired! Capitol Mechanical</div><div class="t-xs faint">2h ago</div></div></div>
+          <div class="notif"><span class="notif__icon" style="background:var(--yellow-tint);color:#8A6D00"><svg class="ic ic-sm"><use href="#i-bolt"/></svg></span><div class="grow"><div class="t-sm-m">New match: Journeyman Electrician $32/hr</div><div class="t-xs faint">Yesterday</div></div></div>
+        </div>
+        <div class="cell__meta" style="border:1px solid var(--border);border-top:none;border-radius:0 0 var(--r-lg) var(--r-lg)"><code>.notif</code> + <code>.is-unread</code> &gt; <code>.notif__icon</code> (tint per intent)</div>
+      </section>
+
+      <!-- 17 LOADING & OFFLINE -->
+      <section id="states">
+        <div class="sec-head"><span class="num">17</span><h2>Loading, offline &amp; media states</h2></div>
+        <p class="sec-desc">Designed for spotty job-site 4G: read &amp; draft always work, writes queue, and every gap is explained. Skeletons hold layout; placeholders cover missing photos.</p>
+        <div class="specs c2">
+          <div class="cell"><div class="cell__demo" style="display:block"><div class="card" style="box-shadow:none">
+            <div class="row gap2"><span class="sk-avatar skeleton"></span><div class="grow stack-2"><div class="sk-line w60 skeleton"></div><div class="sk-line w40 skeleton"></div></div></div>
+            <div class="sk-thumb skeleton" style="margin-top:12px"></div>
+          </div></div><div class="cell__meta"><code>.skeleton</code> + <code>.sk-avatar .sk-line(.w40/60/80/100) .sk-thumb .sk-chip .sk-metric</code></div></div>
+          <div class="cell"><div class="cell__demo cell__demo--col cell__demo--center">
+            <div class="ptr is-spinning"><div class="ptr__spinner"></div>Refreshing…</div>
+            <span class="synced">Updated 2h ago</span>
+            <span class="pending-clock"><svg class="ic ic-sm"><use href="#i-clock"/></svg> Will send when online</span>
+            <span class="offline-hint"><svg class="ic ic-sm"><use href="#i-wifi-off"/></svg> Internet required</span>
+          </div><div class="cell__meta"><code>.ptr(.is-spinning/.is-ready)</code> · <code>.synced</code> · <code>.pending-clock</code> · <code>.offline-hint</code> · <code>.is-stale</code></div></div>
+          <div class="cell"><div class="cell__demo"><div class="media media--16x10" style="width:160px;border-radius:var(--r-md)"><span class="media__ph"><svg class="ic ic-lg"><use href="#i-image"/></svg>No photo</span></div></div><div class="cell__meta"><code>.media .media--16x10/1x1/4x3</code> &gt; <code>.media__ph</code></div></div>
+          <div class="cell"><div class="cell__demo"><div class="media media--broken media--16x10" style="width:160px;border-radius:var(--r-md)"><span class="media__ph"><svg class="ic ic-lg"><use href="#i-image"/></svg>Couldn't load<button class="btn btn--sm btn--outline media__retry"><svg class="ic ic-sm"><use href="#i-rotate"/></svg> Retry</button></span></div></div><div class="cell__meta"><code>.media--broken</code> + <code>.media__retry</code></div></div>
+        </div>
+      </section>
+
+      <!-- 18 NAVIGATION -->
+      <section id="nav">
+        <div class="sec-head"><span class="num">18</span><h2>Navigation</h2></div>
+        <p class="sec-desc">The bottom tab bar is <strong>role-adaptive</strong> — same shape, different destinations per mode. The center FAB is the one global create action (yellow for worker, ink for employer); it expands into a context-aware create menu. Per-screen create shortcuts are labelled buttons, never a bare “+”.</p>
+
+        <div class="sub">App bar</div>
+        <div class="cell"><div class="cell__demo" style="padding:0;display:block;background:var(--bg)">
+          <header class="appbar"><div class="appbar__title"><h1 class="t-h1">Jobs</h1></div><button class="iconbtn iconbtn--ghost"><svg class="ic"><use href="#i-search"/></svg></button><button class="iconbtn iconbtn--ghost"><svg class="ic"><use href="#i-bell"/></svg></button></header>
+        </div><div class="cell__meta"><code>.appbar</code> &gt; <code>.appbar__title</code> + <code>.iconbtn</code> · collapses with <code>.is-collapsed</code></div></div>
+
+        <div class="sub">Bottom tab bars — worker &amp; employer</div>
+        <div class="specs c2">
+          <div class="cell"><div class="cell__demo" style="padding:0"><div style="position:relative;height:92px;width:100%;background:var(--bg)">
+            <nav class="tabbar" style="position:absolute">
+              <a class="tabbar__item is-active"><span class="tabbar__icon"><svg class="ic"><use href="#i-network"/></svg></span>Network</a>
+              <a class="tabbar__item"><span class="tabbar__icon"><svg class="ic"><use href="#i-trends"/></svg></span>Trends</a>
+              <div class="tabbar__center"><button class="tabbar__fab"><svg class="ic ic-lg"><use href="#i-plus"/></svg></button></div>
+              <a class="tabbar__item"><span class="tabbar__icon"><svg class="ic"><use href="#i-jobs"/></svg></span>Jobs</a>
+              <a class="tabbar__item"><span class="tabbar__icon"><svg class="ic"><use href="#i-message"/></svg></span>Messages</a>
+            </nav>
+          </div></div><div class="cell__meta"><strong class="t-sm-m">Worker</strong> — Network · Trends · <code>.tabbar__fab</code> (yellow) · Jobs · Messages</div></div>
+
+          <div class="cell"><div class="cell__demo" style="padding:0"><div style="position:relative;height:92px;width:100%;background:var(--bg)">
+            <nav class="tabbar" style="position:absolute">
+              <a class="tabbar__item is-active"><span class="tabbar__icon"><svg class="ic"><use href="#i-home"/></svg></span>Home</a>
+              <a class="tabbar__item"><span class="tabbar__icon"><svg class="ic"><use href="#i-jobs"/></svg></span>Jobs</a>
+              <div class="tabbar__center"><button class="tabbar__fab tabbar__fab--dark"><svg class="ic ic-lg"><use href="#i-plus"/></svg></button></div>
+              <a class="tabbar__item"><span class="tabbar__icon"><svg class="ic"><use href="#i-users"/></svg></span>Talent</a>
+              <a class="tabbar__item"><span class="tabbar__icon"><svg class="ic"><use href="#i-message"/></svg></span>Messages</a>
+            </nav>
+          </div></div><div class="cell__meta"><strong class="t-sm-m">Employer</strong> — Home · Jobs · <code>.tabbar__fab--dark</code> · Talent · Messages</div></div>
+        </div>
+
+        <div class="sub">Create menu (the “+”) · bottom sheet</div>
+        <div class="specs c2">
+          <div class="cell"><div class="cell__demo" style="display:block;background:var(--surface-2)">
+            <div class="createmenu" style="position:static;padding:0">
+              <div class="createmenu__item"><span class="actionsheet__icon actionsheet__icon--y"><svg class="ic"><use href="#i-edit"/></svg></span><div class="t-body-m">New post</div></div>
+              <div class="createmenu__item"><span class="actionsheet__icon"><svg class="ic"><use href="#i-truck"/></svg></span><div class="t-body-m">List equipment</div></div>
+              <div class="createmenu__item"><span class="actionsheet__icon"><svg class="ic"><use href="#i-share"/></svg></span><div class="t-body-m">Share a job</div></div>
+            </div>
+          </div><div class="cell__meta"><code>.createmenu</code> &gt; <code>.createmenu__item</code> · opens with <code>.anim-fab-open</code> + <code>.anim-stagger</code></div></div>
+          <div class="cell"><div class="cell__demo" style="display:block;background:var(--surface-2)">
+            <div class="sheet" style="position:static;box-shadow:none;border:1px solid var(--border)"><div class="sheet__grab"></div><div class="t-h3 center" style="margin-bottom:8px">Filter jobs</div><div class="row gap2 wrap"><span class="chip chip--active">HVAC</span><span class="chip">Electrical</span><span class="chip">Within 25 mi</span></div></div>
+          </div><div class="cell__meta"><code>.sheet</code> &gt; <code>.sheet__grab</code> · backdrop = <code>.scrim</code> · opens with <code>.anim-sheet</code> + <code>.anim-scrim</code></div></div>
+        </div>
+      </section>
+
+      <footer>
+        <strong>IronLink design system</strong> — the single source of truth for 55 mockups.<br>
+        Edit tokens &amp; components in <code class="mono">styles/ironlink.css</code>; every screen composes these classes only. New screens copy <code class="mono">screens/_TEMPLATE.html</code>. Icons live in <code class="mono">styles/icons.html</code>.
+      </footer>
+
+    </main>
+  </div>
 </div>
 </body>
 </html>
