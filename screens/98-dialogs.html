@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IronLink · 98 — Dialogs &amp; confirmations</title>
+<link rel="stylesheet" href="../styles/ironlink.css">
+<!-- Per-screen icon sizing helper. Keep identical in every screen. -->
+<style>
+  .ic{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+  .ic-sm{width:18px;height:18px}.ic-lg{width:26px;height:26px}.ic-xl{width:30px;height:30px}
+  body{display:flex;flex-direction:column;align-items:center;gap:20px;padding:40px 16px;background:var(--bg)}
+  .note{max-width:390px;width:390px;color:var(--text-2);font-size:13px;line-height:1.55}
+  .note h3{color:var(--text-1);font-size:15px;margin:0 0 6px}
+  .note .dep{font-size:11.5px;color:var(--text-3);margin-top:8px}
+  .note code{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:1px 5px;font-size:11px}
+  /* board layout helpers — composition only, no new design tokens */
+  .board{display:flex;flex-wrap:wrap;gap:18px;justify-content:center;max-width:1180px}
+  .board__hd{width:100%;max-width:1180px;text-align:center}
+  .board__hd .logo{font-family:var(--font-display);font-weight:800;font-size:26px;letter-spacing:.1em;color:var(--ink)}
+  .board__hd .logo .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--yellow);margin:0 5px;vertical-align:middle}
+  .dcard{width:340px;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--r-lg);padding:var(--s4);display:flex;flex-direction:column;gap:var(--s3)}
+  .dcard .cap{display:flex;align-items:center;justify-content:space-between;gap:var(--s2)}
+  .dcard .stage{display:grid;place-items:center;padding:var(--s5) var(--s2)}
+  .dcard .dialog{max-width:300px}
+</style>
+</head>
+<body>
+
+<!-- SHARED ICON SPRITE — paste identically in every screen file -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.5 12 4l9 6.5"/><path d="M5 9.5V20h14V9.5"/><path d="M9.5 20v-5h5v5"/></symbol>
+  <symbol id="i-network" viewBox="0 0 24 24"><circle cx="6" cy="7" r="2.5"/><circle cx="18" cy="7" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M7.8 8.6 10.4 16M16.2 8.6 13.6 16M8.4 7h7.2"/></symbol>
+  <symbol id="i-trends" viewBox="0 0 24 24"><path d="M3 17l5-5 4 3 6-7"/><path d="M15 8h5v5"/></symbol>
+  <symbol id="i-jobs" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5.5A1.5 1.5 0 0 1 9.5 4h5A1.5 1.5 0 0 1 16 5.5V7"/><path d="M3 12h18"/></symbol>
+  <symbol id="i-message" viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 3.5V5z"/><path d="M8 9.5h8M8 12.5h5"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-3.5-3.5"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6z"/><path d="M10 20a2 2 0 0 0 4 0"/></symbol>
+  <symbol id="i-filter" viewBox="0 0 24 24"><path d="M4 6h16M7 12h10M10 18h4"/></symbol>
+  <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
+  <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></symbol>
+  <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-arrows" viewBox="0 0 24 24"><path d="M7 4 3 8l4 4M3 8h13M17 20l4-4-4-4M21 16H8"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 13 4 4 10-11"/></symbol>
+  <symbol id="i-more" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="19" cy="12" r="1.4" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></symbol>
+  <symbol id="i-wage" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 7v10M9.5 9.5a2.5 2 0 0 1 5 0c0 2-5 1-5 3a2.5 2 0 0 0 5 0"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 3 5 13h6l-1 8 8-10h-6l1-8z"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20S4 14.5 4 9.2A3.8 3.8 0 0 1 12 7a3.8 3.8 0 0 1 8 2.2C20 14.5 12 20 12 20z"/></symbol>
+  <symbol id="i-comment" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5z"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><circle cx="6" cy="12" r="2.4"/><circle cx="18" cy="6" r="2.4"/><circle cx="18" cy="18" r="2.4"/><path d="m8 11 8-4M8 13l8 4"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 4h12v16l-6-4-6 4V4z"/></symbol>
+  <symbol id="i-paperclip" viewBox="0 0 24 24"><path d="M20 11.5 12 19a4.5 4.5 0 0 1-6.5-6.5l8-8A3 3 0 0 1 18 9l-8 8a1.5 1.5 0 0 1-2-2l7-7"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 8h3l1.5-2h7L17 8h3v11H4V8z"/><circle cx="12" cy="13" r="3.2"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.6 3-6 7-6s7 2.4 7 6"/></symbol>
+  <symbol id="i-building" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="1"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2M10 21v-3h4v3"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 5 6v6c0 4.5 3 7.5 7 9 4-1.5 7-4.5 7-9V6l-7-3z"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7V3z"/><path d="M14 3v4h4M10 13h6M10 16h4"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.5 2.5 2.5 14.5 0 17M12 3.5c-2.5 2.5-2.5 14.5 0 17"/></symbol>
+  <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M21.5 12h-3M5.5 12h-3M18 6l-2 2M8 16l-2 2M18 18l-2-2M8 8 6 6"/></symbol>
+  <symbol id="i-wifi-off" viewBox="0 0 24 24"><path d="M3 3l18 18M9 17a4 4 0 0 1 6 0M5 12.5a10 10 0 0 1 4-2.3M19 12.5a10 10 0 0 0-5-2.6"/></symbol>
+  <symbol id="i-truck" viewBox="0 0 24 24"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 4 2.4 5 5.4.6-4 3.7 1.1 5.3L12 17l-4.9 2.6L8.2 13.3l-4-3.7 5.4-.6L12 4z"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M6 3h3l2 5-2.5 1.5a12 12 0 0 0 5 5L17 12l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 4 5a2 2 0 0 1 2-2z"/></symbol>
+  <symbol id="i-message-sq" viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 3.5V5z"/><path d="M8 9.5h8M8 12.5h5"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16v4z"/><path d="m14 6 4 4"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V5h6v2M6 7l1 13h10l1-13"/><path d="M10 11v6M14 11v6"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4M5 5h11l-2 4 2 4H5"/></symbol>
+  <symbol id="i-card" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18M6.5 14.5h3"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M4 9h16M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2.2"/><circle cx="8" cy="17" r="2.2"/></symbol>
+  <symbol id="i-logout" viewBox="0 0 24 24"><path d="M15 4h4v16h-4M11 8l-4 4 4 4M7 12h9"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><path d="M16 5.5a3 3 0 0 1 0 5.8M18 20c0-2.4-1-4.2-2.5-5.2"/></symbol>
+  <symbol id="i-rotate" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 1 2.3 5.6"/><path d="M3 20v-5h5"/></symbol>
+  <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m4 18 5-4 4 3 3-2 4 3"/></symbol>
+  <symbol id="i-tools" viewBox="0 0 24 24"><path d="M14.5 6a3.5 3.5 0 0 0 4.5 4.5L21 12l-9 9-3-3 9-9 1.5-3z"/><path d="m6 14-2 2a2 2 0 0 0 3 3l2-2"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11M8 11l4 4 4-4M5 19h14"/></symbol>
+</svg>
+
+<!-- ===================== BOARD HEADER ===================== -->
+<div class="board__hd">
+  <span class="logo">IRON<span class="dot"></span>LINK</span>
+  <div class="t-h2" style="margin-top:8px">Dialogs &amp; confirmations</div>
+  <p class="t-sm muted" style="margin:6px auto 0;max-width:560px">Reference board — every confirmation dialog and action sheet in the app, rendered with the shared <code style="font-size:11px">.dialog</code> / <code style="font-size:11px">.actionsheet</code> components. Each panel is one dialog on a faint inset surface; this is not a single device screen.</p>
+</div>
+
+<!-- ===================== DIALOG BOARD ===================== -->
+<div class="board">
+
+  <!-- 1 · Confirm apply -->
+  <div class="dcard">
+    <div class="cap"><span class="eyebrow">Confirm apply</span><span class="tag tag--info">confirm</span></div>
+    <div class="stage">
+      <div class="dialog">
+        <div class="dialog__icon dialog__icon--pos"><svg class="ic ic-lg"><use href="#i-arrow-right"/></svg></div>
+        <h3 class="dialog__title t-h3">Send your application?</h3>
+        <p class="dialog__body">Your profile and cover message will be sent to Capitol Mechanical.</p>
+        <div class="dialog__actions dialog__actions--row">
+          <button class="btn btn--ghost">Cancel</button>
+          <button class="btn btn--primary">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2 · Withdraw application (destructive) -->
+  <div class="dcard">
+    <div class="cap"><span class="eyebrow">Withdraw application</span><span class="tag tag--neg">destructive</span></div>
+    <div class="stage">
+      <div class="dialog">
+        <div class="dialog__icon dialog__icon--danger"><svg class="ic ic-lg"><use href="#i-rotate"/></svg></div>
+        <h3 class="dialog__title t-h3">Withdraw application?</h3>
+        <p class="dialog__body">You won't be able to re-apply to this job. Your conversation thread will remain visible.</p>
+        <div class="dialog__actions">
+          <button class="btn btn--danger btn--block">Withdraw</button>
+          <button class="btn btn--ghost btn--block">Keep application</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3 · Hire applicant (pos) -->
+  <div class="dcard">
+    <div class="cap"><span class="eyebrow">Hire applicant</span><span class="tag tag--pos tag--dot">positive</span></div>
+    <div class="stage">
+      <div class="dialog">
+        <div class="dialog__icon dialog__icon--pos"><svg class="ic ic-lg"><use href="#i-check"/></svg></div>
+        <h3 class="dialog__title t-h3">Hire Marcus Reed?</h3>
+        <p class="dialog__body">This changes the application status to Hired and notifies the worker. The messaging thread stays open.</p>
+        <div class="dialog__actions dialog__actions--row">
+          <button class="btn btn--ghost">Cancel</button>
+          <button class="btn btn--primary">Hire</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4 · Reject applicant (destructive) -->
+  <div class="dcard">
+    <div class="cap"><span class="eyebrow">Reject applicant</span><span class="tag tag--neg">destructive</span></div>
+    <div class="stage">
+      <div class="dialog">
+        <div class="dialog__icon dialog__icon--danger"><svg class="ic ic-lg"><use href="#i-close"/></svg></div>
+        <h3 class="dialog__title t-h3">Not interested in Marcus Reed?</h3>
+        <p class="dialog__body">They'll be notified their application was not selected. You can still message them.</p>
+        <div class="dialog__actions dialog__actions--row">
+          <button class="btn btn--ghost">Cancel</button>
+          <button class="btn btn--danger">Not interested</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5 · Pause job (confirm) -->
+  <div class="dcard">
+    <div class="cap"><span class="eyebrow">Pause job</span><span class="tag tag--info">confirm</span></div>
+    <div class="stage">
+      <div class="dialog">
+        <div class="dialog__icon dialog__icon--warn"><svg class="ic ic-lg"><use href="#i-pause"/></svg></div>
+        <h3 class="dialog__title t-h3">Pause 'HVAC Service Tech'?</h3>
+        <p class="dialog__body">New applications will stop, but you can accept pending offers. You can reopen anytime.</p>
+        <div class="dialog__actions dialog__actions--row">
+          <button class="btn btn--ghost">Cancel</button>
+          <button class="btn btn--dark">Pause</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6 · Close / fill job (confirm) -->
+  <div class="dcard">
+    <div class="cap"><span class="eyebrow">Close / fill job</span><span class="tag tag--info">confirm</span></div>
+    <div class="stage">
+      <div class="dialog">
+        <div class="dialog__icon dialog__icon--pos"><svg class="ic ic-lg"><use href="#i-check"/></svg></div>
+        <h3 class="dialog__title t-h3">Mark 'HVAC Service Tech' as filled?</h3>
+        <p class="dialog__body">The job will no longer appear in feeds or searches. You can still message applicants.</p>
+        <div class="dialog__actions dialog__actions--row">
+          <button class="btn btn--ghost">Cancel</button>
+          <button class="btn btn--dark">Mark filled</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7 · Delete job (destructive) -->
+  <div class="dcard">
+    <div class="cap"><span class="eyebrow">Delete job</span><span class="tag tag--neg">destructive</span></div>
+    <div class="stage">
+      <div class="dialog">
+        <div class="dialog__icon dialog__icon--danger"><svg class="ic ic-lg"><use href="#i-trash"/></svg></div>
+        <h3 class="dialog__title t-h3">Delete 'HVAC Service Tech'?</h3>
+        <p class="dialog__body">This cannot be undone. All applicants will be notified the job is closed.</p>
+        <div class="dialog__actions dialog__actions--row">
+          <button class="btn btn--ghost">Cancel</button>
+          <button class="btn btn--danger">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8 · Publish job (confirm) -->
+  <div class="dcard">
+    <div class="cap"><span class="eyebrow">Publish job</span><span class="tag tag--info">confirm</span></div>
+    <div class="stage">
+      <div class="dialog">
+        <div class="dialog__icon dialog__icon--pos"><svg class="ic ic-lg"><use href="#i-bolt"/></svg></div>
+        <h3 class="dialog__title t-h3">Publish 'HVAC Service Tech' to feed?</h3>
+        <p class="dialog__body">Saves the job and shares it with <span class="tabnum">340</span> followers for 48 hours of feed visibility.</p>
+        <div class="dialog__actions">
+          <button class="btn btn--primary btn--block">Publish to feed</button>
+          <button class="btn btn--ghost btn--block">Publish quietly</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 9 · Mark equipment sold (confirm) -->
+  <div class="dcard">
+    <div class="cap"><span class="eyebrow">Mark equipment sold</span><span class="tag tag--info">confirm</span></div>
+    <div class="stage">
+      <div class="dialog">
+        <div class="dialog__icon dialog__icon--pos"><svg class="ic ic-lg"><use href="#i-truck"/></svg></div>
+        <h3 class="dialog__title t-h3">Mark '2018 Bobcat S650' as sold?</h3>
+        <p class="dialog__body">The listing will be removed from search, but the message thread stays open for follow-up.</p>
+        <div class="dialog__actions dialog__actions--row">
+          <button class="btn btn--ghost">Cancel</button>
+          <button class="btn btn--dark">Mark sold</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 10 · Delete listing (destructive) -->
+  <div class="dcard">
+    <div class="cap"><span class="eyebrow">Delete listing</span><span class="tag tag--neg">destructive</span></div>
+    <div class="stage">
+      <div class="dialog">
+        <div class="dialog__icon dialog__icon--danger"><svg class="ic ic-lg"><use href="#i-trash"/></svg></div>
+        <h3 class="dialog__title t-h3">Delete '2018 Bobcat S650'?</h3>
+        <p class="dialog__body">This cannot be undone. Any open inquiries will be notified.</p>
+        <div class="dialog__actions dialog__actions--row">
+          <button class="btn btn--ghost">Cancel</button>
+          <button class="btn btn--danger">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 11 · Mode switch (confirm) -->
+  <div class="dcard">
+    <div class="cap"><span class="eyebrow">Mode switch</span><span class="tag tag--info">confirm</span></div>
+    <div class="stage">
+      <div class="dialog">
+        <div class="dialog__icon dialog__icon--info"><svg class="ic ic-lg"><use href="#i-arrows"/></svg></div>
+        <h3 class="dialog__title t-h3">Switch to Employer mode?</h3>
+        <p class="dialog__body">Your profile, messages, and saved jobs stay in Worker mode. You'll see employer jobs, teams, and billing.</p>
+        <div class="dialog__actions dialog__actions--row">
+          <button class="btn btn--ghost">Cancel</button>
+          <button class="btn btn--dark">Switch</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 12 · Logout (confirm) -->
+  <div class="dcard">
+    <div class="cap"><span class="eyebrow">Logout</span><span class="tag tag--info">confirm</span></div>
+    <div class="stage">
+      <div class="dialog">
+        <div class="dialog__icon dialog__icon--info"><svg class="ic ic-lg"><use href="#i-logout"/></svg></div>
+        <h3 class="dialog__title t-h3">Sign out?</h3>
+        <p class="dialog__body">You'll be logged out on this device. You can sign back in anytime.</p>
+        <div class="dialog__actions dialog__actions--row">
+          <button class="btn btn--ghost">Cancel</button>
+          <button class="btn btn--dark">Sign out</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 13 · Cancel subscription (destructive) -->
+  <div class="dcard">
+    <div class="cap"><span class="eyebrow">Cancel subscription</span><span class="tag tag--neg">destructive</span></div>
+    <div class="stage">
+      <div class="dialog">
+        <div class="dialog__icon dialog__icon--danger"><svg class="ic ic-lg"><use href="#i-card"/></svg></div>
+        <h3 class="dialog__title t-h3">Cancel subscription?</h3>
+        <p class="dialog__body">Your plan will end at the next billing date. You can reactivate anytime.</p>
+        <div class="dialog__actions">
+          <button class="btn btn--danger btn--block">Stop subscription</button>
+          <button class="btn btn--ghost btn--block">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 14 · Discard draft (destructive) -->
+  <div class="dcard">
+    <div class="cap"><span class="eyebrow">Discard draft</span><span class="tag tag--neg">destructive</span></div>
+    <div class="stage">
+      <div class="dialog">
+        <div class="dialog__icon dialog__icon--warn"><svg class="ic ic-lg"><use href="#i-edit"/></svg></div>
+        <h3 class="dialog__title t-h3">Discard changes?</h3>
+        <p class="dialog__body">Your job draft will be lost.</p>
+        <div class="dialog__actions dialog__actions--row">
+          <button class="btn btn--ghost">Keep editing</button>
+          <button class="btn btn--danger">Discard</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 15 · Delete account (destructive, P0) -->
+  <div class="dcard">
+    <div class="cap"><span class="eyebrow">Delete account</span><span class="tag tag--urgent">destructive · P0</span></div>
+    <div class="stage">
+      <div class="dialog">
+        <div class="dialog__icon dialog__icon--danger"><svg class="ic ic-lg"><use href="#i-trash"/></svg></div>
+        <h3 class="dialog__title t-h3">Delete your account?</h3>
+        <p class="dialog__body">This cannot be undone. All your data, messages, and listings will be permanently deleted.</p>
+        <div class="dialog__actions">
+          <button class="btn btn--danger btn--block">Delete account</button>
+          <button class="btn btn--ghost btn--block">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 16 · OTP expired (info) -->
+  <div class="dcard">
+    <div class="cap"><span class="eyebrow">OTP expired</span><span class="tag tag--info tag--dot">info</span></div>
+    <div class="stage">
+      <div class="dialog">
+        <div class="dialog__icon dialog__icon--info"><svg class="ic ic-lg"><use href="#i-clock"/></svg></div>
+        <h3 class="dialog__title t-h3">Code expired</h3>
+        <p class="dialog__body">We sent a new 6-digit code to +1 (334) 555-1234. Check your text messages.</p>
+        <div class="dialog__actions dialog__actions--row">
+          <button class="btn btn--ghost">Resend via email</button>
+          <button class="btn btn--dark">Got it</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 17 · Payment failed (info) -->
+  <div class="dcard">
+    <div class="cap"><span class="eyebrow">Payment failed</span><span class="tag tag--info tag--dot">info</span></div>
+    <div class="stage">
+      <div class="dialog">
+        <div class="dialog__icon dialog__icon--warn"><svg class="ic ic-lg"><use href="#i-card"/></svg></div>
+        <h3 class="dialog__title t-h3">Payment failed</h3>
+        <p class="dialog__body">We couldn't charge your card ending in 4242. Update your payment method to keep your plan active.</p>
+        <div class="dialog__actions">
+          <button class="btn btn--primary btn--block">Update payment</button>
+          <button class="btn btn--ghost btn--block">Try again</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 18 · Action sheet — Report -->
+  <div class="dcard">
+    <div class="cap"><span class="eyebrow">Report post / listing</span><span class="tag">action sheet</span></div>
+    <div class="stage" style="padding:0;align-items:stretch">
+      <div class="actionsheet" style="position:relative;border-radius:var(--r-xl);box-shadow:none;border:1px solid var(--border)">
+        <div class="actionsheet__grab"></div>
+        <div class="actionsheet__title">Report this post — select a reason</div>
+        <button class="actionsheet__item"><span class="actionsheet__icon"><svg class="ic ic-sm"><use href="#i-flag"/></svg></span><span class="t-body-m">Spam</span></button>
+        <button class="actionsheet__item"><span class="actionsheet__icon"><svg class="ic ic-sm"><use href="#i-flag"/></svg></span><span class="t-body-m">Harassment</span></button>
+        <button class="actionsheet__item"><span class="actionsheet__icon"><svg class="ic ic-sm"><use href="#i-flag"/></svg></span><span class="t-body-m">Inappropriate</span></button>
+        <button class="actionsheet__item"><span class="actionsheet__icon"><svg class="ic ic-sm"><use href="#i-flag"/></svg></span><span class="t-body-m">Scam</span></button>
+        <button class="actionsheet__item"><span class="actionsheet__icon"><svg class="ic ic-sm"><use href="#i-more"/></svg></span><span class="t-body-m">Other</span></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 19 · Action sheet — Block user -->
+  <div class="dcard">
+    <div class="cap"><span class="eyebrow">Block user</span><span class="tag">action sheet</span></div>
+    <div class="stage" style="padding:0;align-items:stretch">
+      <div class="actionsheet" style="position:relative;border-radius:var(--r-xl);box-shadow:none;border:1px solid var(--border)">
+        <div class="actionsheet__grab"></div>
+        <div class="actionsheet__title">Block this user?</div>
+        <p class="t-sm muted" style="text-align:center;margin:0 var(--s3) var(--s4)">You won't see their posts, messages, or job listings. They won't know they're blocked.</p>
+        <button class="actionsheet__item"><span class="actionsheet__icon"><svg class="ic ic-sm" style="color:var(--danger)"><use href="#i-lock"/></svg></span><span class="t-body-m" style="color:var(--danger)">Block user</span></button>
+        <button class="actionsheet__item"><span class="actionsheet__icon"><svg class="ic ic-sm"><use href="#i-close"/></svg></span><span class="t-body-m">Cancel</span></button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===================== EXPLAINER ===================== -->
+<div class="note">
+  <h3>98 · Dialogs &amp; confirmations (reference board)</h3>
+  <p>This is the single source of truth for IronLink's confirmation system — every modal decision the app ever asks, laid out side by side rather than inside one phone frame. That gallery layout is intentional: it lets an auditor verify the whole dialog family at a glance (icon variant, title voice, button order, destructive treatment) instead of hunting through 17 separate screens. The key UX decision is consistency of destructive affordance: every irreversible action uses the <code>--danger</code> icon tint plus a <code>btn--danger</code> control, with the safe/cancel option always reachable and never styled as the primary; positive and neutral confirms use <code>--pos</code>/<code>--info</code>/<code>--warn</code> tints with a yellow primary (worker-positive) or dark button (employer/neutral). Two-button confirms sit in a row; three-tier or "stacked" choices (Publish, Cancel subscription, Delete account, Payment failed) stack vertically with the recommended action on top so a lower-literacy user reads top-down. Info dialogs (OTP expired, Payment failed) are non-blocking recoveries with a forward action, not a yes/no. The two action sheets handle multi-option moderation (Report) and a safety confirm (Block) from a bottom sheet.</p>
+  <p class="dep"><strong>Flows:</strong> <code>JOB-08/11/14</code> <code>MKT-06/07</code> <code>AUTH-19</code> <code>BILL-04</code> <code>MOD-02</code> · <strong>Depends on:</strong> dialog, dialog__icon --danger/warn/info/pos, actionsheet, btn--primary/dark/danger/ghost, tag · <strong>Mode:</strong> worker + employer (system-wide)</p>
+</div>
+
+</body>
+</html>

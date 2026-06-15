@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IronLink · 80 — Plans</title>
+<link rel="stylesheet" href="../styles/ironlink.css">
+<style>
+  .ic{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+  .ic-sm{width:18px;height:18px}.ic-lg{width:26px;height:26px}.ic-xl{width:30px;height:30px}
+  body{display:flex;flex-direction:column;align-items:center;gap:20px;padding:40px 16px;background:var(--bg)}
+  .note{max-width:390px;width:390px;color:var(--text-2);font-size:13px;line-height:1.55}
+  .note h3{color:var(--text-1);font-size:15px;margin:0 0 6px}
+  .note .dep{font-size:11.5px;color:var(--text-3);margin-top:8px}
+  .note code{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:1px 5px;font-size:11px}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.5 12 4l9 6.5"/><path d="M5 9.5V20h14V9.5"/><path d="M9.5 20v-5h5v5"/></symbol>
+  <symbol id="i-network" viewBox="0 0 24 24"><circle cx="6" cy="7" r="2.5"/><circle cx="18" cy="7" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M7.8 8.6 10.4 16M16.2 8.6 13.6 16M8.4 7h7.2"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><path d="M16 5.5a3 3 0 0 1 0 5.8M18 20c0-2.4-1-4.2-2.5-5.2"/></symbol>
+  <symbol id="i-trends" viewBox="0 0 24 24"><path d="M3 17l5-5 4 3 6-7"/><path d="M15 8h5v5"/></symbol>
+  <symbol id="i-jobs" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5.5A1.5 1.5 0 0 1 9.5 4h5A1.5 1.5 0 0 1 16 5.5V7"/><path d="M3 12h18"/></symbol>
+  <symbol id="i-message" viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 3.5V5z"/><path d="M8 9.5h8M8 12.5h5"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-3.5-3.5"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6z"/><path d="M10 20a2 2 0 0 0 4 0"/></symbol>
+  <symbol id="i-filter" viewBox="0 0 24 24"><path d="M4 6h16M7 12h10M10 18h4"/></symbol>
+  <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
+  <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></symbol>
+  <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-arrows" viewBox="0 0 24 24"><path d="M7 4 3 8l4 4M3 8h13M17 20l4-4-4-4M21 16H8"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 13 4 4 10-11"/></symbol>
+  <symbol id="i-more" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="19" cy="12" r="1.4" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></symbol>
+  <symbol id="i-wage" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 7v10M9.5 9.5a2.5 2 0 0 1 5 0c0 2-5 1-5 3a2.5 2 0 0 0 5 0"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 3 5 13h6l-1 8 8-10h-6l1-8z"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20S4 14.5 4 9.2A3.8 3.8 0 0 1 12 7a3.8 3.8 0 0 1 8 2.2C20 14.5 12 20 12 20z"/></symbol>
+  <symbol id="i-comment" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5z"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><circle cx="6" cy="12" r="2.4"/><circle cx="18" cy="6" r="2.4"/><circle cx="18" cy="18" r="2.4"/><path d="m8 11 8-4M8 13l8 4"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 4h12v16l-6-4-6 4V4z"/></symbol>
+  <symbol id="i-paperclip" viewBox="0 0 24 24"><path d="M20 11.5 12 19a4.5 4.5 0 0 1-6.5-6.5l8-8A3 3 0 0 1 18 9l-8 8a1.5 1.5 0 0 1-2-2l7-7"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 8h3l1.5-2h7L17 8h3v11H4V8z"/><circle cx="12" cy="13" r="3.2"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.6 3-6 7-6s7 2.4 7 6"/></symbol>
+  <symbol id="i-building" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="1"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2M10 21v-3h4v3"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 5 6v6c0 4.5 3 7.5 7 9 4-1.5 7-4.5 7-9V6l-7-3z"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7V3z"/><path d="M14 3v4h4M10 13h6M10 16h4"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.5 2.5 2.5 14.5 0 17M12 3.5c-2.5 2.5-2.5 14.5 0 17"/></symbol>
+  <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M21.5 12h-3M5.5 12h-3M18 6l-2 2M8 16l-2 2M18 18l-2-2M8 8 6 6"/></symbol>
+  <symbol id="i-wifi-off" viewBox="0 0 24 24"><path d="M3 3l18 18M9 17a4 4 0 0 1 6 0M5 12.5a10 10 0 0 1 4-2.3M19 12.5a10 10 0 0 0-5-2.6"/></symbol>
+  <symbol id="i-truck" viewBox="0 0 24 24"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 4 2.4 5 5.4.6-4 3.7 1.1 5.3L12 17l-4.9 2.6L8.2 13.3l-4-3.7 5.4-.6L12 4z"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+</svg>
+
+<div class="phone">
+  <div class="phone__island"></div>
+  <div class="screen">
+    <div class="statusbar">
+      <span>9:41</span>
+      <span class="statusbar__icons">
+        <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="6" width="3" height="5" rx="1"/><rect x="4.5" y="3.5" width="3" height="7.5" rx="1"/><rect x="9" y="1.5" width="3" height="9.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg>
+        <svg width="16" height="11" viewBox="0 0 16 11" fill="currentColor"><path d="M8 2.2c2 0 3.8.8 5.2 2.1l1.2-1.3A9 9 0 0 0 8 .3 9 9 0 0 0 1.6 3l1.2 1.3A7.4 7.4 0 0 1 8 2.2z" opacity=".9"/><path d="M8 5.6c1.1 0 2.1.45 2.8 1.2l1.2-1.3A6 6 0 0 0 8 3.8a6 6 0 0 0-4 1.7l1.2 1.3A4 4 0 0 1 8 5.6z"/><circle cx="8" cy="9" r="1.6"/></svg>
+        <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x="1" y="1" width="20" height="10" rx="3" stroke="currentColor" opacity=".4"/><rect x="2.5" y="2.5" width="15" height="7" rx="1.5" fill="currentColor"/><rect x="22.5" y="4" width="1.6" height="4" rx=".8" fill="currentColor" opacity=".5"/></svg>
+      </span>
+    </div>
+
+    <header class="appbar">
+      <button class="iconbtn iconbtn--ghost"><svg class="ic"><use href="#i-chevron-left"/></svg></button>
+      <div class="appbar__title"><h1 class="t-h1">Choose your plan</h1></div>
+    </header>
+
+    <main class="screen__body">
+      <div class="pad stack">
+        <p class="t-sm muted" style="margin:0">Capitol Mechanical · billed to your company account.</p>
+
+        <!-- secure checkout banner -->
+        <div class="banner banner--info">
+          <svg class="ic ic-sm"><use href="#i-lock"/></svg>
+          <span>Secure checkout opens in your browser (Stripe).</span>
+        </div>
+
+        <!-- billing interval -->
+        <div class="segmented segmented--block" role="tablist">
+          <button>Monthly</button>
+          <button class="is-active">Yearly · save 20%</button>
+        </div>
+
+        <!-- STARTER -->
+        <div class="card">
+          <div class="row row--between" style="align-items:flex-start">
+            <div>
+              <p class="eyebrow" style="margin:0 0 4px">Starter</p>
+              <div class="row gap2" style="align-items:baseline"><span class="t-metric-sm tabnum">$0</span><span class="t-h3 muted">/mo</span></div>
+            </div>
+            <span class="tag">Current plan</span>
+          </div>
+          <p class="t-sm muted" style="margin:var(--s3) 0 0">For solo shops just getting started.</p>
+          <div class="stack-2" style="margin-top:var(--s4)">
+            <div class="row gap2 t-sm-m"><svg class="ic ic-sm pos"><use href="#i-check"/></svg><span><strong>3</strong> active job posts</span></div>
+            <div class="row gap2 t-sm-m"><svg class="ic ic-sm pos"><use href="#i-check"/></svg><span>Applicant inbox &amp; messaging</span></div>
+            <div class="row gap2 t-sm-m"><svg class="ic ic-sm pos"><use href="#i-check"/></svg><span>Verified company badge</span></div>
+          </div>
+          <button class="btn btn--outline btn--block btn--disabled" style="margin-top:var(--s5)">Your current plan</button>
+        </div>
+
+        <!-- PROFESSIONAL (highlighted) -->
+        <div class="card card--highlight">
+          <div class="row row--between" style="align-items:flex-start">
+            <div>
+              <p class="eyebrow" style="margin:0 0 4px;color:#8A6D00">Professional</p>
+              <div class="row gap2" style="align-items:baseline"><span class="t-metric tabnum">$79</span><span class="t-h3 muted">/mo</span></div>
+              <p class="t-xs muted" style="margin:6px 0 0">$948 billed yearly · <span class="tabnum">save $228</span></p>
+            </div>
+            <span class="tag tag--yellow tag--dot">Popular</span>
+          </div>
+          <div class="stack-2" style="margin-top:var(--s4)">
+            <div class="row gap2 t-sm-m"><svg class="ic ic-sm pos"><use href="#i-check"/></svg><span><strong>15</strong> active job posts</span></div>
+            <div class="row gap2 t-sm-m"><svg class="ic ic-sm pos"><use href="#i-check"/></svg><span>Talent CRM &amp; pipeline</span></div>
+            <div class="row gap2 t-sm-m"><svg class="ic ic-sm pos"><use href="#i-check"/></svg><span>Hiring analytics &amp; pay benchmarks</span></div>
+            <div class="row gap2 t-sm-m"><svg class="ic ic-sm pos"><use href="#i-check"/></svg><span>Boosted &amp; urgent listings</span></div>
+            <div class="row gap2 t-sm-m"><svg class="ic ic-sm pos"><use href="#i-check"/></svg><span>Up to 5 recruiter seats</span></div>
+          </div>
+          <button class="btn btn--primary btn--block" style="margin-top:var(--s5)">Upgrade to Professional <svg class="ic ic-sm"><use href="#i-arrow-right"/></svg></button>
+        </div>
+
+        <!-- ENTERPRISE -->
+        <div class="card">
+          <div class="row row--between" style="align-items:flex-start">
+            <div>
+              <p class="eyebrow" style="margin:0 0 4px">Enterprise</p>
+              <div class="row gap2" style="align-items:baseline"><span class="t-metric-sm">Custom</span></div>
+            </div>
+          </div>
+          <p class="t-sm muted" style="margin:var(--s3) 0 0">For multi-branch contractors hiring at scale.</p>
+          <div class="stack-2" style="margin-top:var(--s4)">
+            <div class="row gap2 t-sm-m"><svg class="ic ic-sm pos"><use href="#i-check"/></svg><span><strong>Unlimited</strong> job posts &amp; seats</span></div>
+            <div class="row gap2 t-sm-m"><svg class="ic ic-sm pos"><use href="#i-check"/></svg><span>SSO &amp; team roles</span></div>
+            <div class="row gap2 t-sm-m"><svg class="ic ic-sm pos"><use href="#i-check"/></svg><span>API &amp; ATS integrations</span></div>
+            <div class="row gap2 t-sm-m"><svg class="ic ic-sm pos"><use href="#i-check"/></svg><span>Dedicated account manager</span></div>
+          </div>
+          <button class="btn btn--outline btn--block" style="margin-top:var(--s5)">Contact sales</button>
+        </div>
+
+        <p class="t-xs faint center" style="margin:var(--s2) 0 0">Plans renew automatically. Cancel anytime from the web billing portal.</p>
+      </div>
+    </main>
+
+    <nav class="tabbar">
+      <a class="tabbar__item is-active"><span class="tabbar__icon"><svg class="ic"><use href="#i-home"/></svg></span>Home</a>
+      <a class="tabbar__item"><span class="tabbar__icon"><svg class="ic"><use href="#i-jobs"/></svg></span>Jobs</a>
+      <div class="tabbar__center"><button class="tabbar__fab tabbar__fab--dark"><svg class="ic ic-lg"><use href="#i-plus"/></svg></button></div>
+      <a class="tabbar__item"><span class="tabbar__icon"><svg class="ic"><use href="#i-users"/></svg></span>Talent</a>
+      <a class="tabbar__item"><span class="tabbar__icon"><svg class="ic"><use href="#i-message"/></svg></span>Messages</a>
+    </nav>
+    <div class="home-indicator"></div>
+  </div>
+</div>
+
+<div class="note">
+  <h3>80 · Plans (employer)</h3>
+  <p>The employer subscription chooser. A Monthly/Yearly segmented control reframes price (Yearly is pre-selected to surface the 20% saving), and three stacked plan cards make Professional the obvious path: it carries the <code>card--highlight</code> wash and a yellow "Popular" tag, while the user's free Starter plan is clearly marked "Current plan" with a disabled CTA so the only live primary action is "Upgrade to Professional". Because in-app purchase rules don't fit a B2B SaaS subscription, mobile cannot transact directly — a <code>banner--info</code> tells the user that secure checkout opens in the browser, and the upgrade button hands off to a Stripe-hosted page.</p>
+  <p class="dep"><strong>Flows:</strong> <code>SUB-01</code> <code>SUB-04</code> <code>SUB-02</code> · <strong>Depends on:</strong> card / card--highlight, segmented--block, tag--yellow, banner--info, btn--primary · <strong>Mode:</strong> employer</p>
+</div>
+</body>
+</html>

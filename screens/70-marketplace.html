@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IronLink · 70 — Marketplace</title>
+<link rel="stylesheet" href="../styles/ironlink.css">
+<style>
+  .ic{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+  .ic-sm{width:18px;height:18px}.ic-lg{width:26px;height:26px}.ic-xl{width:30px;height:30px}
+  body{display:flex;flex-direction:column;align-items:center;gap:20px;padding:40px 16px;background:var(--bg)}
+  .note{max-width:390px;width:390px;color:var(--text-2);font-size:13px;line-height:1.55}
+  .note h3{color:var(--text-1);font-size:15px;margin:0 0 6px}
+  .note .dep{font-size:11.5px;color:var(--text-3);margin-top:8px}
+  .note code{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:1px 5px;font-size:11px}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.5 12 4l9 6.5"/><path d="M5 9.5V20h14V9.5"/><path d="M9.5 20v-5h5v5"/></symbol>
+  <symbol id="i-network" viewBox="0 0 24 24"><circle cx="6" cy="7" r="2.5"/><circle cx="18" cy="7" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M7.8 8.6 10.4 16M16.2 8.6 13.6 16M8.4 7h7.2"/></symbol>
+  <symbol id="i-trends" viewBox="0 0 24 24"><path d="M3 17l5-5 4 3 6-7"/><path d="M15 8h5v5"/></symbol>
+  <symbol id="i-jobs" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5.5A1.5 1.5 0 0 1 9.5 4h5A1.5 1.5 0 0 1 16 5.5V7"/><path d="M3 12h18"/></symbol>
+  <symbol id="i-message" viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 3.5V5z"/><path d="M8 9.5h8M8 12.5h5"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-3.5-3.5"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6z"/><path d="M10 20a2 2 0 0 0 4 0"/></symbol>
+  <symbol id="i-filter" viewBox="0 0 24 24"><path d="M4 6h16M7 12h10M10 18h4"/></symbol>
+  <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
+  <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+  <symbol id="i-truck" viewBox="0 0 24 24"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 3 5 13h6l-1 8 8-10h-6l1-8z"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+</svg>
+
+<div class="phone">
+  <div class="phone__island"></div>
+  <div class="screen">
+    <div class="statusbar">
+      <span>9:41</span>
+      <span class="statusbar__icons">
+        <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="6" width="3" height="5" rx="1"/><rect x="4.5" y="3.5" width="3" height="7.5" rx="1"/><rect x="9" y="1.5" width="3" height="9.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg>
+        <svg width="16" height="11" viewBox="0 0 16 11" fill="currentColor"><path d="M8 2.2c2 0 3.8.8 5.2 2.1l1.2-1.3A9 9 0 0 0 8 .3 9 9 0 0 0 1.6 3l1.2 1.3A7.4 7.4 0 0 1 8 2.2z" opacity=".9"/><path d="M8 5.6c1.1 0 2.1.45 2.8 1.2l1.2-1.3A6 6 0 0 0 8 3.8a6 6 0 0 0-4 1.7l1.2 1.3A4 4 0 0 1 8 5.6z"/><circle cx="8" cy="9" r="1.6"/></svg>
+        <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x="1" y="1" width="20" height="10" rx="3" stroke="currentColor" opacity=".4"/><rect x="2.5" y="2.5" width="15" height="7" rx="1.5" fill="currentColor"/><rect x="22.5" y="4" width="1.6" height="4" rx=".8" fill="currentColor" opacity=".5"/></svg>
+      </span>
+    </div>
+
+    <header class="appbar">
+      <div class="appbar__title"><h1 class="t-h1">Marketplace</h1></div>
+      <button class="iconbtn iconbtn--ghost"><svg class="ic"><use href="#i-filter"/></svg></button>
+    </header>
+
+    <main class="screen__body">
+      <!-- search -->
+      <div class="pad" style="margin-bottom:var(--s3)">
+        <div class="searchbar">
+          <svg class="ic ic-sm"><use href="#i-search"/></svg>
+          <input placeholder="Search equipment, tools, trailers…">
+        </div>
+      </div>
+
+      <!-- category chips -->
+      <div class="chiprow">
+        <span class="chip chip--active">All</span>
+        <span class="chip">Excavators</span>
+        <span class="chip">Trucks</span>
+        <span class="chip">Trailers</span>
+        <span class="chip">Attachments</span>
+        <span class="chip">Tools</span>
+      </div>
+
+      <div class="pad">
+        <div class="row row--between" style="margin:4px 0 var(--s3)">
+          <span class="row gap2 t-sm-m muted"><svg class="ic ic-sm"><use href="#i-pin"/></svg> Within 50 mi · Montgomery <svg class="ic ic-sm faint"><use href="#i-chevron-down"/></svg></span>
+          <span class="t-xs faint">214 listings</span>
+        </div>
+
+        <!-- 2-col listing grid -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--s3)">
+
+          <!-- card -->
+          <div class="card card--flush">
+            <div style="aspect-ratio:4/3;background:var(--surface-2);display:grid;place-items:center;position:relative">
+              <svg class="ic ic-xl" style="color:var(--border-strong);width:40px;height:40px"><use href="#i-truck"/></svg>
+              <span class="tag tag--pos tag--dot" style="position:absolute;top:8px;left:8px">Used · Good</span>
+            </div>
+            <div style="padding:var(--s3)">
+              <div class="t-metric-sm" style="font-size:22px">$28,500</div>
+              <p class="t-sm-m" style="margin:6px 0 4px;line-height:1.3">2018 Bobcat S650 Skid Steer</p>
+              <span class="row gap1 t-xs faint"><svg class="ic ic-sm" style="width:14px;height:14px"><use href="#i-pin"/></svg> Prattville · 12 mi</span>
+            </div>
+          </div>
+
+          <!-- card -->
+          <div class="card card--flush">
+            <div style="aspect-ratio:4/3;background:var(--surface-2);display:grid;place-items:center;position:relative">
+              <svg class="ic ic-xl" style="color:var(--border-strong);width:40px;height:40px"><use href="#i-truck"/></svg>
+              <span class="tag tag--info tag--dot" style="position:absolute;top:8px;left:8px">Used · Fair</span>
+            </div>
+            <div style="padding:var(--s3)">
+              <div class="t-metric-sm" style="font-size:22px">$14,900</div>
+              <p class="t-sm-m" style="margin:6px 0 4px;line-height:1.3">2014 Ford F-250 Work Truck</p>
+              <span class="row gap1 t-xs faint"><svg class="ic ic-sm" style="width:14px;height:14px"><use href="#i-pin"/></svg> Montgomery · 4 mi</span>
+            </div>
+          </div>
+
+          <!-- card -->
+          <div class="card card--flush">
+            <div style="aspect-ratio:4/3;background:var(--surface-2);display:grid;place-items:center;position:relative">
+              <svg class="ic ic-xl" style="color:var(--border-strong);width:40px;height:40px"><use href="#i-truck"/></svg>
+              <span class="tag tag--yellow tag--dot" style="position:absolute;top:8px;left:8px">Like New</span>
+            </div>
+            <div style="padding:var(--s3)">
+              <div class="t-metric-sm" style="font-size:22px">$6,750</div>
+              <p class="t-sm-m" style="margin:6px 0 4px;line-height:1.3">20ft Dual-Axle Equipment Trailer</p>
+              <span class="row gap1 t-xs faint"><svg class="ic ic-sm" style="width:14px;height:14px"><use href="#i-pin"/></svg> Wetumpka · 18 mi</span>
+            </div>
+          </div>
+
+          <!-- card -->
+          <div class="card card--flush">
+            <div style="aspect-ratio:4/3;background:var(--surface-2);display:grid;place-items:center;position:relative">
+              <svg class="ic ic-xl" style="color:var(--border-strong);width:40px;height:40px"><use href="#i-truck"/></svg>
+              <span class="tag tag--pos tag--dot" style="position:absolute;top:8px;left:8px">Used · Good</span>
+            </div>
+            <div style="padding:var(--s3)">
+              <div class="t-metric-sm" style="font-size:22px">$2,200</div>
+              <p class="t-sm-m" style="margin:6px 0 4px;line-height:1.3">Miller Bobcat 250 Welder/Gen</p>
+              <span class="row gap1 t-xs faint"><svg class="ic ic-sm" style="width:14px;height:14px"><use href="#i-pin"/></svg> Millbrook · 15 mi</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- subscription hint: list your gear (gated) -->
+        <div class="card card--highlight" style="margin-top:var(--s4)">
+          <div class="row gap4" style="align-items:flex-start">
+            <span class="iconbtn iconbtn--dark" style="flex:0 0 auto"><svg class="ic"><use href="#i-bolt"/></svg></span>
+            <div class="grow">
+              <p class="t-h3" style="margin:0 0 2px">Selling gear?</p>
+              <p class="t-sm muted" style="margin:0">List equipment, trucks &amp; tools to local trades crews near you.</p>
+            </div>
+          </div>
+          <button class="btn btn--dark btn--block" style="margin-top:var(--s4)"><svg class="ic ic-sm"><use href="#i-lock"/></svg> List an item · Pro plan</button>
+        </div>
+      </div>
+    </main>
+
+    <nav class="tabbar">
+      <a class="tabbar__item"><span class="tabbar__icon"><svg class="ic"><use href="#i-network"/></svg></span>Network</a>
+      <a class="tabbar__item"><span class="tabbar__icon"><svg class="ic"><use href="#i-trends"/></svg></span>Trends</a>
+      <div class="tabbar__center"><button class="tabbar__fab"><svg class="ic ic-lg"><use href="#i-plus"/></svg></button></div>
+      <a class="tabbar__item"><span class="tabbar__icon"><svg class="ic"><use href="#i-jobs"/></svg></span>Jobs</a>
+      <a class="tabbar__item"><span class="tabbar__icon"><svg class="ic"><use href="#i-message"/></svg></span>Messages</a>
+    </nav>
+    <div class="home-indicator"></div>
+  </div>
+</div>
+
+<div class="note">
+  <h3>70 · Marketplace (both)</h3>
+  <p>A local equipment &amp; tools marketplace for trades crews — searchable, category-filtered, and distance-ranked around Montgomery. The 2-column card grid leads with big tabular prices and a plain-language condition tag so lower-literacy users scan fast. Listing for sale is a monetization lever: the "Selling gear?" card is subscription-gated (lock icon, "Pro plan") and routes to the create flow. Uses the worker tab bar with no tab marked active since Marketplace is a secondary entry point, not a primary tab destination.</p>
+  <p class="dep"><strong>Flows:</strong> <code>MKT-01</code> · <strong>Depends on:</strong> searchbar, chiprow, card--flush grid, tag, card--highlight, subscription gate · <strong>Mode:</strong> both (worker tab bar)</p>
+</div>
+</body>
+</html>

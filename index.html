@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IronLink · Mobile UI/UX Design</title>
+<link rel="stylesheet" href="styles/ironlink.css">
+<style>
+  body{background:var(--bg)}
+  .wrap{max-width:1280px;margin:0 auto;padding:56px clamp(16px,4vw,56px) 120px}
+  .masthead{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;border-bottom:2px solid var(--ink);padding-bottom:28px;margin-bottom:8px}
+  .logo-lg{font-family:var(--font-display);font-weight:800;font-size:36px;letter-spacing:.1em}
+  .logo-lg .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--yellow);margin:0 6px;vertical-align:middle}
+  .lede{max-width:680px;color:var(--text-2);font-size:16px;line-height:1.6;margin:28px 0 8px}
+  .meta{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 0}
+  .pill{display:inline-flex;align-items:center;gap:7px;padding:7px 14px;border-radius:var(--r-pill);background:var(--surface);border:1px solid var(--border);font-size:13px;font-weight:600;color:var(--text-2)}
+  .pill b{color:var(--text-1)}
+  .pill--y{background:var(--yellow);border-color:var(--yellow);color:var(--ink)}
+  .pill--d{background:var(--ink);border-color:var(--ink);color:#fff}
+
+  .sec{margin-top:56px}
+  .sec__head{display:flex;align-items:baseline;gap:14px;margin-bottom:6px}
+  .sec__num{font-family:var(--font-display);font-weight:800;font-size:14px;color:var(--yellow-600);letter-spacing:.04em}
+  .sec__title{font-family:var(--font-display);font-weight:800;font-size:22px;letter-spacing:-.01em}
+  .sec__desc{color:var(--text-2);font-size:14px;max-width:760px;margin:0 0 22px}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:28px}
+  .card-link{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh-sm);transition:transform .12s,box-shadow .12s;color:inherit}
+  .card-link:hover{transform:translateY(-3px);box-shadow:var(--sh-md);border-color:var(--border-strong)}
+  .thumb{position:relative;height:300px;background:var(--surface-2);border-bottom:1px solid var(--border);overflow:hidden}
+  .thumb iframe{width:412px;height:880px;border:0;transform:scale(.485);transform-origin:top left;pointer-events:none}
+  .thumb .tag{position:absolute;top:12px;right:12px;z-index:2;box-shadow:var(--sh-sm)}
+  .card-link__body{padding:16px 18px 18px}
+  .card-link__id{font-family:var(--font-display);font-weight:800;font-size:12px;color:var(--text-3);letter-spacing:.05em}
+  .card-link__title{font-weight:700;font-size:16px;margin:3px 0 6px}
+  .card-link__desc{color:var(--text-2);font-size:13px;line-height:1.5}
+  .card-link__flows{margin-top:10px;display:flex;gap:6px;flex-wrap:wrap}
+  .fcode{font-size:10.5px;font-weight:700;color:var(--text-3);background:var(--surface-2);border:1px solid var(--border);border-radius:5px;padding:2px 6px}
+  .feat{background:linear-gradient(180deg,var(--ink),#0E1626);border-radius:var(--r-xl);padding:32px;color:#fff;display:flex;gap:32px;align-items:center;flex-wrap:wrap;margin-top:24px}
+  .feat__txt{flex:1;min-width:260px}
+  .feat h2{font-family:var(--font-display);font-size:24px;margin:0 0 10px}
+  .feat p{color:#9FB0D0;font-size:14px;line-height:1.6;margin:0 0 18px;max-width:520px}
+  footer{margin-top:80px;padding-top:28px;border-top:1px solid var(--border);color:var(--text-3);font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="masthead">
+    <div>
+      <span class="logo-lg">IRON<span class="dot"></span>LINK</span>
+      <div style="font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);margin-top:8px">Mobile UI / UX — concept mockups</div>
+    </div>
+    <div class="meta">
+      <span class="pill pill--y">28 screens</span>
+      <span class="pill pill--d">iOS / Android</span>
+      <span class="pill">Worker <b>&amp;</b> Employer modes</span>
+      <span class="pill">EN / ES</span>
+    </div>
+  </div>
+
+  <p class="lede">A complete mobile design language for IronLink — a job, pay-transparency, and community platform for US skilled trades. Built straight from <code>doc/flows/user-flows-detailed.md</code> on a single shared design system: <b>safety yellow</b> for action, <b>navy ink</b> for trust, structured layouts and confident metrics. Every screen below is real HTML rendering live in a phone frame, with a notes panel explaining the UX intent, the flows it serves, and how negative/offline states are handled.</p>
+
+  <div class="meta">
+    <a class="pill pill--y" href="flows.html">▸ User flows walkthrough</a>
+    <a class="pill" href="screens/00-design-system.html">▸ Design system &amp; components</a>
+    <span class="pill">Font: Archivo</span>
+    <span class="pill">Yellow <b>#FFD53F</b></span>
+    <span class="pill">Ink <b>#162138</b></span>
+  </div>
+
+  <!-- FEATURE: design system -->
+  <div class="feat">
+    <div class="feat__txt">
+      <h2>One language, every screen</h2>
+      <p>Colors, type scale, buttons, chips, pay-range bars, cards, the role-adaptive tab bar and a shared icon set live in a single stylesheet. Open the system reference to see the full kit — or follow the screens through real user journeys.</p>
+      <div class="meta" style="margin-top:0">
+        <a class="btn btn--primary" href="flows.html">View user flows →</a>
+        <a class="btn btn--outline" href="screens/00-design-system.html">Design system</a>
+      </div>
+    </div>
+    <div style="flex:0 0 300px">
+      <div class="thumb" style="height:280px;border-radius:var(--r-lg);border:1px solid #2A3A5C">
+        <iframe src="screens/30-pay-trends.html" scrolling="no" loading="lazy"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SECTIONS ===== -->
+  <section class="sec" id="onboarding">
+    <div class="sec__head"><span class="sec__num">01</span><h2 class="sec__title">Onboarding &amp; Auth</h2></div>
+    <p class="sec__desc">First launch → role → phone OTP (with iOS SMS autofill) → worker profile build, including the literacy-friendly voice capture. Guest/onboarding screens are fullscreen with no tab bar.</p>
+    <div class="grid" data-cards>
+      <!-- injected -->
+    </div>
+  </section>
+
+  <section class="sec" id="profile">
+    <div class="sec__head"><span class="sec__num">02</span><h2 class="sec__title">Profile &amp; Pay</h2></div>
+    <p class="sec__desc">The worker's identity and their reason to return: a credentialed profile, completeness nudges that gate Pay Insights, and the market rate-vs-you transparency screen.</p>
+    <div class="grid" data-cards></div>
+  </section>
+
+  <section class="sec" id="jobs">
+    <div class="sec__head"><span class="sec__num">03</span><h2 class="sec__title">Jobs — Worker &amp; Employer</h2></div>
+    <p class="sec__desc">The two-sided hiring loop: discover &amp; match, AI-drafted apply, application tracking — and on the employer side, posting with an AI wage-realism check and a ranked applicant pipeline.</p>
+    <div class="grid" data-cards></div>
+  </section>
+
+  <section class="sec" id="messaging">
+    <div class="sec__head"><span class="sec__num">04</span><h2 class="sec__title">Messaging &amp; Feed</h2></div>
+    <p class="sec__desc">Three-inbox messaging with inline EN/ES translation and offline send queue, plus the community feed with injected job offers and a no-mode-switch author selector.</p>
+    <div class="grid" data-cards></div>
+  </section>
+
+  <section class="sec" id="marketplace">
+    <div class="sec__head"><span class="sec__num">05</span><h2 class="sec__title">Marketplace</h2></div>
+    <p class="sec__desc">Peer-to-peer heavy-equipment listings — browse grid and a listing detail with seller contact, mobile call/text quick actions, and a safety note.</p>
+    <div class="grid" data-cards></div>
+  </section>
+
+  <section class="sec" id="billing">
+    <div class="sec__head"><span class="sec__num">06</span><h2 class="sec__title">Plans &amp; Paywalls</h2></div>
+    <p class="sec__desc">Employer subscription plans (mobile checkout routes to web Stripe) and a contextual feature paywall presented as a bottom sheet.</p>
+    <div class="grid" data-cards></div>
+  </section>
+
+  <section class="sec" id="system">
+    <div class="sec__head"><span class="sec__num">07</span><h2 class="sec__title">Notifications, Settings &amp; Account</h2></div>
+    <p class="sec__desc">The notification center, account settings with the role-switch keystone, detailed account/linked-logins/sessions, push-permission priming, and the offline/empty/queued-state reference.</p>
+    <div class="grid" data-cards></div>
+  </section>
+
+  <section class="sec" id="interaction">
+    <div class="sec__head"><span class="sec__num">08</span><h2 class="sec__title">Navigation, Motion &amp; Interaction</h2></div>
+    <p class="sec__desc">How the app moves and what the controls do — the context-aware <b>“+” create menu</b>, the worker⇄employer <b>mode switcher</b>, pull-to-refresh and skeleton loading, and reference boards for every <b>confirmation dialog</b> and <b>negative/edge state</b> (missing photo, failed upload, validation, expired OTP, payment decline, offline). See <code>_spec/</code> for the written motion, offline, dialog and IA specs.</p>
+    <div class="grid" data-cards></div>
+  </section>
+
+  <footer>
+    IronLink (codename ReffyJob) · mobile design concept · derived from module specs M1–M14 and the detailed user-flows doc. Static HTML mockups — open any card to view full screen + UX notes.
+  </footer>
+</div>
+
+<script>
+  const SCREENS = {
+    onboarding: [
+      ['10-welcome','10','Welcome / Guest landing','First impression: the value prop and a single clear path to register.','AUTH-01'],
+      ['11-role-select','11','Choose your path','Worker vs employer; mobile defaults to worker, employer authoring is web-primary.','AUTH-02'],
+      ['12-phone-entry','12','Phone number','Phone-first signup with social login fallback for trades users.','AUTH-03 · AUTH-06'],
+      ['13-otp-verify','13','Verify code','OTP entry with iOS SMS autofill banner and resend countdown.','AUTH-04'],
+      ['14-onboard-trades','14','Pick your trades','Trade + experience level from the taxonomy, smart-defaulted.','PROF-02'],
+      ['15-voice-capture','15','Add experience by voice','The literacy-friendly hero: speak → AI parses → confirm. Never auto-saves.','PROF-05 · AUTH-09'],
+      ['16-org-create','16','Create your company','Employer org setup with role (owner/HR/recruiter).','AUTH-10 · AUTH-11'],
+    ],
+    profile: [
+      ['20-profile-view','20','Worker profile','Credentialed identity employers see — verified badge, certs, share.','PROF-09'],
+      ['21-profile-complete','21','Complete your profile','Completeness checklist that gates Pay Insights at 80%.','PROF-08 · PAY-01'],
+      ['22-profile-edit','22','Edit profile','Sectioned editor — identity, trades, experience, certs, photo.','PROF-07'],
+      ['23-availability','23','Availability &amp; preferences','Open-to-work, days/shifts, search radius, work vehicle.','PROF'],
+      ['24-background-check','24','Background check','Optional BGC submission with in-review status + consent.','PROF'],
+      ['30-pay-trends','30','Pay Trends &amp; Insights','Rate vs market, trend, and an AI cert-unlock nudge → higher pay.','PAY-03 · PAY-08'],
+      ['31-pay-locked','31','Pay Insights locked','Completeness gate — finish the exact missing fields to unlock.','PAY-01'],
+    ],
+    jobs: [
+      ['40-job-feed','40','Jobs','Ranked, matched job feed with trade filters and pay-vs-market tags.','JOB-01 · JOB-02'],
+      ['40a-job-filters','40a','Job filters','Filter sheet — trade, distance, pay, level, type, urgent.','JOB-02'],
+      ['40b-saved-jobs','40b','Saved jobs','Bookmarked jobs incl. a stale "filled" one + empty state.','JOB-06'],
+      ['41-job-detail','41','Job detail','Full listing with key facts and a pinned Save / Apply bar.','JOB-05'],
+      ['42-apply-ai-draft','42','Apply (AI draft)','Editable AI cover message; template fallback offline.','JOB-07 · JOB-08'],
+      ['43-my-applications','43','My applications','Status pipeline; rejected → "see similar jobs" shortcut.','JOB-10 · JOB-11'],
+      ['35-search','35','Search','Global search — jobs, people, companies, equipment + recents.','Search'],
+      ['44-post-job','44','Post a job','Employer create with inline AI wage-realism check.','JOB-12 · JOB-18'],
+      ['44a-job-listings','44a','Job listings','Employer manage — active / draft / paused / filled.','JOB-13'],
+      ['44b-job-edit','44b','Edit listing','Pre-filled edit with pause / close-as-filled controls.','JOB-13'],
+      ['45-applicants','45','Applicants','Match-ranked candidates with message &amp; shortlist actions.','JOB-14'],
+      ['46-applicant-detail','46','Applicant detail','Profile, append-only notes, interaction history, hire/reject.','JOB-14'],
+      ['47-talent-pool','47','Talent pool','Pipeline / saved / contacted / hired + candidate search.','JOB-15'],
+    ],
+    messaging: [
+      ['50-messages-hub','50','Messages','Three inboxes — Direct / Applications / Marketplace.','MSG-01'],
+      ['51-chat-thread','51','Conversation','Job-context thread, inline ES→EN translation, offline.','MSG-02 · MSG-09'],
+      ['60-feed','60','Home / Feed','Community feed with injected job offers and apply-in-place.','FEED-01 · FEED-03'],
+      ['61-create-post','61','New post','Post as self or org without switching mode.','FEED-08'],
+    ],
+    marketplace: [
+      ['70-marketplace','70','Marketplace','Equipment grid; selling is subscription-gated.','MKT-01'],
+      ['71-listing-detail','71','Listing','Seller card, call/text quick actions, safety note.','MKT-02 · MKT-03'],
+      ['72-create-listing','72','List equipment','Create a listing — photos, category, condition, price; offline-aware.','MKT · checkout'],
+      ['72a-my-listings','72a','My listings','Manage own listings — active/sold/paused/draft, mark sold.','MKT'],
+      ['71a-listing-comments','71a','Listing Q&amp;A','Public question thread with seller replies.','MKT'],
+      ['48-org-profile','48','Company profile','Public org page workers see — ratings, open jobs, reviews.','Org'],
+    ],
+    billing: [
+      ['80-plans','80','Plans','Employer tiers; mobile checkout opens web Stripe.','SUB-01 · SUB-04'],
+      ['81-paywall','81','Feature locked','Contextual Pro paywall as a bottom sheet.','SUB-09 · SUB-06'],
+      ['82-billing-history','82','Billing &amp; invoices','Plan summary + downloadable invoice history.','SUB-04'],
+      ['83-payment-method','83','Payment method','Manage card; Stripe-secured add-card form.','SUB-06'],
+      ['49-org-settings','49','Company settings &amp; team','Org details + team roles, invite code, admin controls.','Org'],
+    ],
+    system: [
+      ['90-notifications','90','Notifications','Grouped, intent-coded, deep-linking notification center.','SET-01 · JOB-04'],
+      ['91-settings','91','Settings','Mode switcher keystone + language, privacy, delete.','SET-08 · AUTH-19'],
+      ['91a-account','91a','Account &amp; profile','Personal info, linked logins, language, sessions, delete.','SET · AUTH'],
+      ['92-offline-states','92','Offline &amp; system states','Offline banner, cached jobs, queued action, empty state.','SYS-01 · SYS-02'],
+      ['93-push-priming','93','Turn on alerts','Earned-moment push priming after first application.','SET-02'],
+    ],
+    interaction: [
+      ['95-create-menu','95','The “+” create menu','What the center + does — context-aware create per mode.','Create'],
+      ['94-mode-switcher','94','Switch mode','Worker ⇄ Employer mode switch — the role-adaptive keystone.','AUTH-19 · SET-08'],
+      ['96-pull-refresh','96','Pull to refresh','Feed refresh gesture — pull → spin → content slide-in.','FEED-01'],
+      ['97-skeleton','97','Loading (skeleton)','Shimmer placeholders before data; respects reduced-motion.','Loading'],
+      ['98-dialogs','98','Dialogs &amp; confirmations','Reference board — every confirm / destructive / action sheet.','All'],
+      ['99-negative-states','99','Negative &amp; edge states','Reference board — missing photo, failed upload, validation, offline, etc.','All'],
+    ],
+  };
+  for (const [sec, list] of Object.entries(SCREENS)) {
+    const grid = document.querySelector(`#${sec} [data-cards]`);
+    grid.innerHTML = list.map(([file,id,title,desc,flows]) => `
+      <a class="card-link" href="screens/${file}.html">
+        <div class="thumb"><iframe src="screens/${file}.html" scrolling="no" loading="lazy"></iframe></div>
+        <div class="card-link__body">
+          <div class="card-link__id">${id}</div>
+          <div class="card-link__title">${title}</div>
+          <div class="card-link__desc">${desc}</div>
+          <div class="card-link__flows">${flows.split(' · ').map(f=>`<span class="fcode">${f}</span>`).join('')}</div>
+        </div>
+      </a>`).join('');
+  }
+</script>
+</body>
+</html>

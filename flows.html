@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IronLink · User Flows</title>
+<link rel="stylesheet" href="styles/ironlink.css">
+<style>
+  body{background:var(--bg)}
+  .wrap{max-width:1340px;margin:0 auto;padding:48px clamp(16px,4vw,48px) 120px}
+
+  /* masthead */
+  .masthead{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;border-bottom:2px solid var(--ink);padding-bottom:24px}
+  .logo-lg{font-family:var(--font-display);font-weight:800;font-size:30px;letter-spacing:.1em}
+  .logo-lg .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--yellow);margin:0 6px;vertical-align:middle}
+  .lede{max-width:720px;color:var(--text-2);font-size:15px;line-height:1.6;margin:22px 0 0}
+  .backlink{font-size:13px;font-weight:700;color:var(--info)}
+
+  /* sticky flow nav */
+  .flownav{position:sticky;top:0;z-index:30;background:rgba(244,246,251,.92);backdrop-filter:blur(10px);margin:0 -16px;padding:14px 16px;border-bottom:1px solid var(--border);display:flex;gap:8px;flex-wrap:wrap}
+  .flownav a{font-size:12.5px;font-weight:700;color:var(--text-2);background:var(--surface);border:1px solid var(--border);border-radius:var(--r-pill);padding:7px 13px}
+  .flownav a:hover{border-color:var(--ink);color:var(--ink)}
+
+  /* flow section */
+  .flow{margin-top:52px;scroll-margin-top:72px}
+  .flow__head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:4px}
+  .flow__num{font-family:var(--font-display);font-weight:800;font-size:13px;color:var(--yellow-600)}
+  .flow__title{font-family:var(--font-display);font-weight:800;font-size:21px;letter-spacing:-.01em}
+  .flow__blurb{color:var(--text-2);font-size:14px;max-width:880px;margin:6px 0 0;line-height:1.55}
+  .mbadge{font-size:11px;font-weight:800;letter-spacing:.03em;text-transform:uppercase;padding:4px 9px;border-radius:var(--r-sm)}
+  .mbadge--worker{background:var(--yellow);color:var(--ink)}
+  .mbadge--employer{background:var(--ink);color:#fff}
+  .mbadge--both{background:var(--surface);color:var(--text-1);border:1px solid var(--border-strong)}
+  .mbadge--guest{background:var(--surface-2);color:var(--text-2)}
+  .mbadge--system{background:var(--info-tint);color:var(--info)}
+  .flow__count{margin-left:auto;font-size:12px;font-weight:600;color:var(--text-3)}
+
+  /* filmstrip */
+  .fs{display:flex;align-items:flex-start;overflow-x:auto;padding:24px 4px 14px;gap:0}
+  .fs::-webkit-scrollbar{height:8px}
+  .fs::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:var(--r-pill)}
+
+  .step{flex:0 0 auto;width:190px}
+  .thumb{width:190px;height:402px;border-radius:18px;overflow:hidden;position:relative;background:var(--bg)}
+  .thumb iframe{width:412px;height:900px;border:0;transform:scale(.461);transform-origin:top left;pointer-events:none}
+  .thumb__hit{position:absolute;inset:0;z-index:2} /* makes whole thumb a link */
+  .step__cap{padding:12px 6px 0}
+  .step__id{font-family:var(--font-display);font-weight:800;font-size:11px;color:var(--text-3);letter-spacing:.04em}
+  .step__name{font-weight:700;font-size:13.5px;margin:2px 0 4px;line-height:1.25}
+  .step__intent{color:var(--text-2);font-size:12.5px;line-height:1.5}
+
+  /* board tile (for reference boards 98/99, not phone screens) */
+  .step--board .thumb{height:402px;display:grid;place-items:center;border:1.5px dashed var(--border-strong);background:var(--surface)}
+  .board-tile{text-align:center;padding:18px;color:var(--text-2)}
+  .board-tile .bt-ic{width:54px;height:54px;border-radius:var(--r-md);background:var(--surface-2);display:grid;place-items:center;margin:0 auto 12px;color:var(--text-1)}
+  .board-tile b{display:block;color:var(--text-1);font-size:14px;margin-bottom:4px}
+  .board-tile small{font-size:11.5px;color:var(--text-3)}
+
+  /* arrow connector */
+  .arrow{flex:0 0 auto;width:74px;height:402px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:0 4px}
+  .arrow__lbl{font-size:10.5px;font-weight:700;color:var(--text-1);text-align:center;line-height:1.3;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);padding:4px 7px}
+  .arrow__line{display:flex;align-items:center;color:var(--yellow-600)}
+  .arrow__line svg{width:54px;height:18px}
+
+  /* loop / return arrow note */
+  .flow__loop{display:flex;align-items:center;gap:8px;margin-top:6px;color:var(--text-3);font-size:12px;font-weight:600}
+  .ic{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+
+  footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--border);color:var(--text-3);font-size:13px}
+  @media (max-width:640px){ .flow__count{display:none} }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-dialog" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="13" rx="2"/><path d="M8 21l4-3 4 3"/><path d="M8 10h8M8 13h5"/></symbol>
+  <symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 4 2 20h20L12 4z"/><path d="M12 10v5M12 17.5v.5"/></symbol>
+  <symbol id="i-loop" viewBox="0 0 24 24"><path d="M4 9a8 8 0 0 1 14-3l2 2M20 15a8 8 0 0 1-14 3l-2-2"/><path d="M18 4v4h-4M6 20v-4h4"/></symbol>
+</svg>
+
+<div class="wrap">
+
+  <div class="masthead">
+    <div>
+      <a class="backlink" href="index.html">← Back to screen gallery</a>
+      <div style="margin-top:12px"><span class="logo-lg">IRON<span class="dot"></span>LINK</span></div>
+      <div style="font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);margin-top:8px">User flows — screens in sequence</div>
+    </div>
+  </div>
+
+  <p class="lede">The same mobile screens from the gallery, arranged into the real journeys users take. Each strip reads left → right; the label on every arrow is the action that moves the user forward, and the caption under each screen says <b>what the user intends</b> and <b>what they see</b>. Tap any screen to open it full-size.</p>
+
+  <nav class="flownav" id="flownav"></nav>
+
+  <div id="flows"></div>
+
+  <footer>
+    IronLink (codename ReffyJob) · flow walkthrough built from the 53 screen mockups. Derived from <code>doc/flows/user-flows-detailed.md</code>. Screens are live HTML thumbnails — open any to read its own UX notes.
+  </footer>
+</div>
+
+<script>
+/* Each flow: steps read left→right. `to` = the action label on the arrow to the NEXT step.
+   `board:true` renders a dashed reference tile instead of a phone thumbnail. */
+const FLOWS = [
+  {
+    id:'f1', title:'Worker — from install to active profile', mode:'guest', mtag:'Worker onboarding',
+    blurb:'The golden path that turns a first-time installer into a credentialed worker who can be matched to jobs. Phone-first auth and voice-driven history keep it usable for a lower-literacy, on-the-go trades audience.',
+    steps:[
+      {s:'10-welcome', n:'Welcome', i:'First open. User weighs whether this is for them — sees the value prop and one obvious next step.', to:'Start registration'},
+      {s:'11-role-select', n:'Choose your path', i:'Decides how they’ll use the app. On mobile this defaults to Worker.', to:'Continue as Worker'},
+      {s:'12-phone-entry', n:'Phone number', i:'Enters their number — SMS is the primary, lowest-friction sign-in for this audience.', to:'Send code'},
+      {s:'13-otp-verify', n:'Verify code', i:'Confirms the 6-digit code (auto-filled from the SMS) to prove the number is theirs.', to:'Verified'},
+      {s:'14-onboard-trades', n:'Pick trades', i:'Tells the app what they do — trade(s) and experience level — so matching can start.', to:'Continue'},
+      {s:'15-voice-capture', n:'Add by voice', i:'Speaks their work history instead of typing; AI structures it into clean entries.', to:'Saved → finish'},
+      {s:'21-profile-complete', n:'Complete profile', i:'Sees a checklist of what’s left; finishing is what unlocks pay insights and stronger matches.', to:'Done'},
+      {s:'60-feed', n:'Home / Feed', i:'Lands in the community feed — the worker’s daily home base.'},
+    ],
+    loop:'User can skip the wizard early and land on the feed with an “incomplete profile” nudge — they return to 21 anytime.'
+  },
+  {
+    id:'f2', title:'Worker — find and apply to a job', mode:'worker', mtag:'Worker',
+    blurb:'The core worker conversion loop. Discovery is match-ranked, the application message is AI-drafted to remove the writing barrier, and applying opens a direct line to the employer.',
+    steps:[
+      {s:'60-feed', n:'Home / Feed', i:'Scanning updates; a job offer card or the Jobs tab pulls them toward work.', to:'Open Jobs'},
+      {s:'40-job-feed', n:'Jobs', i:'Sees jobs ranked by fit and distance, each tagged with pay-vs-market.', to:'Refine'},
+      {s:'40a-job-filters', n:'Filters', i:'Narrows to what matters — trade, distance, pay floor, urgency.', to:'Show results'},
+      {s:'41-job-detail', n:'Job detail', i:'Reads the full role and judges the wage against the market.', to:'Apply'},
+      {s:'42-apply-ai-draft', n:'Apply — AI draft', i:'Reviews an AI-written cover message built from their profile; edits and sends.', to:'Sent'},
+      {s:'43-my-applications', n:'My applications', i:'Tracks where each application stands at a glance.', to:'Open thread'},
+      {s:'51-chat-thread', n:'Conversation', i:'Talks directly with the employer in the job-linked thread.'},
+    ],
+    loop:'A rejected application keeps its thread open and surfaces a “see similar jobs” shortcut back into 40.'
+  },
+  {
+    id:'f3', title:'Worker — know your worth (pay transparency)', mode:'worker', mtag:'Worker',
+    blurb:'IronLink’s retention hook: turn pay anxiety into action. The gate motivates profile completion, then the insight turns a below-market rate into a one-tap jump to better-paying jobs.',
+    steps:[
+      {s:'31-pay-locked', n:'Pay insights locked', i:'Wants to see their market rate, but it’s gated until the profile has enough data.', to:'Finish profile'},
+      {s:'21-profile-complete', n:'Complete profile', i:'Adds exactly the fields the gate called out.', to:'Unlocked'},
+      {s:'30-pay-trends', n:'Pay Trends', i:'Sees their rate vs market percentiles and an AI nudge: a cert that would raise their pay.', to:'Show $40+ jobs'},
+      {s:'40-job-feed', n:'Jobs', i:'Jumps straight to jobs paying above their current rate.'},
+    ]
+  },
+  {
+    id:'f4', title:'Employer — company setup to first hire', mode:'employer', mtag:'Employer',
+    blurb:'The two-sided other half. An employer stands up a company, posts a role (with an AI guardrail against under-paying), and works a ranked pipeline to a confirmed hire.',
+    steps:[
+      {s:'11-role-select', n:'Choose your path', i:'Picks Employer (after the same phone verification as workers).', to:'Continue as Employer'},
+      {s:'16-org-create', n:'Create company', i:'Sets up the organisation and their own role (owner / HR / recruiter).', to:'Create'},
+      {s:'44-post-job', n:'Post a job', i:'Defines the role; an inline AI check warns if the wage is below market.', to:'Publish'},
+      {s:'44a-job-listings', n:'Job listings', i:'Manages everything they’ve posted by status and applicant count.', to:'View applicants'},
+      {s:'45-applicants', n:'Applicants', i:'Reviews candidates ranked by match for that role.', to:'Open candidate'},
+      {s:'46-applicant-detail', n:'Applicant detail', i:'Digs into profile, certs, team notes and full history before deciding.', to:'Hire'},
+      {s:'98-dialogs', n:'Confirm hire', i:'Confirms the hire — a deliberate, reversible-feeling decision.', board:true, bt:'Hire confirmation', bsub:'from the dialog system', icon:'i-dialog', to:'Confirmed'},
+      {s:'51-chat-thread', n:'Conversation', i:'Coordinates start details with the new hire in their thread.'},
+    ],
+    loop:'Every applicant who applies also lands in the Talent Pool (47) for future roles, with notes attached.'
+  },
+  {
+    id:'f5', title:'Marketplace — sell your equipment', mode:'both', mtag:'Both modes',
+    blurb:'The peer-to-peer gear marketplace, reachable from either mode. Posting is created via the “+” menu, photos lead because condition sells, and the flow is offline-aware so a listing started on a job site is never lost.',
+    steps:[
+      {s:'70-marketplace', n:'Marketplace', i:'Browsing gear and decides to list something of their own.', to:'Tap +'},
+      {s:'95-create-menu', n:'The “+” menu', i:'The center button opens a context-aware create menu.', to:'List equipment'},
+      {s:'72-create-listing', n:'List equipment', i:'Adds photos, category, condition and price; drafts save locally if offline.', to:'Publish'},
+      {s:'72a-my-listings', n:'My listings', i:'Manages active listings and watches inquiries come in.', to:'Open inquiry'},
+      {s:'51-chat-thread', n:'Conversation', i:'Answers a buyer’s questions and arranges the sale, then marks it sold.'},
+    ],
+    loop:'Listing requires a subscription — an unsubscribed seller is routed to plans (Flow 7) before publish.'
+  },
+  {
+    id:'f6', title:'Marketplace — buy / inquire on gear', mode:'both', mtag:'Both modes',
+    blurb:'The buyer side. Public Q&A handles the common questions in the open; a private thread starts only when the buyer is serious.',
+    steps:[
+      {s:'70-marketplace', n:'Marketplace', i:'Searches equipment by category, price and condition.', to:'Open listing'},
+      {s:'71-listing-detail', n:'Listing', i:'Inspects photos, price and the seller, with a safety reminder.', to:'Ask a question'},
+      {s:'71a-listing-comments', n:'Listing Q&A', i:'Asks publicly; the seller’s answers help every other buyer too.', to:'Message seller'},
+      {s:'51-chat-thread', n:'Conversation', i:'Opens a private inquiry thread to negotiate.'},
+    ]
+  },
+  {
+    id:'f7', title:'Employer — hit a limit, then subscribe', mode:'employer', mtag:'Employer',
+    blurb:'Monetisation as a natural next step rather than a wall. The paywall appears in context, and mobile hands off to web Stripe for the actual payment.',
+    steps:[
+      {s:'81-paywall', n:'Feature locked', i:'Reaches for a Pro capability (e.g. talent pipeline) and meets a contextual paywall.', to:'Upgrade'},
+      {s:'80-plans', n:'Plans', i:'Compares tiers and what each unlocks.', to:'Choose plan'},
+      {s:'83-payment-method', n:'Payment method', i:'Adds a card through Stripe-secured fields.', to:'Saved'},
+      {s:'82-billing-history', n:'Billing & invoices', i:'Confirms the active plan and can pull invoices anytime.'},
+    ]
+  },
+  {
+    id:'f8', title:'Navigation — switching modes & the “+” button', mode:'both', mtag:'IA',
+    blurb:'How one account serves two jobs. Mode is a deliberate switch via the avatar (not the tab bar), and the center “+” is a context-aware create menu — never a single mystery action.',
+    steps:[
+      {s:'60-feed', n:'Home / Feed (worker)', i:'In worker mode. Taps their avatar to change context.', to:'Tap avatar'},
+      {s:'94-mode-switcher', n:'Switch mode', i:'Flips Worker ⇄ Employer; the whole tab bar re-shapes to the new mode.', to:'Employer'},
+      {s:'44a-job-listings', n:'Employer home', i:'Now managing jobs — same account, employer toolset.', to:'Meanwhile, the “+” …'},
+      {s:'95-create-menu', n:'The “+” menu', i:'Anywhere, the center + expands to the right create options for the current mode.'},
+    ]
+  },
+  {
+    id:'f9', title:'Resilience — loading, offline & errors', mode:'system', mtag:'System states',
+    blurb:'How the app behaves when things are slow, offline, or fail — designed for spotty 4G on job sites. Reading and drafting keep working; actions queue and sync; every failure has a clear recovery.',
+    steps:[
+      {s:'97-skeleton', n:'Loading', i:'Skeleton placeholders hold the layout so the screen never flashes blank.', to:'Loaded'},
+      {s:'96-pull-refresh', n:'Pull to refresh', i:'A pull-down fetches the latest; then the connection drops…', to:'Goes offline'},
+      {s:'92-offline-states', n:'Offline', i:'Cached data stays readable, a clear banner explains the limits, and writes queue to send later.', to:'Edge cases'},
+      {s:'99-negative-states', n:'Negative & edge states', i:'The catalogue of failures — missing photo, failed upload, validation, expired session, declined payment — each with a way out.', board:true, bt:'Negative-states board', bsub:'reference', icon:'i-warn'},
+    ],
+    loop:'Confirmations and destructive actions across all flows live on the Dialogs board (98).'
+  },
+];
+
+const flowsEl = document.getElementById('flows');
+const navEl = document.getElementById('flownav');
+
+const arrowSvg = `<span class="arrow__line"><svg viewBox="0 0 54 18"><path d="M2 9h46" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M44 3l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>`;
+
+FLOWS.forEach((f, idx) => {
+  navEl.insertAdjacentHTML('beforeend', `<a href="#${f.id}">${String(idx+1).padStart(2,'0')} · ${f.title.split(' — ')[0]}</a>`);
+
+  const steps = f.steps.map((st, j) => {
+    const thumb = st.board
+      ? `<a class="thumb" href="screens/${st.s}.html" target="_blank"><div class="board-tile"><div class="bt-ic"><svg class="ic"><use href="#${st.icon}"/></svg></div><b>${st.bt}</b><small>${st.bsub}</small></div></a>`
+      : `<div class="thumb"><iframe src="screens/${st.s}.html" scrolling="no" loading="lazy"></iframe><a class="thumb__hit" href="screens/${st.s}.html" target="_blank" aria-label="Open ${st.n}"></a></div>`;
+    const stepHtml = `<div class="step${st.board?' step--board':''}">
+        ${thumb}
+        <div class="step__cap">
+          <div class="step__id">${st.s.split('-')[0].toUpperCase()}</div>
+          <div class="step__name">${st.n}</div>
+          <p class="step__intent">${st.i}</p>
+        </div>
+      </div>`;
+    const arrow = st.to ? `<div class="arrow"><span class="arrow__lbl">${st.to}</span>${arrowSvg}</div>` : '';
+    return stepHtml + arrow;
+  }).join('');
+
+  const loop = f.loop ? `<div class="flow__loop"><svg class="ic" style="width:18px;height:18px"><use href="#i-loop"/></svg> ${f.loop}</div>` : '';
+
+  flowsEl.insertAdjacentHTML('beforeend', `
+    <section class="flow" id="${f.id}">
+      <div class="flow__head">
+        <span class="flow__num">${String(idx+1).padStart(2,'0')}</span>
+        <span class="flow__title">${f.title}</span>
+        <span class="mbadge mbadge--${f.mode}">${f.mtag}</span>
+        <span class="flow__count">${f.steps.length} steps</span>
+      </div>
+      <p class="flow__blurb">${f.blurb}</p>
+      <div class="fs">${steps}</div>
+      ${loop}
+    </section>`);
+});
+</script>
+</body>
+</html>
