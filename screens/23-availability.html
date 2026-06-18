@@ -88,6 +88,7 @@
     </div>
 
     <header class="appbar">
+      <button class="iconbtn iconbtn--ghost"><svg class="ic"><use href="#i-chevron-left"/></svg></button>
       <div class="appbar__title"><h1 class="t-h1">Availability</h1></div>
     </header>
 
@@ -173,7 +174,7 @@
 
     <!-- bottom tab bar (worker mode) -->
     <nav class="tabbar">
-      <a class="tabbar__item is-active"><span class="tabbar__icon"><svg class="ic"><use href="#i-network"/></svg></span>Network</a>
+      <a class="tabbar__item"><span class="tabbar__icon"><svg class="ic"><use href="#i-network"/></svg></span>Network</a>
       <a class="tabbar__item"><span class="tabbar__icon"><svg class="ic"><use href="#i-trends"/></svg></span>Trends</a>
       <div class="tabbar__center"><button class="tabbar__fab"><svg class="ic ic-lg"><use href="#i-plus"/></svg></button></div>
       <a class="tabbar__item"><span class="tabbar__icon"><svg class="ic"><use href="#i-jobs"/></svg></span>Jobs</a>
@@ -187,7 +188,7 @@
 <!-- ===================== EXPLAINER ===================== -->
 <div class="note">
   <h3>23 · Availability &amp; preferences (worker)</h3>
-  <p>Lets a worker control how and when they appear to employers. The "Open to work" master toggle leads in a highlight card; below it Days available are a Mon–Sun chip row (weekdays active), Shifts are choice chips, and Job search radius reuses the <code>.payrange__track</code> styling as a labelled "25 miles" slider so the same visual vocabulary as pay covers distance. A Work vehicle toggle gates transport-dependent jobs, and "Trades &amp; pay floor" is a tap-through row that summarises the current floor ($22/hr) so the worker never accidentally hides good matches. Settings are immediate-apply, so there's no Save bar and the worker keeps the Network tab.</p>
+  <p>Lets a worker control how and when they appear to employers. The "Open to work" master toggle leads in a highlight card; below it Days available are a Mon–Sun chip row (weekdays active), Shifts are choice chips, and Job search radius reuses the <code>.payrange__track</code> styling as a labelled "25 miles" slider so the same visual vocabulary as pay covers distance. A Work vehicle toggle gates transport-dependent jobs, and "Trades &amp; pay floor" is a tap-through row that summarises the current floor ($22/hr) so the worker never accidentally hides good matches. Settings are immediate-apply, so there's no Save bar. This is an account-stack screen reached via the app-bar avatar / back-chevron, so no bottom tab is highlighted.</p>
   <p class="dep"><strong>Flows:</strong> <code>PROF-09</code> (availability/radius/vehicle) · <strong>Depends on:</strong> card/card--highlight, toggle, chip (active), payrange track, listrow · <strong>Mode:</strong> worker</p>
 </div>
 

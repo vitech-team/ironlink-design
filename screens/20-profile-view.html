@@ -78,6 +78,7 @@
     </div>
 
     <header class="appbar">
+      <button class="iconbtn iconbtn--ghost"><svg class="ic"><use href="#i-chevron-left"/></svg></button>
       <div class="appbar__title"><h1 class="t-h1">Profile</h1></div>
       <button class="iconbtn iconbtn--ghost"><svg class="ic"><use href="#i-share"/></svg></button>
       <button class="iconbtn iconbtn--ghost"><svg class="ic"><use href="#i-settings"/></svg></button>
@@ -109,12 +110,23 @@
           </div>
         </div>
 
-        <!-- trades -->
+        <!-- trades & specialties -->
         <div class="card">
-          <div class="row row--between" style="margin-bottom:var(--s3)"><span class="t-h3">Trades</span><a class="link t-sm-m">Edit</a></div>
-          <div class="row wrap gap2">
-            <span class="chip chip--active">HVAC · Journeyman</span>
-            <span class="chip">Electrical · Apprentice</span>
+          <div class="row row--between" style="margin-bottom:var(--s4)"><span class="t-h3">Trades</span><a class="link t-sm-m">Edit</a></div>
+          <div class="stack">
+            <div>
+              <span class="chip chip--active" style="margin-bottom:var(--s2)">HVAC &amp; Refrigeration · Journeyman</span>
+              <div class="row wrap gap2">
+                <span class="chip">Residential HVAC</span>
+                <span class="chip">Sheet Metal / Ductwork</span>
+              </div>
+            </div>
+            <div>
+              <span class="chip chip--active" style="margin-bottom:var(--s2)">Electrical · Apprentice</span>
+              <div class="row wrap gap2">
+                <span class="chip">Residential Electrical</span>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -158,7 +170,7 @@
     </main>
 
     <nav class="tabbar">
-      <a class="tabbar__item is-active"><span class="tabbar__icon"><svg class="ic"><use href="#i-network"/></svg></span>Network</a>
+      <a class="tabbar__item"><span class="tabbar__icon"><svg class="ic"><use href="#i-network"/></svg></span>Network</a>
       <a class="tabbar__item"><span class="tabbar__icon"><svg class="ic"><use href="#i-trends"/></svg></span>Trends</a>
       <div class="tabbar__center"><button class="tabbar__fab"><svg class="ic ic-lg"><use href="#i-plus"/></svg></button></div>
       <a class="tabbar__item"><span class="tabbar__icon"><svg class="ic"><use href="#i-jobs"/></svg></span>Jobs</a>
@@ -170,8 +182,8 @@
 
 <div class="note">
   <h3>20 · Worker profile (worker)</h3>
-  <p>The worker's public-facing resume: identity header with verified badge, a glanceable completeness ring (85%), and a trust stat row (years experience, jobs done, response rate) that doubles as employer reassurance. Below, structured cards present Trades as level-tagged chips, Experience as a vertical timeline, and Certifications (EPA 608, OSHA 30) with Verified status — the credentials that move pay in this market. A "Share profile" outline opens the OS share sheet so a tradesperson can send their IronLink profile to a contractor over text. Edit affordances sit per-section so the profile is also the owner's edit surface.</p>
-  <p class="dep"><strong>Flows:</strong> <code>PROF-09</code> <code>PROF-08</code> · <strong>Depends on:</strong> avatar--xl, ring, stat, chip, tag, listrow, timeline (token-composed) · <strong>Mode:</strong> worker · Network tab active</p>
+  <p>The worker's public-facing resume: identity header with verified badge, a glanceable completeness ring (85%), and a trust stat row (years experience, jobs done, response rate) that doubles as employer reassurance. Below, structured cards present Trades cleanly as MULTIPLE level-tagged trade chips (HVAC · Journeyman, Electrical · Apprentice), each with its own row of sub-trade specialty chips (Residential HVAC, Sheet Metal / Ductwork…) drawn from the M2 taxonomy; Experience as a vertical timeline of several jobs (role, employer, location, dates); and Certifications (EPA 608, OSHA 30) with Verified status — the credentials that move pay in this market. A "Share profile" outline opens the OS share sheet so a tradesperson can send their IronLink profile to a contractor over text. Edit affordances sit per-section so the profile is also the owner's edit surface.</p>
+  <p class="dep"><strong>Flows:</strong> <code>PROF-09</code> <code>PROF-08</code> · <strong>Depends on:</strong> avatar--xl, ring, stat, chip (active), tag, listrow, timeline (token-composed) · <strong>Mode:</strong> worker · Account-stack screen reached via the app-bar avatar / back-chevron — no bottom tab is active.</p>
 </div>
 </body>
 </html>

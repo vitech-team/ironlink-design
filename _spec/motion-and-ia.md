@@ -148,9 +148,9 @@ IronLink has three distinct user contexts:
 
 1. **Worker Mode** — Job seeker, individual contributor
 2. **Employer Mode** — Hiring manager, recruiter, org member
-3. **Marketplace** — **A destination reachable from both modes**, NOT a separate mode
+3. **Marketplace Mode** — Buy & sell equipment; a **first-class mode** entered from the mode switcher exactly like Worker/Employer (own tab bar: Browse · Saved · + · Listings · Messages)
 
-A single authenticated user account holds both worker and employer identities. Mode switching is intentional and less frequent (minutes/hours, not seconds).
+A single authenticated user account holds all three contexts. Mode switching is intentional and less frequent (minutes/hours, not seconds), done from the avatar → mode switcher (94).
 
 ### Worker Mode Tab Bar
 Located at bottom, 5 items + elevated FAB:
@@ -182,13 +182,20 @@ Located at bottom, 5 items + elevated FAB:
 **FAB color:** Navy (--ink) with yellow icon (visual inversion from worker)
 **Active indicator:** Same as worker mode
 
-### Marketplace Tab (Accessed from Both Modes)
-Marketplace (screens 70–71) is **NOT** a separate navigation tab. It is:
-- Accessible via **Network feed** → share/browse cards linking to marketplace
-- Accessible via **dedicated deeplink** or shortcut menu item
-- Appears as an **in-app browse destination** (screen 70: listing grid, screen 71: detail view)
-- Users can post listings (if subscribed) while in either mode without mode-switching
-- When posting a listing, the post is attributed to the user's current identity (personal or org if employer)
+### Marketplace Mode Tab Bar
+Marketplace is its **own mode** with its own bottom tab bar (entered from the mode switcher, like Worker/Employer):
+
+| Position | Tab | Icon | Target |
+|----------|-----|------|--------|
+| 1        | Browse | i-truck | Equipment grid (screen 70) — mode home |
+| 2        | Saved | i-bookmark | Saved/bookmarked listings |
+| FAB      | **+** | i-plus | List equipment (create, screen 72) |
+| 4        | Listings | i-doc | My listings (screen 72a) |
+| 5        | Messages | i-message | Marketplace inquiries inbox |
+
+- **Default landing:** Browse (70) after switching into Marketplace mode.
+- Equipment-listing cards in the Worker feed and shared deep links still open a listing detail (71), and entering Marketplace mode is also reachable from the create "+" menu's "List equipment" — but the canonical entry is the **mode switcher** (94).
+- Browsing, viewing contact info, inquiring and commenting are open to any authenticated user; **posting** a listing is subscription-gated.
 
 ### Mode Switching (How It Works)
 Mode switching is a **deliberate action**, not automatic:

@@ -27,12 +27,17 @@
   <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6z"/><path d="M10 20a2 2 0 0 0 4 0"/></symbol>
   <symbol id="i-filter" viewBox="0 0 24 24"><path d="M4 6h16M7 12h10M10 18h4"/></symbol>
   <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
+  <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></symbol>
   <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
   <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
   <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></symbol>
   <symbol id="i-truck" viewBox="0 0 24 24"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/></symbol>
   <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 3 5 13h6l-1 8 8-10h-6l1-8z"/></symbol>
   <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 4 2.4 5 5.4.6-4 3.7 1.1 5.3L12 17l-4.9 2.6L8.2 13.3l-4-3.7 5.4-.6L12 4z"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 5 6v6c0 4.5 3 7.5 7 9 4-1.5 7-4.5 7-9V6l-7-3z"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 4h12v16l-6-4-6 4V4z"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7V3z"/><path d="M14 3v4h4M10 13h6M10 16h4"/></symbol>
 </svg>
 
 <div class="phone">
@@ -50,6 +55,7 @@
     <header class="appbar">
       <div class="appbar__title"><h1 class="t-h1">Marketplace</h1></div>
       <button class="iconbtn iconbtn--ghost"><svg class="ic"><use href="#i-filter"/></svg></button>
+      <div class="avatar avatar--sm">MR</div>
     </header>
 
     <main class="screen__body">
@@ -87,9 +93,10 @@
               <span class="tag tag--pos tag--dot" style="position:absolute;top:8px;left:8px">Used · Good</span>
             </div>
             <div style="padding:var(--s3)">
-              <div class="t-metric-sm" style="font-size:22px">$28,500</div>
+              <div class="t-metric-sm tabnum" style="font-size:22px">$28,500</div>
               <p class="t-sm-m" style="margin:6px 0 4px;line-height:1.3">2018 Bobcat S650 Skid Steer</p>
               <span class="row gap1 t-xs faint"><svg class="ic ic-sm" style="width:14px;height:14px"><use href="#i-pin"/></svg> Prattville · 12 mi</span>
+              <span class="row gap1 t-xs" style="margin-top:4px;color:var(--positive)"><svg class="ic ic-sm" style="width:14px;height:14px"><use href="#i-shield"/></svg> Verified · <span class="muted">4.8 <svg class="ic ic-sm" style="width:11px;height:11px;color:var(--yellow);fill:var(--yellow)"><use href="#i-star"/></svg></span></span>
             </div>
           </div>
 
@@ -100,9 +107,10 @@
               <span class="tag tag--info tag--dot" style="position:absolute;top:8px;left:8px">Used · Fair</span>
             </div>
             <div style="padding:var(--s3)">
-              <div class="t-metric-sm" style="font-size:22px">$14,900</div>
+              <div class="t-metric-sm tabnum" style="font-size:22px">$14,900</div>
               <p class="t-sm-m" style="margin:6px 0 4px;line-height:1.3">2014 Ford F-250 Work Truck</p>
               <span class="row gap1 t-xs faint"><svg class="ic ic-sm" style="width:14px;height:14px"><use href="#i-pin"/></svg> Montgomery · 4 mi</span>
+              <span class="row gap1 t-xs" style="margin-top:4px;color:var(--positive)"><svg class="ic ic-sm" style="width:14px;height:14px"><use href="#i-shield"/></svg> Verified · <span class="muted">5.0 <svg class="ic ic-sm" style="width:11px;height:11px;color:var(--yellow);fill:var(--yellow)"><use href="#i-star"/></svg></span></span>
             </div>
           </div>
 
@@ -113,7 +121,7 @@
               <span class="tag tag--yellow tag--dot" style="position:absolute;top:8px;left:8px">Like New</span>
             </div>
             <div style="padding:var(--s3)">
-              <div class="t-metric-sm" style="font-size:22px">$6,750</div>
+              <div class="t-metric-sm tabnum" style="font-size:22px">$6,750</div>
               <p class="t-sm-m" style="margin:6px 0 4px;line-height:1.3">20ft Dual-Axle Equipment Trailer</p>
               <span class="row gap1 t-xs faint"><svg class="ic ic-sm" style="width:14px;height:14px"><use href="#i-pin"/></svg> Wetumpka · 18 mi</span>
             </div>
@@ -126,32 +134,35 @@
               <span class="tag tag--pos tag--dot" style="position:absolute;top:8px;left:8px">Used · Good</span>
             </div>
             <div style="padding:var(--s3)">
-              <div class="t-metric-sm" style="font-size:22px">$2,200</div>
+              <div class="t-metric-sm tabnum" style="font-size:22px">$2,200</div>
               <p class="t-sm-m" style="margin:6px 0 4px;line-height:1.3">Miller Bobcat 250 Welder/Gen</p>
               <span class="row gap1 t-xs faint"><svg class="ic ic-sm" style="width:14px;height:14px"><use href="#i-pin"/></svg> Millbrook · 15 mi</span>
             </div>
           </div>
         </div>
 
-        <!-- subscription hint: list your gear (gated) -->
+        <!-- subscription hint: list your gear (gated → 72 create, blocked until subscribed → 81 paywall) -->
         <div class="card card--highlight" style="margin-top:var(--s4)">
           <div class="row gap4" style="align-items:flex-start">
             <span class="iconbtn iconbtn--dark" style="flex:0 0 auto"><svg class="ic"><use href="#i-bolt"/></svg></span>
             <div class="grow">
               <p class="t-h3" style="margin:0 0 2px">Selling gear?</p>
-              <p class="t-sm muted" style="margin:0">List equipment, trucks &amp; tools to local trades crews near you.</p>
+              <p class="t-sm muted" style="margin:0">List equipment, trucks &amp; tools to local trades crews near you. Posting a listing requires an active subscription.</p>
             </div>
           </div>
-          <button class="btn btn--dark btn--block" style="margin-top:var(--s4)"><svg class="ic ic-sm"><use href="#i-lock"/></svg> List an item · Pro plan</button>
+          <button class="btn btn--dark btn--block" style="margin-top:var(--s4)"><svg class="ic ic-sm"><use href="#i-lock"/></svg> List an item · requires a plan</button>
         </div>
+
+        <!-- safety / trust note -->
+        <p class="hint" style="margin-top:var(--s3)"><svg class="ic ic-sm" style="vertical-align:-3px"><use href="#i-shield"/></svg> Meet in a public place and inspect gear before you pay. Contact and pricing happen off-platform — IronLink never holds money.</p>
       </div>
     </main>
 
     <nav class="tabbar">
-      <a class="tabbar__item"><span class="tabbar__icon"><svg class="ic"><use href="#i-network"/></svg></span>Network</a>
-      <a class="tabbar__item"><span class="tabbar__icon"><svg class="ic"><use href="#i-trends"/></svg></span>Trends</a>
+      <a class="tabbar__item is-active"><span class="tabbar__icon"><svg class="ic"><use href="#i-truck"/></svg></span>Browse</a>
+      <a class="tabbar__item"><span class="tabbar__icon"><svg class="ic"><use href="#i-bookmark"/></svg></span>Saved</a>
       <div class="tabbar__center"><button class="tabbar__fab"><svg class="ic ic-lg"><use href="#i-plus"/></svg></button></div>
-      <a class="tabbar__item"><span class="tabbar__icon"><svg class="ic"><use href="#i-jobs"/></svg></span>Jobs</a>
+      <a class="tabbar__item"><span class="tabbar__icon"><svg class="ic"><use href="#i-doc"/></svg></span>Listings</a>
       <a class="tabbar__item"><span class="tabbar__icon"><svg class="ic"><use href="#i-message"/></svg></span>Messages</a>
     </nav>
     <div class="home-indicator"></div>
@@ -160,8 +171,9 @@
 
 <div class="note">
   <h3>70 · Marketplace (both)</h3>
-  <p>A local equipment &amp; tools marketplace for trades crews — searchable, category-filtered, and distance-ranked around Montgomery. The 2-column card grid leads with big tabular prices and a plain-language condition tag so lower-literacy users scan fast. Listing for sale is a monetization lever: the "Selling gear?" card is subscription-gated (lock icon, "Pro plan") and routes to the create flow. Uses the worker tab bar with no tab marked active since Marketplace is a secondary entry point, not a primary tab destination.</p>
-  <p class="dep"><strong>Flows:</strong> <code>MKT-01</code> · <strong>Depends on:</strong> searchbar, chiprow, card--flush grid, tag, card--highlight, subscription gate · <strong>Mode:</strong> both (worker tab bar)</p>
+  <p>A local equipment &amp; tools marketplace for trades crews — searchable, category-filtered, and distance-ranked around Montgomery. The 2-column card grid leads with big <span class="tabnum">.tabnum</span> prices, a plain-language condition tag, and a seller trust signal (Verified shield + star rating) so lower-literacy users scan fast and buy with confidence.</p>
+  <p><strong>Marketplace is a first-class mode</strong> (alongside Worker and Employer), entered from the mode switcher (94) via the avatar — so this Browse screen is a <em>mode home</em>: account avatar in the app bar and its own bottom tab bar (<strong>Browse · Saved · [+] · Listings · Messages</strong>). Equipment cards in the feed and shared links still deep-link to a listing (71), and the create "+" menu's "List equipment" also lands here — but the canonical entry is the mode switch. Browsing, viewing contact info, inquiring and commenting are open to any authenticated user — only <strong>posting</strong> a listing is gated. The "Selling gear?" card states the gate in plain words ("requires an active subscription"), routes to 72 (create), and a publish attempt without a plan hands off to 81 (paywall). A trust/safety hint reminds buyers that money moves off-platform.</p>
+  <p class="dep"><strong>Flows:</strong> <code>MKT-01</code> · <strong>Depends on:</strong> searchbar, chiprow, card--flush grid, tag, card--highlight, i-shield/i-star trust signal, subscription gate, marketplace tab bar · <strong>Mode:</strong> marketplace (mode home)</p>
 </div>
 </body>
 </html>

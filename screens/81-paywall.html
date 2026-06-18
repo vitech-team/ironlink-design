@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>IronLink · 81 — Feature locked</title>
+<title>IronLink · 81 — Subscription required</title>
 <link rel="stylesheet" href="../styles/ironlink.css">
 <style>
   .ic{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
@@ -70,44 +70,35 @@
       </span>
     </div>
 
-    <!-- faint background screen (the Talent tab the user tried to open) -->
+    <!-- faint background screen (the List equipment form the user just tried to publish) -->
     <header class="appbar">
-      <div class="appbar__title"><h1 class="t-h1">Talent</h1></div>
-      <button class="iconbtn iconbtn--ghost"><svg class="ic"><use href="#i-search"/></svg></button>
+      <button class="iconbtn iconbtn--ghost" aria-label="Close"><svg class="ic"><use href="#i-close"/></svg></button>
+      <div class="appbar__title"><h1 class="t-h2">List equipment</h1></div>
     </header>
     <main class="screen__body" aria-hidden="true">
-      <div class="chiprow">
-        <span class="chip chip--active">Pipeline</span>
-        <span class="chip">Saved</span>
-        <span class="chip">Contacted</span>
-        <span class="chip">Hired</span>
-      </div>
-      <div class="pad stack">
-        <div class="card">
-          <div class="row">
-            <div class="avatar">MR</div>
-            <div class="grow"><p class="t-h3" style="margin:0">Marcus Reed</p><p class="t-sm muted" style="margin:2px 0 0">HVAC Tech · EPA 608</p></div>
-            <span class="tag tag--info">New</span>
+      <div class="pad stack-4">
+        <div class="field">
+          <span class="label">Title</span>
+          <input class="input" type="text" value="2018 Bobcat S650 Skid Steer">
+        </div>
+        <div class="field">
+          <span class="label">Price</span>
+          <div class="input-group">
+            <span class="lead t-h3">$</span>
+            <input class="input tabnum" type="text" value="28,500">
           </div>
         </div>
-        <div class="card">
-          <div class="row">
-            <div class="avatar">DC</div>
-            <div class="grow"><p class="t-h3" style="margin:0">Diego Castillo</p><p class="t-sm muted" style="margin:2px 0 0">Electrician · OSHA 30</p></div>
-            <span class="tag">Saved</span>
-          </div>
-        </div>
-        <div class="card">
-          <div class="row">
-            <div class="avatar">JT</div>
-            <div class="grow"><p class="t-h3" style="margin:0">James Tucker</p><p class="t-sm muted" style="margin:2px 0 0">Welder · AWS D1.1</p></div>
-            <span class="tag">Saved</span>
+        <div class="field">
+          <span class="label">Location</span>
+          <div class="input-group">
+            <span class="lead"><svg class="ic ic-sm"><use href="#i-pin"/></svg></span>
+            <input class="input" type="text" value="Montgomery, AL">
           </div>
         </div>
       </div>
     </main>
 
-    <!-- scrim + bottom sheet paywall -->
+    <!-- scrim + bottom sheet paywall — adaptive: this instance serves the MARKETPLACE-POSTING gate -->
     <div class="scrim"></div>
     <div class="sheet">
       <div class="sheet__grab"></div>
@@ -116,20 +107,20 @@
         <div class="avatar avatar--lg avatar--yellow" style="margin:0 auto var(--s4)">
           <svg class="ic ic-lg"><use href="#i-lock"/></svg>
         </div>
-        <span class="tag tag--yellow tag--dot" style="margin-bottom:var(--s3)">Pro feature</span>
-        <h2 class="t-h2" style="margin:0 0 var(--s2)">Talent Pipeline is a Pro feature</h2>
-        <p class="t-body muted" style="margin:0 auto;max-width:300px">Track candidates from saved to hired and never lose a strong applicant.</p>
+        <span class="tag tag--yellow tag--dot" style="margin-bottom:var(--s3)">Subscription required</span>
+        <h2 class="t-h2" style="margin:0 0 var(--s2)">Listing on the marketplace requires a subscription</h2>
+        <p class="t-body muted" style="margin:0 auto;max-width:300px">Your draft is saved. Activate a plan to publish it and reach trades crews near Montgomery.</p>
       </div>
 
       <div class="card stack-2" style="margin-top:var(--s5)">
-        <div class="row gap2 t-sm-m"><svg class="ic ic-sm pos"><use href="#i-check"/></svg><span>Drag candidates through hiring stages</span></div>
-        <div class="row gap2 t-sm-m"><svg class="ic ic-sm pos"><use href="#i-check"/></svg><span>Notes &amp; team comments on every profile</span></div>
-        <div class="row gap2 t-sm-m"><svg class="ic ic-sm pos"><use href="#i-check"/></svg><span>Auto-reminders to follow up with top techs</span></div>
+        <div class="row gap2 t-sm-m"><svg class="ic ic-sm pos"><use href="#i-check"/></svg><span>Post equipment, trucks &amp; tools to the marketplace</span></div>
+        <div class="row gap2 t-sm-m"><svg class="ic ic-sm pos"><use href="#i-check"/></svg><span>Inquiries land straight in your inbox</span></div>
+        <div class="row gap2 t-sm-m"><svg class="ic ic-sm pos"><use href="#i-check"/></svg><span>Share listings to your network feed</span></div>
       </div>
 
       <div class="stack" style="margin-top:var(--s5)">
-        <button class="btn btn--primary btn--block btn--lg">Upgrade to Professional <svg class="ic ic-sm"><use href="#i-arrow-right"/></svg></button>
-        <button class="btn btn--ghost btn--block">Maybe later</button>
+        <button class="btn btn--primary btn--block btn--lg">See plans <svg class="ic ic-sm"><use href="#i-arrow-right"/></svg></button>
+        <button class="btn btn--ghost btn--block">Keep draft, not now</button>
       </div>
     </div>
 
@@ -138,9 +129,9 @@
 </div>
 
 <div class="note">
-  <h3>81 · Feature locked (employer)</h3>
-  <p>A contextual paywall presented as a bottom <code>sheet</code> over the dimmed Talent screen the admin just tried to open — keeping the locked feature visible behind the <code>scrim</code> so the value is concrete, not abstract. A yellow lock avatar and "Pro feature" tag set the frame, three benefit bullets justify the price, and the primary "Upgrade to Professional" routes into screen 80 while "Maybe later" dismisses without friction. This is the <strong>admin</strong> variant (can upgrade directly); for non-admin seats the headline CTA is replaced with read-only copy "Ask your admin to upgrade" plus a "Notify admin" action, since only billing owners can change the company plan.</p>
-  <p class="dep"><strong>Flows:</strong> <code>SUB-09</code> <code>SUB-06</code> · <strong>Depends on:</strong> sheet, scrim, tag--yellow, avatar--yellow, btn--primary / btn--ghost, i-lock · <strong>Mode:</strong> employer (admin)</p>
+  <h3>81 · Subscription required (adaptive)</h3>
+  <p>A single contextual paywall component presented as a bottom <code>sheet</code> over the dimmed screen the user just tried to act on — keeping the gated action visible behind the <code>scrim</code> so the value is concrete. The content <strong>adapts to the gate that triggered it</strong>. This instance shows the <strong>marketplace-posting</strong> gate: it sits over the half-filled "List equipment" form, the headline reads "Listing on the marketplace requires a subscription", and reassures "Your draft is saved" so a worker never fears losing work; the three bullets describe posting/inquiry/feed-share value and the primary CTA "See plans" routes to 80 → Stripe checkout, while "Keep draft, not now" dismisses without friction. The <strong>same component</strong> serves employer Pro-feature gates (e.g. Talent Pipeline) by swapping the background, tag, headline and bullets — and the M5/M8 listing flow and the M12 feature gates both land here. For non-admin employer seats the headline CTA is replaced with "Ask your admin to upgrade" plus a "Notify admin" action, since only billing owners can change the company plan.</p>
+  <p class="dep"><strong>Flows:</strong> <code>MKT</code> (post listing gate) <code>SUB-09</code> <code>SUB-06</code> · <strong>Depends on:</strong> sheet, scrim, tag--yellow, avatar--yellow, btn--primary / btn--ghost, field/input-group, i-lock · <strong>Mode:</strong> both (worker marketplace-posting gate shown; employer Pro variant by swap)</p>
 </div>
 </body>
 </html>

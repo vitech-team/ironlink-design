@@ -96,18 +96,26 @@
         <div class="card">
           <div class="row row--between" style="margin-bottom:var(--s3)">
             <span class="tag tag--match"><svg class="ic ic-sm"><use href="#i-bolt"/></svg> AI draft</span>
-            <button class="btn btn--ghost btn--sm" style="height:32px;color:var(--info)"><svg class="ic ic-sm"><use href="#i-arrows"/></svg> Regenerate</button>
+            <span class="t-xs faint">Edit freely or rewrite below</span>
           </div>
-          <p class="t-body" style="margin:0 0 var(--s3)">Hi Capitol Mechanical team,</p>
-          <p class="t-body" style="margin:0 0 var(--s3)">I'm an EPA 608 Universal certified HVAC tech with 4 years servicing residential and light-commercial systems around Montgomery. I run my own service truck route and pride myself on first-visit fixes and clean customer handoffs.</p>
-          <p class="t-body" style="margin:0">I hold a clean AL driver's license and OSHA 10, and I'm bilingual (English/Spanish). I'd welcome the chance to keep your routes covered. — Marcus Tate</p>
+          <p class="eyebrow" style="margin:0 0 var(--s2)">Cover message · write your own</p>
+          <div class="field">
+            <textarea class="input" rows="9">Hi Capitol Mechanical team,
+
+I'm an EPA 608 Universal certified HVAC tech with 4 years servicing residential and light-commercial systems around Montgomery. I run my own service truck route and pride myself on first-visit fixes and clean customer handoffs.
+
+I hold a clean AL driver's license and OSHA 10, and I'm bilingual (English/Spanish). I'd welcome the chance to keep your routes covered. — Marcus Tate</textarea>
+          </div>
+          <p class="t-xs faint" style="margin:var(--s2) 0 0">Tap to edit any line — this is your message, not locked.</p>
           <div class="divider" style="margin:var(--s4) 0"></div>
-          <p class="eyebrow" style="margin:0 0 var(--s3)">Adjust tone</p>
-          <div class="row gap2 wrap">
-            <span class="chip">Shorter</span>
-            <span class="chip">More detail</span>
-            <span class="chip">More formal</span>
+          <p class="eyebrow" style="margin:0 0 var(--s2)">Rewrite with AI</p>
+          <div class="row gap2">
+            <div class="searchbar grow">
+              <input placeholder="Make it shorter · more formal · mention my EPA 608 cert">
+            </div>
+            <button class="btn btn--outline btn--sm" style="flex:0 0 auto"><svg class="ic ic-sm"><use href="#i-arrows"/></svg> Regenerate</button>
           </div>
+          <p class="t-xs faint" style="margin:var(--s2) 0 0">Type guidance for the AI, then tap Regenerate to rewrite the draft above.</p>
         </div>
 
         <!-- attachments -->
@@ -147,8 +155,8 @@
 
 <div class="note">
   <h3>42 · Apply — AI draft (worker)</h3>
-  <p>A full-screen compose that lowers the biggest friction in blue-collar applications: writing a cover message. A context banner anchors which job is being applied to, then an "AI draft" card shows an editable cover letter pre-generated from the worker's profile, with one-tap Regenerate and tone chips (Shorter / More detail / More formal). Attachments support PDF resume plus photographing a paper cert (key for less-digital users). The pinned yellow "Send application" stays reachable. Negative paths are handled inline: an offline banner queues the send for reconnect, and if the LLM times out the draft falls back to a template so the user is never blocked.</p>
-  <p class="dep"><strong>Flows:</strong> <code>JOB-07</code> <code>JOB-08</code> · <strong>Depends on:</strong> .card, .chip, .listrow, banner--info/warn, pinned action bar · <strong>Mode:</strong> worker · <strong>Edge:</strong> LLM timeout → template fallback; offline → queued send</p>
+  <p>A full-screen compose that lowers the biggest friction in blue-collar applications: writing a cover message. A context banner anchors which job is being applied to, then an "AI draft" card shows the cover message in a fully editable textarea — pre-filled from the worker's profile but theirs to rewrite by hand ("write your own"), not a read-only block. Below it, a free-form instruction field ("Make it shorter · more formal · mention my EPA 608 cert") lets the worker type guidance for the AI agent, then tap Regenerate to rewrite the draft above — replacing the old fixed tone chips with open-ended steering. Attachments support PDF resume plus photographing a paper cert (key for less-digital users). The pinned yellow "Send application" stays reachable. Negative paths are handled inline: an offline banner queues the send for reconnect, and if the LLM times out the draft falls back to a template so the user is never blocked.</p>
+  <p class="dep"><strong>Flows:</strong> <code>JOB-07</code> <code>JOB-08</code> · <strong>Depends on:</strong> .card, textarea.input, .searchbar, .listrow, banner--info/warn, pinned action bar · <strong>Mode:</strong> worker · <strong>Edge:</strong> LLM timeout → template fallback; offline → queued send</p>
 </div>
 </body>
 </html>

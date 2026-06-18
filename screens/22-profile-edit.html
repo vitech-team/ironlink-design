@@ -131,43 +131,74 @@
           </div>
         </div>
 
-        <!-- Trades -->
+        <!-- Trades & specialties -->
         <div class="card">
           <div class="row row--between" style="margin-bottom:var(--s3)">
-            <p class="eyebrow" style="margin:0">Trades</p>
+            <p class="eyebrow" style="margin:0">Trades &amp; specialties</p>
             <span class="faint t-xs">Tap × to remove</span>
           </div>
-          <div class="row wrap gap2">
-            <span class="chip chip--active">HVAC <svg class="ic ic-sm"><use href="#i-close"/></svg></span>
-            <span class="chip">Electrical <svg class="ic ic-sm"><use href="#i-close"/></svg></span>
-            <button class="chip chip--dark"><svg class="ic ic-sm"><use href="#i-plus"/></svg> Add trade</button>
+          <div class="searchbar" style="margin-bottom:var(--s3)">
+            <svg class="ic ic-sm"><use href="#i-search"/></svg>
+            <input placeholder="Search all 19 trades…">
           </div>
+
+          <!-- HVAC trade + its sub-trades -->
+          <p class="t-sm-m" style="margin:0 0 var(--s2)">HVAC &amp; Refrigeration · Journeyman</p>
+          <div class="row wrap gap2" style="margin-bottom:var(--s4)">
+            <span class="chip chip--active">Residential HVAC <svg class="ic ic-sm"><use href="#i-close"/></svg></span>
+            <span class="chip chip--active">Sheet Metal / Ductwork <svg class="ic ic-sm"><use href="#i-close"/></svg></span>
+            <button class="chip chip--dark"><svg class="ic ic-sm"><use href="#i-plus"/></svg> Add specialty</button>
+          </div>
+
+          <!-- Electrical trade + its sub-trades -->
+          <p class="t-sm-m" style="margin:0 0 var(--s2)">Electrical · Apprentice</p>
+          <div class="row wrap gap2" style="margin-bottom:var(--s4)">
+            <span class="chip chip--active">Residential Electrical <svg class="ic ic-sm"><use href="#i-close"/></svg></span>
+            <button class="chip chip--dark"><svg class="ic ic-sm"><use href="#i-plus"/></svg> Add specialty</button>
+          </div>
+
+          <button class="btn btn--outline btn--sm btn--block"><svg class="ic ic-sm"><use href="#i-plus"/></svg> Add another trade</button>
         </div>
 
         <!-- Experience -->
         <div class="card card--flush">
           <div class="section-head" style="padding-bottom:var(--s2)">
-            <p class="eyebrow" style="margin:0">Experience</p>
+            <p class="eyebrow" style="margin:0">Work history</p>
+            <span class="faint t-xs">3 jobs</span>
           </div>
           <div class="listrow">
             <div class="avatar avatar--sm avatar--org"><svg class="ic ic-sm"><use href="#i-building"/></svg></div>
             <div class="grow">
               <p class="t-body-m" style="margin:0">HVAC Service Tech</p>
-              <p class="t-sm muted" style="margin:2px 0 0">Capitol Mechanical · 2021–Now</p>
+              <p class="t-sm muted" style="margin:2px 0 0">Capitol Mechanical · Montgomery, AL</p>
+              <p class="t-xs faint" style="margin:2px 0 0"><span class="tabnum">2021 – Now</span> · <span class="tabnum">$28/hr</span></p>
             </div>
             <button class="iconbtn iconbtn--ghost"><svg class="ic ic-sm"><use href="#i-edit"/></svg></button>
+            <button class="iconbtn iconbtn--ghost faint"><svg class="ic ic-sm"><use href="#i-trash"/></svg></button>
+          </div>
+          <div class="listrow">
+            <div class="avatar avatar--sm avatar--org"><svg class="ic ic-sm"><use href="#i-building"/></svg></div>
+            <div class="grow">
+              <p class="t-body-m" style="margin:0">HVAC Installer</p>
+              <p class="t-sm muted" style="margin:2px 0 0">Montgomery HVAC · Prattville, AL</p>
+              <p class="t-xs faint" style="margin:2px 0 0"><span class="tabnum">2019 – 2021</span> · <span class="tabnum">$22/hr</span></p>
+            </div>
+            <button class="iconbtn iconbtn--ghost"><svg class="ic ic-sm"><use href="#i-edit"/></svg></button>
+            <button class="iconbtn iconbtn--ghost faint"><svg class="ic ic-sm"><use href="#i-trash"/></svg></button>
           </div>
           <div class="listrow">
             <div class="avatar avatar--sm avatar--org"><svg class="ic ic-sm"><use href="#i-building"/></svg></div>
             <div class="grow">
               <p class="t-body-m" style="margin:0">Install Helper</p>
-              <p class="t-sm muted" style="margin:2px 0 0">Montgomery HVAC · 2018–2021</p>
+              <p class="t-sm muted" style="margin:2px 0 0">River Region Air · Montgomery, AL</p>
+              <p class="t-xs faint" style="margin:2px 0 0"><span class="tabnum">2017 – 2019</span> · <span class="tabnum">$16/hr</span></p>
             </div>
             <button class="iconbtn iconbtn--ghost"><svg class="ic ic-sm"><use href="#i-edit"/></svg></button>
+            <button class="iconbtn iconbtn--ghost faint"><svg class="ic ic-sm"><use href="#i-trash"/></svg></button>
           </div>
           <div style="padding:var(--s4) var(--s5)" class="row gap2">
             <button class="btn btn--primary btn--sm grow"><svg class="ic ic-sm"><use href="#i-mic"/></svg> Add by voice</button>
-            <button class="btn btn--outline btn--sm grow"><svg class="ic ic-sm"><use href="#i-plus"/></svg> Add manually</button>
+            <button class="btn btn--outline btn--sm grow"><svg class="ic ic-sm"><use href="#i-plus"/></svg> Add experience</button>
           </div>
         </div>
 
@@ -212,8 +243,8 @@
 <!-- ===================== EXPLAINER ===================== -->
 <div class="note">
   <h3>22 · Edit profile (worker)</h3>
-  <p>The worker's profile editor, broken into a card per section so a lower-literacy user can work through it one block at a time without losing their place. Identity uses plain labelled inputs; Trades are editable chips with an explicit "Add trade"; Experience and Certifications are editable rows with a per-row <code>i-edit</code> affordance. Experience leads with "Add by voice" (routes to the 15 voice-capture flow) before "Add manually", lowering the barrier for users who'd rather talk than type. The photo row shows the current avatar with a clear Change action. The Save button is pinned so it's always reachable; no tab bar here since this is a focused full-screen editor reached from the profile.</p>
-  <p class="dep"><strong>Flows:</strong> <code>PROF-07</code> · <strong>Depends on:</strong> card/card--flush, field/input, input-group, chip (active/dark), listrow, avatar, btn--primary/outline --sm, pinned action bar · <strong>Mode:</strong> worker · "Add by voice" links to 15.</p>
+  <p>The worker's profile editor, broken into a card per section so a lower-literacy user can work through it one block at a time without losing their place. Identity uses plain labelled inputs. Trades &amp; specialties scales to the M2 taxonomy: a searchbar reaches all 19 categories, each selected trade carries its level and a row of removable sub-trade chips with "Add specialty", and "Add another trade" lets the worker hold multiple trades at once. Work history supports MULTIPLE entries — three example jobs, each with employer, location, dates (<code>tabnum</code>) and hourly rate, and per-row edit + remove (trash) affordances — with "Add by voice" (routes to the 15 voice-capture flow) beside "Add experience" to lower the barrier for users who'd rather talk than type. Certifications follow the same editable-row pattern. The photo row shows the current avatar with a clear Change action. The Save button is pinned so it's always reachable; no tab bar here since this is a focused full-screen editor reached from the profile.</p>
+  <p class="dep"><strong>Flows:</strong> <code>PROF-07</code> · <strong>Depends on:</strong> card/card--flush, field/input, input-group, searchbar, chip (active/dark), listrow, avatar, tabnum, btn--primary/outline --sm, pinned action bar · <strong>Mode:</strong> worker · "Add by voice" links to 15.</p>
 </div>
 
 </body>

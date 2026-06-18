@@ -152,6 +152,16 @@
         <svg class="ic listrow__chev" style="margin:0"><use href="#i-chevron-right"/></svg>
       </button>
 
+      <!-- Marketplace — a first-class mode, switched here like Worker/Employer -->
+      <button class="actionsheet__item">
+        <span class="actionsheet__icon"><svg class="ic"><use href="#i-truck"/></svg></span>
+        <span class="grow">
+          <span class="t-h3" style="display:block">Marketplace</span>
+          <span class="actionsheet__sub">Buy &amp; sell equipment</span>
+        </span>
+        <svg class="ic listrow__chev" style="margin:0"><use href="#i-chevron-right"/></svg>
+      </button>
+
       <hr class="divider" style="margin:var(--s3) var(--s1)">
 
       <a class="listrow" style="border-radius:var(--r-md);border-bottom:none;background:transparent;padding:var(--s4) var(--s2)">
@@ -168,8 +178,8 @@
 <!-- ===================== EXPLAINER ===================== -->
 <div class="note">
   <h3>94 · Switch mode (both)</h3>
-  <p>The keystone of IronLink's role-adaptive navigation. Tapping the avatar opens this action sheet over a dimmed worker screen (<code>.scrim</code> + <code>.anim-scrim</code>, sheet rises with <code>.anim-sheet</code>). Two big choice rows map to the two contexts on one identity: Worker · Marcus Reed (currently selected, ink ring + <code>i-check</code>) and Employer · Capitol Mechanical (<code>i-building</code>, "Owner", chevron). Selecting Employer swaps the whole shell — tab bar, FAB color, and home — and pops to the employer Home; switching back does the reverse. A divider separates the modes from a single "Account settings" listrow so identity-wide settings stay reachable from either context. This sheet is the single source of truth for which mode the rest of the app renders.</p>
-  <p class="dep"><strong>Flows:</strong> <code>AUTH-19</code> <code>SET-08</code> · <strong>Depends on:</strong> actionsheet (+ icon/sub), scrim, anim-scrim, anim-sheet, choice/is-selected, divider, listrow · <strong>Mode:</strong> both (shown over worker)</p>
+  <p>The keystone of IronLink's mode-adaptive navigation. Tapping the avatar opens this action sheet over a dimmed screen (<code>.scrim</code> + <code>.anim-scrim</code>, sheet rises with <code>.anim-sheet</code>). <strong>Three</strong> mode rows map to the three contexts on one identity: <strong>Worker</strong> · Marcus Reed (currently selected, ink ring + <code>i-check</code>), <strong>Employer</strong> · Capitol Mechanical (<code>i-building</code>, "Owner"), and <strong>Marketplace</strong> (<code>i-truck</code>, buy &amp; sell equipment). Marketplace is a first-class mode entered here exactly like Worker/Employer — it is NOT a side-destination or tab; this replaces the old "reach it from the + menu / links" model. Selecting a mode swaps the whole shell — tab bar, FAB, and home — and pops to that mode's home (Worker→Network, Employer→Home, Marketplace→Browse 70). A divider separates the modes from a single "Account settings" listrow so identity-wide settings stay reachable from any context. This sheet is the single source of truth for which mode the rest of the app renders.</p>
+  <p class="dep"><strong>Flows:</strong> <code>AUTH-19</code> <code>SET-08</code> · <strong>Depends on:</strong> actionsheet (+ icon/sub), scrim, anim-scrim, anim-sheet, choice/is-selected, divider, listrow · <strong>Mode:</strong> all three (shown over worker)</p>
 </div>
 
 </body>

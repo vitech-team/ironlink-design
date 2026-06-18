@@ -99,17 +99,20 @@
       </div>
 
       <div class="pad stack">
-        <!-- applicant 1 — favourite, top match -->
+        <!-- applicant 1 — shortlisted (starred), top match -->
         <div class="card">
           <div class="row row--top gap2">
             <div class="avatar avatar--lg">MR</div>
             <div class="grow">
-              <div class="row row--between" style="align-items:flex-start">
-                <div>
-                  <div class="row gap2" style="align-items:center"><span class="t-h3">Marcus Reed</span><span class="tag tag--pos tag--dot">Favourite</span></div>
+              <div class="row row--between gap2" style="align-items:flex-start">
+                <div class="grow">
+                  <span class="t-h3">Marcus Reed</span>
                   <div class="t-sm muted" style="margin-top:2px">HVAC · 7 yrs · Prattville, AL</div>
                 </div>
-                <span class="tag tag--match">94% match</span>
+                <div class="row gap2" style="align-items:center">
+                  <span class="tag tag--match tabnum">94%</span>
+                  <button class="iconbtn iconbtn--dark" aria-pressed="true" title="Shortlisted"><svg class="ic ic-sm" style="color:var(--yellow)"><use href="#i-star"/></svg></button>
+                </div>
               </div>
               <div class="row wrap gap1" style="margin-top:var(--s3)">
                 <span class="tag">EPA 608 Universal</span>
@@ -120,7 +123,6 @@
           </div>
           <div class="row gap2" style="margin-top:var(--s4)">
             <button class="btn btn--dark btn--sm grow"><svg class="ic ic-sm"><use href="#i-message"/></svg> Message</button>
-            <button class="btn btn--outline btn--sm grow"><svg class="ic ic-sm" style="color:var(--yellow-600)"><use href="#i-star"/></svg> Shortlisted</button>
           </div>
         </div>
 
@@ -129,12 +131,15 @@
           <div class="row row--top gap2">
             <div class="avatar avatar--lg avatar--yellow">DL</div>
             <div class="grow">
-              <div class="row row--between" style="align-items:flex-start">
-                <div>
+              <div class="row row--between gap2" style="align-items:flex-start">
+                <div class="grow">
                   <span class="t-h3">Devon Lawson</span>
                   <div class="t-sm muted" style="margin-top:2px">HVAC · 5 yrs · Montgomery, AL</div>
                 </div>
-                <span class="tag tag--match">89% match</span>
+                <div class="row gap2" style="align-items:center">
+                  <span class="tag tag--match tabnum">89%</span>
+                  <button class="iconbtn" aria-pressed="false" title="Shortlist"><svg class="ic ic-sm faint"><use href="#i-star"/></svg></button>
+                </div>
               </div>
               <div class="row wrap gap1" style="margin-top:var(--s3)">
                 <span class="tag">EPA 608 Type II</span>
@@ -144,7 +149,6 @@
           </div>
           <div class="row gap2" style="margin-top:var(--s4)">
             <button class="btn btn--dark btn--sm grow"><svg class="ic ic-sm"><use href="#i-message"/></svg> Message</button>
-            <button class="btn btn--outline btn--sm grow"><svg class="ic ic-sm"><use href="#i-star"/></svg> Shortlist</button>
           </div>
         </div>
 
@@ -153,12 +157,15 @@
           <div class="row row--top gap2">
             <div class="avatar avatar--lg">CT</div>
             <div class="grow">
-              <div class="row row--between" style="align-items:flex-start">
-                <div>
+              <div class="row row--between gap2" style="align-items:flex-start">
+                <div class="grow">
                   <span class="t-h3">Carlos Trujillo</span>
                   <div class="t-sm muted" style="margin-top:2px">HVAC · 4 yrs · Wetumpka, AL</div>
                 </div>
-                <span class="tag tag--match">82% match</span>
+                <div class="row gap2" style="align-items:center">
+                  <span class="tag tag--match tabnum">82%</span>
+                  <button class="iconbtn" aria-pressed="false" title="Shortlist"><svg class="ic ic-sm faint"><use href="#i-star"/></svg></button>
+                </div>
               </div>
               <div class="row wrap gap1" style="margin-top:var(--s3)">
                 <span class="tag">EPA 608 Type I</span>
@@ -168,7 +175,6 @@
           </div>
           <div class="row gap2" style="margin-top:var(--s4)">
             <button class="btn btn--dark btn--sm grow"><svg class="ic ic-sm"><use href="#i-message"/></svg> Message</button>
-            <button class="btn btn--outline btn--sm grow"><svg class="ic ic-sm"><use href="#i-star"/></svg> Shortlist</button>
           </div>
         </div>
 
@@ -177,12 +183,15 @@
           <div class="row row--top gap2">
             <div class="avatar avatar--lg">JW</div>
             <div class="grow">
-              <div class="row row--between" style="align-items:flex-start">
-                <div>
+              <div class="row row--between gap2" style="align-items:flex-start">
+                <div class="grow">
                   <span class="t-h3">Jerome Whitaker</span>
                   <div class="t-sm muted" style="margin-top:2px">HVAC · 2 yrs · Montgomery, AL</div>
                 </div>
-                <span class="tag tag--match">71% match</span>
+                <div class="row gap2" style="align-items:center">
+                  <span class="tag tag--match tabnum">71%</span>
+                  <button class="iconbtn" aria-pressed="false" title="Shortlist"><svg class="ic ic-sm faint"><use href="#i-star"/></svg></button>
+                </div>
               </div>
               <div class="row wrap gap1" style="margin-top:var(--s3)">
                 <span class="tag">EPA 608 Type I</span>
@@ -192,7 +201,6 @@
           </div>
           <div class="row gap2" style="margin-top:var(--s4)">
             <button class="btn btn--dark btn--sm grow"><svg class="ic ic-sm"><use href="#i-message"/></svg> Message</button>
-            <button class="btn btn--outline btn--sm grow"><svg class="ic ic-sm"><use href="#i-star"/></svg> Shortlist</button>
           </div>
         </div>
       </div>
@@ -214,8 +222,8 @@
 <!-- ===================== EXPLAINER ===================== -->
 <div class="note">
   <h3>45 · Applicants (employer)</h3>
-  <p>The applicant pipeline for a single posting, sorted by IronLink's match score so the employer's attention lands on the strongest fits first. Each card surfaces the decision-driving facts — match %, trade + years, and the certs that actually matter for HVAC (EPA 608, OSHA, NATE) — with a Message (dark) primary and Shortlist/star secondary always one tap away. The top card is flagged "Favourite" and shows its star already filled ("Shortlisted") to model state. The stat strip (12 applied · 3 shortlisted · 1 hired) keeps the funnel in view. Empty state (no applicants yet) would swap the list for an empty block nudging the employer to share the job to feed.</p>
-  <p class="dep"><strong>Flows:</strong> <code>JOB-14</code> <code>JOB-11</code> · <strong>Depends on:</strong> card, avatar, tag--match/pos, chips, btn--dark/outline --sm, stat · <strong>Mode:</strong> employer</p>
+  <p>The applicant pipeline for a single posting, sorted by IronLink's match score so the employer's attention lands on the strongest fits first. Each card surfaces the decision-driving facts — match %, trade + years, and the certs that actually matter for HVAC (EPA 608, OSHA, NATE). The right rail of every card pairs a compact <code>tag--match</code> (just "94%", sized to never overflow) with a single <strong>star toggle</strong> (<code>iconbtn</code> + <code>#i-star</code>): tapping it shortlists. The full-width Message button (dark) sits below. <strong>Decision — "Favourite" and "Shortlisted" are the same concept; we use one term, "Shortlisted", expressed by the star.</strong> The separate <code>tag--pos</code> "Favourite" chip is gone — a filled/dark star (<code>iconbtn--dark</code> with a yellow glyph) means shortlisted, an outline <code>iconbtn</code> with a faint star means not. The stat strip (12 applied · 3 shortlisted · 1 hired) keeps the funnel in view; "shortlisted" there matches the star count. Empty state (no applicants yet) would swap the list for an empty block nudging the employer to share the job to feed.</p>
+  <p class="dep"><strong>Flows:</strong> <code>JOB-14</code> <code>JOB-11</code> · <strong>Depends on:</strong> card, avatar, tag--match, chips, iconbtn/iconbtn--dark (star toggle), btn--dark --sm, stat · <strong>Mode:</strong> employer</p>
 </div>
 
 </body>

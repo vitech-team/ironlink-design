@@ -184,15 +184,15 @@
           <div class="toggle is-on"></div>
         </div>
 
-        <!-- subscription gate -->
-        <div class="banner banner--info"><svg class="ic ic-sm"><use href="#i-lock"/></svg> <span class="grow">Listing requires a subscription.</span> <a href="#" style="font-weight:700;white-space:nowrap">Upgrade</a></div>
+        <!-- subscription gate — explicit: publish is blocked until the org has an active plan -->
+        <div class="banner banner--warn"><svg class="ic ic-sm" style="flex:0 0 auto"><use href="#i-lock"/></svg> <span class="grow">Publishing a listing requires an active subscription. Your draft is saved — upgrade to make it live.</span></div>
       </div>
     </main>
 
-    <!-- pinned bottom action bar -->
+    <!-- pinned bottom action bar — Publish is LOCKED (no active plan); Upgrade routes to 81 paywall -->
     <div class="tabbar" style="height:auto;padding:var(--s3) var(--s5) 28px;gap:var(--s3)">
       <button class="btn btn--outline grow">Save draft</button>
-      <button class="btn btn--primary grow">Publish</button>
+      <button class="btn btn--primary grow"><svg class="ic ic-sm"><use href="#i-lock"/></svg> Upgrade to publish</button>
     </div>
 
     <div class="home-indicator"></div>
@@ -202,8 +202,8 @@
 <!-- ===================== EXPLAINER ===================== -->
 <div class="note">
   <h3>72 · List equipment (both)</h3>
-  <p>The create-listing form for the equipment marketplace, reachable from either Worker or Employer mode — so it drops the role tab bar for a back-chevron app bar and a pinned Save draft / Publish action bar. Photos lead because trades buyers judge gear on condition: a dashed camera tile demonstrates the capture/upload affordance, with one added thumb and one still-uploading thumb (pending-clock) to model the offline path. The offline banner makes the contract explicit — the draft is saved locally now and photos sync on reconnect — so a user on a job site never loses work. Publish is monetized: an unsubscribed user sees a <code>banner--info</code> "Listing requires a subscription" with an Upgrade link that routes to checkout before the listing can go live. Price uses .tabnum and the $ input-group lead; Location uses the i-pin lead.</p>
-  <p class="dep"><strong>Flows:</strong> <code>MKT</code> (create listing) <code>createEquipmentListingCheckout</code> · <strong>Depends on:</strong> field/input, input-group, chip, segmented--block, media--1x1/__ph, toggle, banner--offline/info, pending-clock, is-stale, btn--outline/primary · <strong>Mode:</strong> both (no tab bar)</p>
+  <p>The create-listing form for the equipment marketplace, reached from Marketplace mode (its FAB / "List item") — a focused create flow, so it drops the tab bar for a close-✕ app bar and a pinned Save draft / Publish action bar. Photos lead because trades buyers judge gear on condition: a dashed camera tile demonstrates the capture/upload affordance, with one added thumb and one still-uploading thumb (pending-clock) to model the offline path. The offline banner makes the contract explicit — the draft is saved locally now and photos sync on reconnect — so a user on a job site never loses work. Publish is <strong>subscription-gated and the gate is explicit</strong>: an unsubscribed user sees a <code>banner--warn</code> with a lock — "Publishing a listing requires an active subscription. Your draft is saved" — and the primary action is replaced by a locked <strong>"Upgrade to publish"</strong> button (lock glyph) that hands off to 81 (paywall) → 80 (plans) / Stripe checkout. The neutral "Save draft" stays live so work is never lost. Once the org has an active plan, the same button reverts to "Publish". Price uses .tabnum and the $ input-group lead; Location uses the i-pin lead.</p>
+  <p class="dep"><strong>Flows:</strong> <code>MKT</code> (create listing) <code>createEquipmentListingCheckout</code> · <strong>Depends on:</strong> field/input, input-group, chip, segmented--block, media--1x1/__ph, toggle, banner--offline/warn, pending-clock, is-stale, btn--outline/primary, i-lock · <strong>Mode:</strong> both (no tab bar)</p>
 </div>
 
 </body>

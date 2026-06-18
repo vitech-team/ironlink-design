@@ -743,7 +743,7 @@
       <!-- 18 NAVIGATION -->
       <section id="nav">
         <div class="sec-head"><span class="num">18</span><h2>Navigation</h2></div>
-        <p class="sec-desc">The bottom tab bar is <strong>role-adaptive</strong> — same shape, different destinations per mode. The center FAB is the one global create action (yellow for worker, ink for employer); it expands into a context-aware create menu. Per-screen create shortcuts are labelled buttons, never a bare “+”.</p>
+        <p class="sec-desc">The bottom tab bar is <strong>mode-adaptive</strong> — same shape, different destinations for each of the three modes (Worker · Employer · Marketplace), all switched from the avatar → mode switcher (94). The center FAB is the one global create action (ink for employer, yellow otherwise); it expands into a context-aware create menu. Per-screen create shortcuts are labelled buttons, never a bare “+”.</p>
 
         <div class="sub">App bar</div>
         <div class="cell"><div class="cell__demo" style="padding:0;display:block;background:var(--bg)">
@@ -771,6 +771,16 @@
               <a class="tabbar__item"><span class="tabbar__icon"><svg class="ic"><use href="#i-message"/></svg></span>Messages</a>
             </nav>
           </div></div><div class="cell__meta"><strong class="t-sm-m">Employer</strong> — Home · Jobs · <code>.tabbar__fab--dark</code> · Talent · Messages</div></div>
+
+          <div class="cell"><div class="cell__demo" style="padding:0"><div style="position:relative;height:92px;width:100%;background:var(--bg)">
+            <nav class="tabbar" style="position:absolute">
+              <a class="tabbar__item is-active"><span class="tabbar__icon"><svg class="ic"><use href="#i-truck"/></svg></span>Browse</a>
+              <a class="tabbar__item"><span class="tabbar__icon"><svg class="ic"><use href="#i-bookmark"/></svg></span>Saved</a>
+              <div class="tabbar__center"><button class="tabbar__fab"><svg class="ic ic-lg"><use href="#i-plus"/></svg></button></div>
+              <a class="tabbar__item"><span class="tabbar__icon"><svg class="ic"><use href="#i-doc"/></svg></span>Listings</a>
+              <a class="tabbar__item"><span class="tabbar__icon"><svg class="ic"><use href="#i-message"/></svg></span>Messages</a>
+            </nav>
+          </div></div><div class="cell__meta"><strong class="t-sm-m">Marketplace</strong> — Browse · Saved · <code>.tabbar__fab</code> · Listings · Messages</div></div>
         </div>
 
         <div class="sub">Create menu (the “+”) · bottom sheet</div>

@@ -157,10 +157,11 @@ const FLOWS = [
     loop:'Every applicant who applies also lands in the Talent Pool (47) for future roles, with notes attached.'
   },
   {
-    id:'f5', title:'Marketplace — sell your equipment', mode:'both', mtag:'Both modes',
-    blurb:'The peer-to-peer gear marketplace, reachable from either mode. Posting is created via the “+” menu, photos lead because condition sells, and the flow is offline-aware so a listing started on a job site is never lost.',
+    id:'f5', title:'Marketplace — sell your equipment', mode:'both', mtag:'Marketplace mode',
+    blurb:'Marketplace is a first-class mode (entered from the avatar → mode switcher, like Worker/Employer) with its own tab bar: Browse · Saved · + · Listings · Messages. Posting is created via the “+”, photos lead because condition sells, and the flow is offline-aware so a listing started on a job site is never lost.',
     steps:[
-      {s:'70-marketplace', n:'Marketplace', i:'Browsing gear and decides to list something of their own.', to:'Tap +'},
+      {s:'94-mode-switcher', n:'Switch to Marketplace', i:'Taps the avatar and picks Marketplace — the shell swaps to the marketplace tab bar.', to:'Marketplace home'},
+      {s:'70-marketplace', n:'Browse', i:'Marketplace mode home. Browsing gear, decides to list something of their own.', to:'Tap +'},
       {s:'95-create-menu', n:'The “+” menu', i:'The center button opens a context-aware create menu.', to:'List equipment'},
       {s:'72-create-listing', n:'List equipment', i:'Adds photos, category, condition and price; drafts save locally if offline.', to:'Publish'},
       {s:'72a-my-listings', n:'My listings', i:'Manages active listings and watches inquiries come in.', to:'Open inquiry'},
@@ -190,10 +191,10 @@ const FLOWS = [
   },
   {
     id:'f8', title:'Navigation — switching modes & the “+” button', mode:'both', mtag:'IA',
-    blurb:'How one account serves two jobs. Mode is a deliberate switch via the avatar (not the tab bar), and the center “+” is a context-aware create menu — never a single mystery action.',
+    blurb:'How one account serves three contexts. Mode is a deliberate switch via the avatar (not the tab bar) across Worker, Employer and Marketplace, and the center “+” is a context-aware create menu — never a single mystery action.',
     steps:[
       {s:'60-feed', n:'Home / Feed (worker)', i:'In worker mode. Taps their avatar to change context.', to:'Tap avatar'},
-      {s:'94-mode-switcher', n:'Switch mode', i:'Flips Worker ⇄ Employer; the whole tab bar re-shapes to the new mode.', to:'Employer'},
+      {s:'94-mode-switcher', n:'Switch mode', i:'Three modes — Worker · Employer · Marketplace; picking one re-shapes the whole tab bar.', to:'Pick a mode'},
       {s:'44a-job-listings', n:'Employer home', i:'Now managing jobs — same account, employer toolset.', to:'Meanwhile, the “+” …'},
       {s:'95-create-menu', n:'The “+” menu', i:'Anywhere, the center + expands to the right create options for the current mode.'},
     ]

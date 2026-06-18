@@ -98,7 +98,7 @@
         </div>
         <div class="row gap2" style="margin-top:var(--s3)">
           <button class="btn btn--outline btn--sm grow"><svg class="ic ic-sm"><use href="#i-doc"/></svg> View job</button>
-          <button class="btn btn--outline btn--sm grow"><svg class="ic ic-sm"><use href="#i-clock"/></svg> Schedule</button>
+          <button class="btn btn--outline btn--sm grow"><svg class="ic ic-sm"><use href="#i-clock"/></svg> Schedule interview</button>
         </div>
       </div>
     </div>
@@ -175,7 +175,7 @@
 
 <div class="note">
   <h3>51 · Conversation (worker &amp; employer)</h3>
-  <p>A 1:1 thread shared by both roles, opened from any inbox lane. The back-chevron appbar carries the counterparty's avatar with a green presence dot and live "Online now" status, and a persistent context banner under it pins the conversation to its job (HVAC Service Tech · Capitol Mechanical) with View-job and Schedule quick actions so neither party loses the thread's purpose. The chatlog mixes <code>bubble--in</code>/<code>bubble--out</code> with timestamps and Sent/Read receipts; one incoming bubble shows the auto-translation micro-line ("Translated from Spanish · See original") for the bilingual audience, and a shared job link renders as a rich-preview card bubble. Sending degrades gracefully — the offline banner explains messages will queue and send on reconnect. The dark round send button keeps the layout calm while the FAB shape signals the primary action.</p>
+  <p>A 1:1 thread shared by both roles, opened from any inbox lane. The back-chevron appbar carries the counterparty's avatar with a green presence dot and live "Online now" status, and a persistent context banner under it pins the conversation to its job (HVAC Service Tech · Capitol Mechanical) with two quick actions so neither party loses the thread's purpose: <strong>View job</strong> opens the posting, and <strong>Schedule interview</strong> opens a date/time proposal for an interview tied to this application — it is employer-initiated; the worker then accepts or declines the proposed slot inside the thread. (No full picker screen is shown here; the action is self-explanatory inline.) The chatlog mixes <code>bubble--in</code>/<code>bubble--out</code> with timestamps and Sent/Read receipts; one incoming bubble shows the auto-translation micro-line ("Translated from Spanish · See original") for the bilingual audience, and a shared job link renders as a rich-preview card bubble. Sending degrades gracefully — the offline banner explains messages will queue and send on reconnect. The dark round send button keeps the layout calm while the FAB shape signals the primary action.</p>
   <p class="dep"><strong>Flows:</strong> <code>MSG-02</code> <code>MSG-09</code> <code>MSG-07</code> <code>MSG-10</code> · <strong>Depends on:</strong> .chatlog, .bubble, .jobcard, .banner--offline, .searchbar, M11 translation · <strong>Mode:</strong> worker &amp; employer</p>
 </div>
 </body>

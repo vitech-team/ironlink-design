@@ -90,12 +90,23 @@
     <header class="appbar">
       <div class="appbar__title"><h1 class="t-h1">Your jobs</h1></div>
       <button class="btn btn--dark btn--sm"><svg class="ic ic-sm"><use href="#i-plus"/></svg> Post job</button>
+      <div class="avatar avatar--sm avatar--org avatar--yellow">CM</div>
     </header>
 
     <main class="screen__body">
-      <!-- post-a-job hint -->
-      <div class="pad" style="margin-bottom:var(--s3)">
-        <a class="row gap2 t-sm-m" style="color:var(--info)"><svg class="ic ic-sm"><use href="#i-plus"/></svg> Post a job — reach 128 HVAC techs near you</a>
+      <!-- plan usage: active-listing limit (Starter 3 / Professional 15 / Enterprise unlimited) -->
+      <div class="pad" style="margin:var(--s3) 0">
+        <div class="card stack-2">
+          <div class="row row--between">
+            <span class="t-sm-m">Active job posts</span>
+            <span class="t-sm-m tabnum">2 of 3 used <span class="muted" style="font-weight:500">· Starter</span></span>
+          </div>
+          <div class="progress"><div class="progress__fill" style="width:66%"></div></div>
+          <div class="row row--between" style="margin-top:2px">
+            <span class="hint">1 slot left on your plan.</span>
+            <a href="#" class="t-sm-m" style="white-space:nowrap;color:var(--info)">Upgrade for 15 <svg class="ic ic-sm" style="vertical-align:-3px"><use href="#i-arrow-right"/></svg></a>
+          </div>
+        </div>
       </div>
 
       <!-- segmented -->
@@ -230,8 +241,8 @@
 <!-- ===================== EXPLAINER ===================== -->
 <div class="note">
   <h3>44a · Job listings (employer)</h3>
-  <p>The employer's job-management hub. A segmented control filters by lifecycle (Active / Draft / Paused / Filled) and each management card leads with the title and wage range (<span class="tabnum">.tabnum</span> money), a colour-coded status tag — Active=<code>tag--pos</code>, Draft=muted <code>tag</code>, Paused=<code>tag--warn</code>, Filled=<code>tag--info</code> — and an applicant count with <code>i-users</code>. The <code>i-more</code> overflow opens per-job actions (edit, pause, close, repost). Tapping a card routes to the applicant pipeline (45). A top "Post a job" link plus a dark + in the appbar give two entry points to posting; the center dark FAB is the global create action. Each footer carries a contextual next-step CTA (View applicants / Finish &amp; post / Resume / Repost) so the right action is always one tap away per state.</p>
-  <p class="dep"><strong>Flows:</strong> <code>JOB-13</code> · <strong>Depends on:</strong> segmented, jobcard, tag pos/warn/info, i-users/i-more, divider · <strong>Mode:</strong> employer</p>
+  <p>The employer's job-management hub. Posting jobs is <strong>plan-gated</strong>, and the active-listing count depends on the plan — so a usage card sits at the top: "<span class="tabnum">2 of 3 used · Starter</span>" with a <code>progress</code> bar (66%), a "1 slot left" hint, and an "Upgrade for 15" link routing to 80/81. (Plan limits match screen 80: Starter 3, Professional 15, Enterprise unlimited.) When the bar hits the cap it turns into the blocked state surfaced on 44 — publish is disabled and the only path forward is upgrade. Below, a segmented control filters by lifecycle (Active / Draft / Paused / Filled) and each management card leads with the title and wage range (<span class="tabnum">.tabnum</span> money), a colour-coded status tag — Active=<code>tag--pos</code>, Draft=muted <code>tag</code>, Paused=<code>tag--warn</code>, Filled=<code>tag--info</code> — and an applicant count with <code>i-users</code>. The <code>i-more</code> overflow opens per-job actions (edit, pause, close, repost). Tapping a card routes to the applicant pipeline (45). The dark + in the appbar is a labelled "Post job" shortcut and the center dark FAB is the global create action. Each footer carries a contextual next-step CTA (View applicants / Finish &amp; post / Resume / Repost) so the right action is always one tap away per state.</p>
+  <p class="dep"><strong>Flows:</strong> <code>JOB-13</code> · <strong>Depends on:</strong> segmented, jobcard, tag pos/warn/info, i-users/i-more, divider, progress / progress__fill (plan usage), card · <strong>Mode:</strong> employer</p>
 </div>
 
 </body>

@@ -90,6 +90,7 @@
     <header class="appbar">
       <div class="appbar__title"><h1 class="t-h1">Talent pool</h1></div>
       <button class="iconbtn iconbtn--ghost"><svg class="ic"><use href="#i-sliders"/></svg></button>
+      <div class="avatar avatar--sm avatar--org avatar--yellow">CM</div>
     </header>
 
     <!-- search -->
@@ -127,11 +128,11 @@
       </div>
 
       <div class="card card--flush">
-        <!-- candidate 1 — favourite -->
+        <!-- candidate 1 — shortlisted (starred) -->
         <div class="listrow">
           <div class="avatar avatar--lg">MR</div>
           <div class="grow">
-            <div class="row gap2" style="align-items:center"><span class="t-h3">Marcus Reed</span><span class="tag tag--pos tag--dot">Favourite</span></div>
+            <span class="t-h3">Marcus Reed</span>
             <div class="t-sm muted" style="margin-top:2px">HVAC · 7 yrs</div>
             <div class="row gap1 t-xs faint" style="margin-top:3px"><svg class="ic ic-sm"><use href="#i-pin"/></svg> Prattville, AL</div>
           </div>
@@ -225,7 +226,7 @@
 <!-- ===================== EXPLAINER ===================== -->
 <div class="note">
   <h3>47 · Talent pool (employer)</h3>
-  <p>The employer's standing bench of candidates, decoupled from any single posting. A segmented control slices the pool by relationship stage (Pipeline / Saved / Contacted / Hired), a searchbar finds people by trade or name, and a trade chiprow narrows by discipline. Each row is scannable: avatar, name, trade + years, location, an <code>tag--match</code> score and a star to favourite — the top row is flagged <code>tag--pos</code> "Favourite" with a filled star to model state. Rows route into applicant detail (46). The included empty-state block shows what a fresh pool looks like, nudging the employer to start starring applicants so they can re-engage strong candidates on the next hire — turning one-off applications into a reusable talent asset.</p>
+  <p>The employer's standing bench of candidates, decoupled from any single posting. <strong>How an employer gets here (entry points):</strong> (1) it is the <strong>Talent</strong> bottom-tab in employer mode — the active tab here; (2) workers <strong>auto-enter the pool the moment they apply</strong> to one of the employer's jobs (they show up under the <em>Pipeline</em> segment); and (3) an employer <strong>stars (shortlists)</strong> an applicant from the pipeline (45) or applicant detail (46), which drops them into the pool under <em>Saved</em> for re-engagement on the next hire. A segmented control slices the pool by relationship stage (Pipeline / Saved / Contacted / Hired), a searchbar finds people by trade or name, and a trade chiprow narrows by discipline. Each row is scannable: avatar, name, trade + years, location, an <code>tag--match</code> score and a star — a filled yellow star = shortlisted/Saved (one term across screens, no separate "Favourite" chip). Rows route into applicant detail (46). The empty-state block shows what a fresh pool looks like, nudging the employer to start starring applicants — turning one-off applications into a reusable talent asset.</p>
   <p class="dep"><strong>Flows:</strong> <code>JOB-15</code> talent pool · <strong>Depends on:</strong> segmented, searchbar, chiprow, listrow, avatar, tag--match/pos, empty, btn--outline · <strong>Mode:</strong> employer</p>
 </div>
 

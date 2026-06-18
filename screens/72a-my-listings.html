@@ -89,12 +89,17 @@
     </div>
 
     <header class="appbar">
-      <button class="iconbtn iconbtn--ghost"><svg class="ic"><use href="#i-chevron-left"/></svg></button>
-      <div class="appbar__title"><h1 class="t-h2">My listings</h1></div>
+      <div class="appbar__title"><h1 class="t-h1">My listings</h1></div>
       <button class="btn btn--dark btn--sm"><svg class="ic ic-sm"><use href="#i-plus"/></svg> List item</button>
+      <div class="avatar avatar--sm">MR</div>
     </header>
 
     <main class="screen__body">
+      <!-- subscription status: listings are live only while the plan is active (M5) -->
+      <div class="pad" style="margin:var(--s3) 0">
+        <div class="banner banner--pos"><svg class="ic ic-sm" style="flex:0 0 auto"><use href="#i-check"/></svg> <span class="grow">Plan active — your listings are live in the marketplace.</span></div>
+      </div>
+
       <!-- status segmented -->
       <div class="pad" style="margin-bottom:var(--s3)">
         <div class="segmented segmented--block">
@@ -168,10 +173,10 @@
 
     <!-- bottom tab bar (worker mode) — Network active -->
     <nav class="tabbar">
-      <a class="tabbar__item is-active"><span class="tabbar__icon"><svg class="ic"><use href="#i-network"/></svg></span>Network</a>
-      <a class="tabbar__item"><span class="tabbar__icon"><svg class="ic"><use href="#i-trends"/></svg></span>Trends</a>
+      <a class="tabbar__item"><span class="tabbar__icon"><svg class="ic"><use href="#i-truck"/></svg></span>Browse</a>
+      <a class="tabbar__item"><span class="tabbar__icon"><svg class="ic"><use href="#i-bookmark"/></svg></span>Saved</a>
       <div class="tabbar__center"><button class="tabbar__fab"><svg class="ic ic-lg"><use href="#i-plus"/></svg></button></div>
-      <a class="tabbar__item"><span class="tabbar__icon"><svg class="ic"><use href="#i-jobs"/></svg></span>Jobs</a>
+      <a class="tabbar__item is-active"><span class="tabbar__icon"><svg class="ic"><use href="#i-doc"/></svg></span>Listings</a>
       <a class="tabbar__item"><span class="tabbar__icon"><svg class="ic"><use href="#i-message"/></svg></span>Messages</a>
     </nav>
 
@@ -182,8 +187,8 @@
 <!-- ===================== EXPLAINER ===================== -->
 <div class="note">
   <h3>72a · My listings (both)</h3>
-  <p>The seller's management hub for their own marketplace gear, segmented by lifecycle — Active / Sold / Paused / Draft. It reuses the 2-col card grid from 70-marketplace, but each card is owner-facing: a status tag, the price in .tabnum, and an inquiry count ("3 inquiries" with i-message) that signals where attention is worth spending, plus a dark i-more for the per-listing action sheet (edit / pause / mark sold / delete). The Paused card is dimmed with is-stale to read as inactive at a glance. The Draft card models the offline path with media--broken and a pending-clock "4 photos pending upload", so a user who built a listing on-site knows it will finish syncing later. Empty state per tab (e.g. no sold items yet) would swap the grid for an empty block.</p>
-  <p class="dep"><strong>Flows:</strong> <code>MKT</code> (manage listings, mark sold) · <strong>Depends on:</strong> segmented--block, card--flush, media--4x3/__ph/--broken, tag--pos/warn, jobcard__wage, tabnum, pending-clock, is-stale, iconbtn--dark · <strong>Mode:</strong> both (worker tab bar, Network active)</p>
+  <p>The seller's management hub for their own marketplace gear, segmented by lifecycle — Active / Sold / Paused / Draft. It reuses the 2-col card grid from 70-marketplace, but each card is owner-facing: a status tag, the price in .tabnum, and an inquiry count ("3 inquiries" with i-message) that signals where attention is worth spending, plus a dark i-more for the per-listing action sheet (edit / pause / mark sold / delete). The Paused card is dimmed with is-stale to read as inactive at a glance. The Draft card models the offline path with media--broken and a pending-clock "4 photos pending upload", so a user who built a listing on-site knows it will finish syncing later. Empty state per tab (e.g. no sold items yet) would swap the grid for an empty block. A top <code>banner--pos</code> ties listing visibility to the subscription (M5: listings are live only while the plan is active) — if the plan lapses it swaps to a <code>banner--warn</code> with an Upgrade route, since deactivated listings are hidden until the plan renews.</p>
+  <p class="dep"><strong>Flows:</strong> <code>MKT</code> (manage listings, mark sold) · <strong>Depends on:</strong> segmented--block, card--flush, media--4x3/__ph/--broken, tag--pos/warn, jobcard__wage, tabnum, pending-clock, is-stale, iconbtn--dark, banner--pos · <strong>Mode:</strong> both (worker tab bar; account/marketplace screen reached via back-chevron — no bottom tab active)</p>
 </div>
 
 </body>

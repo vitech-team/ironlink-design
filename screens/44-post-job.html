@@ -175,14 +175,17 @@
           </div>
           <span class="toggle is-on"></span>
         </div>
+
+        <!-- plan limit reached: publishing this job exceeds the active-post cap -->
+        <div class="banner banner--warn"><svg class="ic ic-sm" style="flex:0 0 auto"><use href="#i-lock"/></svg> <span class="grow">You've used all <strong>3</strong> active job posts on Starter. Save this as a draft, or upgrade to Professional for 15 active posts.</span></div>
       </div>
     </main>
 
-    <!-- pinned action bar -->
+    <!-- pinned action bar — Publish blocked at the plan limit; primary CTA routes to 80/81 -->
     <div style="position:absolute;left:0;right:0;bottom:92px;z-index:46;background:var(--surface);border-top:1px solid var(--border);padding:var(--s3) var(--s5)">
       <div class="row gap2">
         <button class="btn btn--outline grow">Save draft</button>
-        <button class="btn btn--primary grow">Publish</button>
+        <button class="btn btn--primary grow"><svg class="ic ic-sm"><use href="#i-lock"/></svg> Upgrade to publish</button>
       </div>
     </div>
 
@@ -202,8 +205,8 @@
 <!-- ===================== EXPLAINER ===================== -->
 <div class="note">
   <h3>44 · Post a job (employer)</h3>
-  <p>The employer's job composer. The standout is the inline AI wage-realism check: as soon as the wage range falls below the local p25, a warn banner predicts the cost ("candidates may skip") and offers a one-tap "Use suggested $30–$36" fix, plus a "See market rates" link routing into the pay analytics the workers see. Trade, experience, and job type use chips/segments to keep typing minimal for lower-literacy or on-the-go posters. The pinned bar keeps Save draft + Publish always reachable; Publish is shown enabled here because the wage and required fields are set (it renders disabled-looking via btn--disabled until then).</p>
-  <p class="dep"><strong>Flows:</strong> <code>JOB-12</code> <code>JOB-18</code> <code>JOB-17</code> · <strong>Depends on:</strong> field/input-group, chip, segmented, banner--warn, toggle, pinned btn bar · <strong>Mode:</strong> employer</p>
+  <p>The employer's job composer. The standout is the inline AI wage-realism check: as soon as the wage range falls below the local p25, a warn banner predicts the cost ("candidates may skip") and offers a one-tap "Use suggested $30–$36" fix, plus a "See market rates" link routing into the pay analytics the workers see. Trade, experience, and job type use chips/segments to keep typing minimal for lower-literacy or on-the-go posters. Posting is <strong>plan-gated</strong> on an active-listing cap (Starter 3 / Professional 15 / Enterprise unlimited, matching screen 80). This screen models the <strong>at-the-limit</strong> state: a <code>banner--warn</code> with a lock explains "You've used all 3 active job posts on Starter," the neutral "Save draft" stays live so work is never lost, and the primary action becomes a locked <strong>"Upgrade to publish"</strong> routing to 80 (plans) / 81 (paywall). Below the cap the same button reverts to "Publish" (and renders disabled-looking via btn--disabled until wage and required fields are set).</p>
+  <p class="dep"><strong>Flows:</strong> <code>JOB-12</code> <code>JOB-18</code> <code>JOB-17</code> · <strong>Depends on:</strong> field/input-group, chip, segmented, banner--warn, toggle, pinned btn bar, i-lock · <strong>Mode:</strong> employer</p>
 </div>
 
 </body>
