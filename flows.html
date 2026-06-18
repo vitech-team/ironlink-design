@@ -77,11 +77,16 @@
   .lb{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center}
   .lb.is-open{display:flex}
   .lb__scrim{position:absolute;inset:0;background:rgba(11,15,24,.78);backdrop-filter:blur(3px)}
-  .lb__stage{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:18px;max-height:100vh;padding:24px}
-  /* the phone, scaled to fit viewport height */
-  .lb__device{position:relative;height:min(844px,calc(100vh - 168px));aspect-ratio:412/866;display:flex;align-items:center;justify-content:center}
-  .lb__device iframe{width:412px;height:866px;border:0;border-radius:8px;transform-origin:center;
-     transform:scale(var(--lb-scale,1));box-shadow:0 24px 60px rgba(0,0,0,.5)}
+  .lb__stage{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:16px;max-height:100vh;padding:20px}
+  /* Sizer reserves the SCALED footprint (set via --lb-scale in JS) so the caption
+     sits right under the phone. The device inside scales from its top-left. */
+  .lb__sizer{flex:0 0 auto;width:calc(412px * var(--lb-scale,1));height:calc(866px * var(--lb-scale,1))}
+  /* Crop-wrapper: clips to EXACTLY the phone rect (412×866), hiding the screen
+     file's body padding + .note block (the source of the white margins + blur boxes). */
+  .lb__device{width:412px;height:866px;border-radius:54px;overflow:hidden;
+     transform-origin:top left;transform:scale(var(--lb-scale,1));box-shadow:0 24px 60px rgba(0,0,0,.5)}
+  /* the phone sits at (16,40) inside the screen page (body padding 40 16); pull it to 0,0 */
+  .lb__device iframe{position:absolute;left:-16px;top:-40px;width:444px;height:1300px;border:0;background:#fff}
   .lb__board{width:min(440px,90vw);max-height:calc(100vh - 200px);overflow:auto;background:var(--surface);border-radius:var(--r-lg);padding:0}
   .lb__board iframe{width:100%;height:80vh;border:0;border-radius:var(--r-lg)}
   /* caption + counter under the device */
@@ -122,7 +127,7 @@
   <button class="lb__btn lb__prev" id="lbPrev" aria-label="Previous (←)"><svg class="lb__ic"><use href="#i-arrow-l"/></svg></button>
   <button class="lb__btn lb__next" id="lbNext" aria-label="Next (→)"><svg class="lb__ic"><use href="#i-arrow-r"/></svg></button>
   <div class="lb__stage">
-    <div class="lb__device" id="lbDevice"><iframe id="lbFrame" title="screen preview" scrolling="no"></iframe></div>
+    <div class="lb__sizer" id="lbSizer"><div class="lb__device" id="lbDevice"><iframe id="lbFrame" title="screen preview" scrolling="no"></iframe></div></div>
     <div class="lb__cap">
       <span class="id" id="lbId"></span>
       <div class="name" id="lbName"></div>
@@ -323,9 +328,13 @@ const lbNext = document.getElementById('lbNext');
 let cur = { flow: null, step: 0 };
 
 function fitDevice() {
-  // scale the 412×866 phone to the device box height
-  const h = lbDevice.clientHeight;
-  lbFrame.style.setProperty('--lb-scale', (h / 866).toFixed(4));
+  // fit the 412×866 phone into the viewport, leaving room for the caption (~150px)
+  // and stage padding; never upscale past 1.
+  const availH = window.innerHeight - 150 - 40;
+  const availW = window.innerWidth - 160; // room for the side arrows
+  const scale = Math.min(availH / 866, availW / 412, 1);
+  // set on the sizer; .lb__device (its child) inherits the custom property
+  document.getElementById('lbSizer').style.setProperty('--lb-scale', scale.toFixed(4));
 }
 
 function render() {
